@@ -23,20 +23,28 @@ class memlorlrankupdate:
                 data = ctx.message.content.strip()
                 if "gadget" in data:
                         steamiddict = await self.steamid(ctx)
-                        if steamiddict['1'] == "success":
-                                returndata = self.getrank(steamiddict['2'], steamiddict['3'])
-                                if "success" in returndata:
-                                        await self.bot.send_file(channel, self.image)
-                                        returnconfirmation = await self.confirmation(ctx)
-                                        if "success" in returnconfirmation:
-                                                await self.bot.say("I have something to do now that I'm not programmed for yet.")
-                                        else:
-                                              await self.bot.say(returnconfirmation)  
+                        try:
+                                if steamiddict['1'] == "success":
+                                        returndata = self.getrank(steamiddict['2'], steamiddict['3'])
+                                        try:
+                                                if "success" in returndata:
+                                                        await self.bot.send_file(channel, self.image)
+                                                        returnconfirmation = await self.confirmation(ctx)
+                                                        try:
+                                                                if "success" in returnconfirmation:
+                                                                        await self.bot.say("I have something to do now that I'm not programmed for yet.")
+                                                                else:
+                                                                        await self.bot.say(returnconfirmation)  
+                                                        except TypeError:
+                                                                await self.bot.say("Gotta be quicker than that.")
+                                                else:
+                                                        await self.bot.say(returndata)
+                                        except TypeError:
+                                                await self.bot.say("Ooo, so close.")
                                 else:
-                                        await self.bot.say(returndata)
-                        else:
-                                pass
-
+                                        pass
+                        except TypeError:
+                                await self.bot.say("I hit an exception wall, it's probably me, not you.  You're perfect.  Definitely not you.")
 #               try:
 #                       returndata = self.getrank(channel, author, response, response2)
 #                                               if "success" in returndata['result']:
@@ -46,8 +54,7 @@ class memlorlrankupdate:
 #                                                       await self.bot.say(returndata)
 #                                       except AttributeError:
 #                                               await self.bot.say("Looks like I ran into an exception")
-#                               except TypeError:
-#                                       await self.bot.say("I hit an exception wall, it's probably me, not you.  You're perfect.  Definitely not you.")
+#                               
 #                       response3dirty = await self.bot.wait_for_message(author=ctx.message.author)
 #                       response3 = response3dirty.content.lower().strip()
 #                       if response3dirty == "none":
@@ -88,6 +95,8 @@ class memlorlrankupdate:
                 elif "no" in confirmationresponse.content.lower():
                         await self.bot.say("I think we need to start over.")
 #                       self.steamid(ctx)
+                        result = "fail"
+                        return result
                 elif "yes" in confirmationresponse.content.lower():
                         result = "success"
                         return result
@@ -104,10 +113,12 @@ class memlorlrankupdate:
                         self.json = response.json()
                 elif "ps4" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=2)
-                        signatureUrl = response.json()['signatureUrl']
+                        self.json = response.json()
+                        discordsay(response.json())
                 elif "xbox" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=3)
-                        signatureUrl = response.json()['signatureUrl']
+                        self.json = response.json()
+#                        signatureUrl = response.json()['signatureUrl']
                 else:
                         error = "I don't know how we made it here. I'm impressed."
                         return error
@@ -121,16 +132,6 @@ class memlorlrankupdate:
                 except urllib.error.HTTPError:
                         error = "Welp, looks like I ran into an HTTP Error"
                         return error
-
-        async def discordsay(self, data):
-                await self.bot.say(data)
-
-        async def discordsendfile1(self, channel):
-                channel = channel
-                author = author
-                file = file
-                await self.bot.send_file(channel, self.image)
-                await self.bot.say("Hey `" + author + "` is this you?")
 
         def parseforrank():
                 """sort through self.json and return highest rank"""
@@ -154,6 +155,9 @@ class memlorlrankupdate:
                         return error
                 else:
                         return namedrank
+
+        async def discordsay(self, data):
+                await self.bot.say(data)
 
 def setup(bot):
         action = memlorlrankupdate(bot)
