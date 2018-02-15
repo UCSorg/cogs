@@ -23,7 +23,8 @@ class memlostats:
                 data = ctx.message.content.strip()
                 if "stats" in data:
                         returndata = self.getrank(gamertag, platform)
-                        await self.bot.say(returndata)
+                        if "success" in returndata:
+                                self.discordsendfile(channel, self.image)
 
         def getrank(self, steamid, platform):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -73,6 +74,9 @@ class memlostats:
 
         async def discordsay(self, data):
                 await self.bot.say(data)
+
+        async def discordsendfile(self, channel, file):
+                await self.bot.sendfile(channel, file)
 
 def setup(bot):
         action = memlostats(bot)
