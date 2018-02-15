@@ -4,6 +4,7 @@ from rls.rocket import RocketLeague
 import json
 from .utils import checks
 import urllib
+import pprint
 
 class memlostats:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on gamertag and platform input and sets a role"""
@@ -42,8 +43,9 @@ class memlostats:
                         return error
                 else:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
-                        with open(self.json, "w") as f:
-                                f.write(str(playerdata.json()))
+#                        with open(self.json, "w") as f:
+#                                f.write(str(playerdata.json()))
+                        pprint.pprint(playerdata.json(), self.json)
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                         urllib.request.install_opener(opener)
