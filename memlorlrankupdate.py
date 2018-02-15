@@ -86,7 +86,7 @@ class memlorlrankupdate:
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
-                for k,v in platformlegend.items()
+                for k,v in platformlegend.items():
                         if platform == k,
                                 platformid = v
                                 break
