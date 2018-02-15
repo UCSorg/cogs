@@ -24,8 +24,8 @@ class memlorlrankupdate:
                 if "gadget" in data:
                         steamiddict = await self.steamid(ctx)
                         if steamiddict['1'] == "success":
-                                rankdict = self.getrank(steamiddict['2'], steamiddict['3'])
-                                if rankdict['result'] == "success":
+                                returndata = self.getrank(steamiddict['2'], steamiddict['3'])
+                                if "success" in returndata:
                                         await self.bot.send_file(channel, self.image)
                                 else:
                                         await self.bot.say(returndata)
