@@ -22,7 +22,7 @@ class memlostats:
                 author = str(ctx.message.author)
                 data = ctx.message.content.strip()
                 if "stats" in data:
-                        returndata = self.getrank(gamertag, platform)
+                        returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
 
