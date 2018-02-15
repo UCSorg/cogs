@@ -25,7 +25,7 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                await self.discordsay(self.json)
+                                await self.discordsendfile(channel, self.json)
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
