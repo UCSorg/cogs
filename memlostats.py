@@ -6,7 +6,7 @@ from .utils import checks
 import urllib
 
 class memlostats:
-        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on SteamID input and sets a role"""
+        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on gamertag and platform input and sets a role"""
 
         def __init__(self, bot):
                 self.bot = bot
@@ -15,7 +15,7 @@ class memlostats:
                 self.legend = "data/rlstas/tierlegend.json"
 
         @commands.command(pass_context=True)
-        async def stats(self, ctx, gamertag, platform):
+        async def stats(self, ctx, platform, gamertag):
                 """Let's chat"""
                 server = ctx.message.server
                 channel = ctx.message.channel
@@ -26,7 +26,7 @@ class memlostats:
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
 
-        def getrank(self, steamid, platform):
+        def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
@@ -40,7 +40,7 @@ class memlostats:
                         error = "Welp a NameError occurred when looking at platform."
                         return error
                 else:
-                        playerdata = rocket.players.player(id=steamid, platform=platformid)
+                        playerdata = rocket.players.player(id=gamertag, platform=platformid)
                         with open(self.json, "w") as f:
                                 f.write(str(playerdata.json()))
                         opener=urllib.request.build_opener()
