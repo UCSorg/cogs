@@ -26,15 +26,15 @@ class memlorlrankupdate:
                         steamid = str(steamiddict['2'].strip())
                         platform = str(steamiddict['3'].strip())
                         await self.bot.say(steamid + ", " + platform)
-#                        if "success" in steamiddict['1']:
-#                                rankdict = await self.getrank(steamid, platform)
-#                                if "success" in rankdict['result']:
-#                                        await self.bot.send_file(channel, self.image)
-#                                        pass
-#                                else:
-#                                        await self.bot.say(returndata)
-#                        else:
-#                                pass
+                        if "success" in steamiddict['1']:
+                                rankdict = await self.getrank(steamid, platform)
+                                if "success" in rankdict['result']:
+                                        await self.bot.send_file(channel, self.image)
+                                        pass
+                                else:
+                                        await self.bot.say(returndata)
+                        else:
+                                pass
 
 #               try:
 #                       returndata = self.getrank(channel, author, response, response2)
