@@ -61,10 +61,13 @@ class memlostats:
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
                 with open(self.json, "r") as playerdata:
-                        for k,v in playerdata['rankedSeasons'].items():
-                                if latestseason == k:
-                                        ranks = v
-                                        break
+                        for k,v in playerdata.items():
+                                if "rankedSeasons" == k:
+                                        latestdata = v
+                                        for k,v in latestdata.items():
+                                                if latestseason == k:
+                                                        ranks = v
+                                                        break
                         try:
                                 ranks
                         except NameError:
