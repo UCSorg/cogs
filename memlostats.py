@@ -49,7 +49,7 @@ class memlostats:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
                         playerjson = str(playerdata.json())
                         with open(self.json, "w") as f:
-                                f.write(str(playerdata.json()))
+                                json.dump(playerdata, f)
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                         urllib.request.install_opener(opener)
@@ -60,18 +60,20 @@ class memlostats:
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
-                playerdata = json.load(open(self.json))
-                for k,v in playerdata['rankedSeasons'].items():
-                        if latestseason == k:
-                                ranks = v
-                                break
-                try:
-                        ranks
-                except NameError:
-                        error = "Fail.  NameError when looking at ranks."
-                        return error
-                else:
-                        return ranks
+                with open(self.json) as f:
+                        playerdata = json.load(f)
+#                playerdata = json.load(open(self.json))
+                        for k,v in playerdata['rankedSeasons'].items():
+                                if latestseason == k:
+                                        ranks = v
+                                        break
+                        try:
+                                ranks
+                        except NameError:
+                                error = "Fail.  NameError when looking at ranks."
+                                return error
+                        else:
+                                return ranks
 #                                if "7" in playerdata['rankedSeasons'].items():
 #                                rank1v1 = playerdata['rankedSeasons'][latestseason]['10']
 #                                rank2v2 = rank['11']
