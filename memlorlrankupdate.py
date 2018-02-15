@@ -28,7 +28,7 @@ class memlorlrankupdate:
                                 if "success" in returndata:
                                         await self.bot.send_file(channel, self.image)
                                         returnconfirmation = await self.confirmation(ctx)
-                                        if "success" in nextthing:
+                                        if "success" in returnconfirmation:
                                                 await self.bot.say("I have something to do now that I'm not programmed for yet.")
                                         else:
                                               await self.bot.say(returnconfirmation)  
