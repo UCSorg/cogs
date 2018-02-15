@@ -26,7 +26,7 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                returnrank = self.parseforrank()
+                                returnrank = str(self.parseforrank())
                                 if "Fail" in returnrank:
                                         pass
                                 else:
