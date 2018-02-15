@@ -60,24 +60,29 @@ class memlostats:
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
-                rank = self.json['rankedSeasons'][latestseason]
-                rank1v1 = rank['10']
-                rank2v2 = rank['11']
-                rank3ss = rank['12']
-                rank3v3 = rank['13']
-                ranks = [rank1v1,rank2v2,rank3ss, rank3v3]
-                maxrank = str(max(ranks))
-                for k,v in self.legend.items():
-                        if maxrank == k:
-                                namedrank = v
-                                break
-                try:
-                        namedrank
-                except NameError:
-                        error = "Fail. Welp, a NameError occurred when looking at ranks"
-                        return error
-                else:
-                        return namedrank
+                with open(self.json, "r") as playerdata:
+                        if latestseason in playerdata['rankedSeasons'].items():
+                                rank1v1 = playerdata['rankedSeasons'][latestseason]['10']
+                                rank2v2 = rank['11']
+                                rank3ss = rank['12']
+                                rank3v3 = rank['13']
+                                ranks = [rank1v1,rank2v2,rank3ss, rank3v3]
+                                maxrank = str(max(ranks))
+                        else: 
+                                error = "I don't have any data from the latest season."
+                                return error
+                with open(self.legend, "r") as legend:
+                        for k,v in self.legend.items():
+                                if maxrank == k:
+                                        namedrank = v
+                                        break
+                        try:
+                                namedrank
+                        except NameError:
+                                error = "Fail. Welp, a NameError occurred when looking at ranks"
+                                return error
+                        else:
+                                return namedrank
 
         async def discordsay(self, data):
                 await self.bot.say(data)
