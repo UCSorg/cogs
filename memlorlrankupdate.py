@@ -27,6 +27,11 @@ class memlorlrankupdate:
                                 returndata = self.getrank(steamiddict['2'], steamiddict['3'])
                                 if "success" in returndata:
                                         await self.bot.send_file(channel, self.image)
+                                        returnconfirmation = await self.confirmation(ctx)
+                                        if "success" in nextthing:
+                                                await self.bot.say("I have something to do now that I'm not programmed for yet.")
+                                        else:
+                                              await self.bot.say(returnconfirmation)  
                                 else:
                                         await self.bot.say(returndata)
                         else:
@@ -56,8 +61,8 @@ class memlorlrankupdate:
 #                               await self.bot.say("Your answer wasn't  worth my time.")
 
         async def steamid(self, ctx):
-                author = str(ctx.message.author)
-                await self.bot.say("Hey `" + author + "`!  Can I get your steamID?")
+                user = str(ctx.message.author)
+                await self.bot.say("Hey `" + user + "`!  Can I get your steamID?")
                 steamidresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 if steamidresponse == "none":
                         pass
@@ -74,6 +79,20 @@ class memlorlrankupdate:
                                 return dict
                         else:
                                 await self.bot.say("I don't think `" + platformresponse.content + "` is accepted.  Have you tried turning it off and on again?")
+
+        async def confirmation(self, ctx):
+                await self.bot.say("Is this you?")
+                confirmationresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                if confirmationresponse == "none":
+                        pass
+                elif "no" in confirmationresponse.lower():
+                        await self.bot.say("I think we need to start over.")
+#                       self.steamid(ctx)
+                elif "yes" in confirmationresponse.lower():
+                        result = "success"
+                        return result
+                else:
+                        await self.bot.say("I don't have time for all these games.")
 
         def getrank(self, steamidinput, platforminput):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
