@@ -5,7 +5,7 @@ import json
 from .utils import checks
 import urllib
 
-class memlorlrankupdate:
+class memlostats:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on SteamID input and sets a role"""
 
         def __init__(self, bot):
@@ -15,72 +15,15 @@ class memlorlrankupdate:
                 self.legend = "data/rlstas/tierlegend.json"
 
         @commands.command(pass_context=True)
-        async def gadget(self, ctx):
+        async def stats(self, ctx, gamertag, platform):
                 """Let's chat"""
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 data = ctx.message.content.strip()
-                if "gadget" in data:
-                        steamiddict = await self.steamid(ctx)
-                        try:
-                                if steamiddict['1'] == "success":
-                                        returndata = self.getrank(steamiddict['2'], steamiddict['3'])
-                                        try:
-                                                if "success" in returndata:
-                                                        await self.bot.send_file(channel, self.image)
-                                                        returnconfirmation = await self.confirmation(ctx)
-                                                        try:
-                                                                if "success" in returnconfirmation:
-                                                                        await self.bot.say("I have something to do now that I'm not programmed for yet.")
-                                                                else:
-                                                                        await self.bot.say(returnconfirmation)  
-                                                        except TypeError:
-                                                                await self.bot.say("Gotta be quicker than that.")
-                                                else:
-                                                        await self.bot.say(returndata)
-                                        except TypeError:
-                                                await self.bot.say("Ooo, so close.")
-                                else:
-                                        pass
-                        except TypeError:
-                                await self.bot.say("I hit an exception wall, it's probably me, not you.  You're perfect.  Definitely not you.")
-
-        async def steamid(self, ctx):
-                user = str(ctx.message.author)
-                await self.bot.say("Hey `" + user + "`!  Can I get your steamID?")
-                steamidresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                if steamidresponse == "none":
-                        pass
-                else:
-                        await self.bot.say("Are you on **PC**, **PS4**, or **XBOX**?  note: Switch not supported currently")
-                        platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                        if platformresponse == "none":
-                                pass
-                        elif "pc" or "ps4" or "xbox" in platformresponse.content.lower():
-                                steamid = steamidresponse.content.lower().strip()
-                                platform = platformresponse.content.lower().strip()
-                                dict = { '1': 'success', '2' : steamid, '3' : platform}
-                                await self.bot.say("I will try `" + steamid + "` on `" + platform + "`." )
-                                return dict
-                        else:
-                                await self.bot.say("I don't think `" + platformresponse.content + "` is accepted.  Have you tried turning it off and on again?")
-
-        async def confirmation(self, ctx):
-                await self.bot.say("Is this you?")
-                confirmationresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                if confirmationresponse == "none":
-                        pass
-                elif "no" in confirmationresponse.content.lower():
-                        await self.bot.say("I think we need to start over.")
-#                       self.steamid(ctx)
-                        result = "fail"
-                        return result
-                elif "yes" in confirmationresponse.content.lower():
-                        result = "success"
-                        return result
-                else:
-                        await self.bot.say("I don't have time for all these games.")
+                if "stats" in data:
+                        returndata = self.getrank(gamertag, platform)
+                        await self.bot.say(returndata)
 
         def getrank(self, steamid, platform):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -132,5 +75,5 @@ class memlorlrankupdate:
                 await self.bot.say(data)
 
 def setup(bot):
-        action = memlorlrankupdate(bot)
+        action = memlostats(bot)
         bot.add_cog(action)
