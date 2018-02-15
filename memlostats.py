@@ -76,7 +76,7 @@ class memlostats:
                 await self.bot.say(data)
 
         async def discordsendfile(self, channel, file):
-                await self.bot.sendfile(channel, file)
+                await self.bot.send_file(channel, file)
 
 def setup(bot):
         action = memlostats(bot)
