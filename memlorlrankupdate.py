@@ -89,14 +89,16 @@ class memlorlrankupdate:
                 platform = str(platforminput)
                 if "pc" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=1)
-                        self.json = response.json()
+                        with open(self.json, "w") as f:
+                                f.write(response.json())
                 elif "ps4" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=2)
-                        self.json = response.json()
-                        self.discordsay(response.json())
+                        with open(self.json, "w") as f:
+                                f.write(response.json())
                 elif "xbox" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=3)
-                        self.json = response.json()
+                        with open(self.json, "w") as f:
+                                f.write(response.json())
 #                        signatureUrl = response.json()['signatureUrl']
                 else:
                         error = "I don't know how we made it here. I'm impressed."
