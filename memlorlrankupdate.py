@@ -45,27 +45,6 @@ class memlorlrankupdate:
                                         pass
                         except TypeError:
                                 await self.bot.say("I hit an exception wall, it's probably me, not you.  You're perfect.  Definitely not you.")
-#               try:
-#                       returndata = self.getrank(channel, author, response, response2)
-#                                               if "success" in returndata['result']:
-#                                                       await self.bot.send_file(channel, self.image)
-#                                                       await self.bot.say("Hey `" + author + "` is this you?")
-#                                               else:
-#                                                       await self.bot.say(returndata)
-#                                       except AttributeError:
-#                                               await self.bot.say("Looks like I ran into an exception")
-#                               
-#                       response3dirty = await self.bot.wait_for_message(author=ctx.message.author)
-#                       response3 = response3dirty.content.lower().strip()
-#                       if response3dirty == "none":
-#                               pass
-#                       elif "yes" in response:
-#                               rank = parseforrank()
-#                               await self.bot.say("Here's where I would set your rank to " + rank)
-#                       elif "no" in response:
-#                               await self.bot.say("We might need to start over.")
-#                       else:
-#                               await self.bot.say("Your answer wasn't  worth my time.")
 
         async def steamid(self, ctx):
                 user = str(ctx.message.author)
@@ -114,7 +93,7 @@ class memlorlrankupdate:
                 elif "ps4" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=2)
                         self.json = response.json()
-                        discordsay(response.json())
+                        self.discordsay(response.json())
                 elif "xbox" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=3)
                         self.json = response.json()
