@@ -87,7 +87,7 @@ class memlorlrankupdate:
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                 for k,v in platformlegend.items():
-                        if platform == k,
+                        if platform == k:
                                 platformid = v
                                 break
                 try:
