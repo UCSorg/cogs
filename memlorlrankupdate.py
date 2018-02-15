@@ -71,7 +71,7 @@ class memlorlrankupdate:
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
                         if platformresponse == "none":
                                 pass
-                        elif "pc" or "ps4" or "xbox" in platformresponse.lower():
+                        elif "pc" or "ps4" or "xbox" in platformresponse.content.lower():
                                 steamid = steamidresponse.content.lower().strip()
                                 platform = platformresponse.content.lower().strip()
                                 dict = { '1': 'success', '2' : steamid, '3' : platform}
@@ -85,10 +85,10 @@ class memlorlrankupdate:
                 confirmationresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 if confirmationresponse == "none":
                         pass
-                elif "no" in confirmationresponse.lower():
+                elif "no" in confirmationresponse.content.lower():
                         await self.bot.say("I think we need to start over.")
 #                       self.steamid(ctx)
-                elif "yes" in confirmationresponse.lower():
+                elif "yes" in confirmationresponse.content.lower():
                         result = "success"
                         return result
                 else:
