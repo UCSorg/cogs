@@ -99,15 +99,14 @@ class memlorlrankupdate:
                         playerdata = rocket.players.player(id=steamid, platform=platformid)
                         with open(self.json, "w") as f:
                                 f.write(playerdata.json())
-                        try:
-                                opener=urllib.request.build_opener()
-                                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-                                urllib.request.install_opener(opener)
-                                urllib.request.urlretrieve(self.json['signatureUrl'], self.image)
-                                result = "success"
-                                return result
+                        opener=urllib.request.build_opener()
+                        opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                        urllib.request.install_opener(opener)
+                        urllib.request.urlretrieve(self.json['signatureUrl'], self.image)
+                        result = "success"
+                        return result
 
-        def parseforrank():
+        def parseforrank(self):
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
                 rank = self.json['rankedSeasons'][latestseason]
