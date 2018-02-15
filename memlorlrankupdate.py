@@ -66,12 +66,14 @@ class memlorlrankupdate:
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
                         if platformresponse == "none":
                                 pass
-                        else:
+                        elif "pc" or "ps4" or "xbox" platformresponse.lower():
                                 steamid = steamidresponse.content.lower().strip()
                                 platform = platformresponse.content.lower().strip()
                                 dict = { '1': 'success', '2' : steamid, '3' : platform}
                                 await self.bot.say("I will try `" + steamid + "` on `" + platform + "`." )
                                 return dict
+                        else:
+                                await self.bot.say("I don't think `" + platformresponse.content + "` is accepted.  Have you tried turning it off and on again?")
 
         def getrank(self, steamidinput, platforminput):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -87,6 +89,9 @@ class memlorlrankupdate:
                 elif "xbox" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=3)
                         signatureUrl = response.json()['signatureUrl']
+                else:
+                        error = "I don't know how we made it here. I'm impressed."
+                        return error
                 try:
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
