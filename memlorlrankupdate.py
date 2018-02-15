@@ -82,27 +82,24 @@ class memlorlrankupdate:
                 else:
                         await self.bot.say("I don't have time for all these games.")
 
-        def getrank(self, steamidinput, platforminput):
+        def getrank(self, steamid, platform):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
-                steamid = str(steamidinput)
-                platform = str(platforminput)
-                if "pc" in platform.lower():
-                        response = rocket.players.player(id=steamidinput, platform=1)
-                        with open(self.json, "w") as f:
-                                f.write(response.json())
-                elif "ps4" in platform.lower():
-                        response = rocket.players.player(id=steamidinput, platform=2)
-                        with open(self.json, "w") as f:
-                                f.write(response.json())
-                elif "xbox" in platform.lower():
-                        response = rocket.players.player(id=steamidinput, platform=3)
-                        with open(self.json, "w") as f:
-                                f.write(response.json())
-#                        signatureUrl = response.json()['signatureUrl']
-                else:
-                        error = "I don't know how we made it here. I'm impressed."
+                platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
+                for k,v in platformlegend.items()
+                        if platform == k,
+                                platformid = v
+                                break
+                try:
+                        platformid
+                except NameError:
+                        error = "Welp a NameError occurred when looking at platform."
                         return error
+                else:
+                        playerdata = rocket.players.player(id=steamid, platform=platformid)
+                        with open(self.json, "w") as f:
+                                f.write(playerdata.json())
+                        pass
                 try:
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
@@ -110,9 +107,6 @@ class memlorlrankupdate:
                         urllib.request.urlretrieve(self.json['signatureUrl'], self.image)
                         result = "success"
                         return result
-                except urllib.error.HTTPError:
-                        error = "Welp, looks like I ran into an HTTP Error"
-                        return error
 
         def parseforrank():
                 """sort through self.json and return highest rank"""
@@ -124,7 +118,6 @@ class memlorlrankupdate:
                 rank3v3 = rank['13']
                 ranks = [rank1v1,rank2v2,rank3ss, rank3v3]
                 maxrank = str(max(ranks))
-                return maxrank
                 for k,v in self.legend.items():
                         if maxrank == k:
                                 namedrank = v
