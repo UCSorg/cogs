@@ -81,7 +81,7 @@ class memlorlrankupdate:
                 platform = str(platforminput)
                 if "pc" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=1)
-                        self.json = response.jason()
+                        self.json = response.json()
                 elif "ps4" in platform.lower():
                         response = rocket.players.player(id=steamidinput, platform=2)
                         signatureUrl = response.json()['signatureUrl']
@@ -92,7 +92,7 @@ class memlorlrankupdate:
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                         urllib.request.install_opener(opener)
-                        urllib.request.urlretrieve(signatureUrl, self.image)
+                        urllib.request.urlretrieve(self.json['signatureUrl'], self.image)
                         result = "success"
                         return result
                 except urllib.error.HTTPError:
