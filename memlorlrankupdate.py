@@ -107,6 +107,9 @@ class memlorlrankupdate:
                         urllib.request.urlretrieve(self.json['signatureUrl'], self.image)
                         result = "success"
                         return result
+                else:
+                        error = "You shouldn't hit this error."
+                        return error
 
         def parseforrank():
                 """sort through self.json and return highest rank"""
