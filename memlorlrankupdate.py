@@ -74,7 +74,7 @@ class memlorlrankupdate:
                                 await self.bot.say("I will try `" + steamid + "` on `" + platform + "`." )
                                 return dict
 
-        def getrank(self, channel, author, steamidinput, platforminput):
+        def getrank(self, steamidinput, platforminput):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
                 steamid = str(steamidinput)
