@@ -23,11 +23,10 @@ class memlorlrankupdate:
                 data = ctx.message.content.strip()
                 if "gadget" in data:
                         steamiddict = await self.steamid(ctx)
-                        steamid = str(steamiddict['2'].strip())
-                        platform = str(steamiddict['3'].strip())
-                        await self.bot.say(steamid + ", " + platform)
+                        steamid = steamiddict['2']
+                        platform = steamiddict['3']
                         if "success" in steamiddict['1']:
-                                rankdict = await self.getrank(steamid, platform)
+                                rankdict = self.getrank(steamiddict['2'], platform)
                                 if "success" in rankdict['result']:
                                         await self.bot.send_file(channel, self.image)
                                         pass
