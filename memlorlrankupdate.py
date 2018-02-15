@@ -66,7 +66,7 @@ class memlorlrankupdate:
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
                         if platformresponse == "none":
                                 pass
-                        elif "pc" or "ps4" or "xbox" platformresponse.lower():
+                        elif "pc" or "ps4" or "xbox" in platformresponse.lower():
                                 steamid = steamidresponse.content.lower().strip()
                                 platform = platformresponse.content.lower().strip()
                                 dict = { '1': 'success', '2' : steamid, '3' : platform}
