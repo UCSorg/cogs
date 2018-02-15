@@ -23,8 +23,8 @@ class memlorlrankupdate:
                 data = ctx.message.content.strip()
                 if "gadget" in data:
                         steamiddict = await self.steamid(ctx)
-                        steamid = steamiddict['2'].strip()
-                        platform = steamiddict['3'].strip()
+                        steamid = str(steamiddict['2'].strip())
+                        platform = str(steamiddict['3'].strip())
                         await self.bot.say(steamid + ", " + platform)
 #                        if "success" in steamiddict['1']:
 #                                rankdict = await self.getrank(steamid, platform)
