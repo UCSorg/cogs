@@ -26,7 +26,11 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                await self.discordsendfile(channel, self.json)
+                                returnrank = self.parseforrank()
+                                if "Fail" in returnrank:
+                                        pass
+                                else:
+                                        await self.discordsay("Your highest rank is `" + returnrank + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -70,7 +74,7 @@ class memlostats:
                 try:
                         namedrank
                 except NameError:
-                        error = "Welp, a NameError occurred when looking at ranks"
+                        error = "Fail. Welp, a NameError occurred when looking at ranks"
                         return error
                 else:
                         return namedrank
