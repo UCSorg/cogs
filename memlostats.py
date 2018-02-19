@@ -76,17 +76,18 @@ class memlostats:
         def matchtier(self, rankint):
                 with open(self.legend, "r") as legend:
                         data = json.load(legend)
-                        for k,v in data.items():
-                                if maxrank == k:
-                                        namedrank = v
-                                        break
-                        try:
-                                namedrank
-                        except NameError:
-                                error = "Fail. Welp, a NameError occurred when looking at ranks"
-                                return error
-                        else:
-                                return namedrank
+                        return data
+#                        for k,v in data.items():
+#                                if maxrank == k:
+#                                        namedrank = v
+#                                        break
+#                        try:
+#                                namedrank
+#                        except NameError:
+#                                error = "Fail. Welp, a NameError occurred when looking at ranks"
+#                                return error
+#                        else:
+#                                return namedrank
 
         async def discordsay(self, data):
                 await self.bot.say(data)
