@@ -25,15 +25,16 @@ class memlostats:
                 data = ctx.message.content.strip()
                 if "stats" in data:
                         returndata = self.getrank(platform, gamertag)
-                        if "success" in returndata:
+                        if "displayName" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                returnrank = self.parsejson()
-                                if "Fail" in returnrank:
+                                returnrankdict = self.parsejson()
+                                if "Fail" in returnrankdict:
                                         pass
                                 else:
 #                                        await self.discordsendfile(channel, self.json)
-                                        ranks = returnrank['rankedSeasons']['1']
+                                        ranks = returnrankdict['rankedSeasons']['1']
                                         await self.discordsay("Your highest rank is `" + ranks + "`.")
+                                        await self.discordsay("Your highest rank is `" + returnrankdict + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -46,7 +47,7 @@ class memlostats:
                 try:
                         platformid
                 except NameError:
-                        error = "Welp a NameError occurred when looking at platform."
+                        error = "Fail.  Welp a NameError occurred when looking at platform."
                         return error
                 else:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
@@ -58,8 +59,9 @@ class memlostats:
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                         urllib.request.install_opener(opener)
                         urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
-                        result = "success"
-                        return result
+#                        result = "success"
+#                        return result
+                        return playerjson
 
         def parsejson(self):
                 """sort through self.json and return dictionary"""
