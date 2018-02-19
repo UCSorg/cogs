@@ -103,7 +103,7 @@ class memlostats:
 #                                return error
         def matchtier(self, rankint):
                 with open(self.legend, "r") as legend:
-                        for k,v in self.legend.items():
+                        for k,v in legend.items():
                                 if maxrank == k:
                                         namedrank = v
                                         break
