@@ -75,7 +75,7 @@ class memlostats:
 
         def matchtier(self, rankint):
                 with open(self.legend, "r") as legend:
-                        data = json.loads(legend)
+                        data = json.load(legend)
                         for k,v in data.items():
                                 if maxrank == k:
                                         namedrank = v
