@@ -27,14 +27,15 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "displayName" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                returnrankdict = self.parsejson()
-                                if "Fail" in returnrankdict:
-                                        pass
-                                else:
+                                await self.discordsay("Your highest rank is `" + returndata + "`.")
+#                                returnrankdict = self.parsejson()
+#                                if "Fail" in returnrankdict:
+#                                        pass
+#                                else:
 #                                        await self.discordsendfile(channel, self.json)
 #                                        ranks = returnrankdict['rankedSeasons']['1']
 #                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
-                                        await self.discordsay("Your highest rank is `" + returnrankdict + "`.")
+#                                        await self.discordsay("Your highest rank is `" + returnrankdict + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -52,6 +53,7 @@ class memlostats:
                 else:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
                         playerjson = playerdata.json()
+                        rank = playerdata.json()['rankedSeasons']['1']
                         with open(self.json, "w") as f:
 #                                f.write(str(playerdata.json()))
                                 json.dump(playerjson, f)
@@ -61,7 +63,7 @@ class memlostats:
                         urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
 #                        result = "success"
 #                        return result
-                        return playerjson
+                        return rank
 
         def parsejson(self):
                 """sort through self.json and return dictionary"""
