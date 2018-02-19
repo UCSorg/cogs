@@ -32,8 +32,8 @@ class memlostats:
                                         pass
                                 else:
                                         self.discordsendfile(channel, self.json)
-                                        ranks = returnrank['rankedSeasons']
-                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
+#                                        ranks = returnrank['rankedSeasons']
+#                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
