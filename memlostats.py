@@ -36,7 +36,7 @@ class memlostats:
                                         break
                         ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
                         maxrankint = str(max(ranks))
-                        maxrank = self.matchtier(maxrankint)
+                        maxrank = str(self.matchtier(maxrankint))
                         
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + maxrank + "`.")
