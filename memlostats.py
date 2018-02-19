@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from rls.rocket import RocketLeague
 import json
+import ast
 from .utils import checks
 import urllib
 import pprint
