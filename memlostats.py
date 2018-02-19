@@ -30,7 +30,8 @@ class memlostats:
                                 if latestseason == k:
                                         allranks = v 
                                         break
-                        rank = str(max(allranks))
+                        rankint = str(max(allranks))
+                        rank = self.matchtier(rankint)
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + rank + "`.")
 #                                returnrankdict = self.parsejson()
@@ -100,18 +101,19 @@ class memlostats:
 #                        else: 
 #                                error = "I don't have any data from the latest season."
 #                                return error
-#                with open(self.legend, "r") as legend:
-#                        for k,v in self.legend.items():
-#                                if maxrank == k:
-#                                        namedrank = v
-#                                        break
-#                        try:
-#                                namedrank
-#                        except NameError:
-#                                error = "Fail. Welp, a NameError occurred when looking at ranks"
-#                                return error
-#                        else:
-#                                return namedrank
+       def matchtier(self, rankint):
+                with open(self.legend, "r") as legend:
+                        for k,v in self.legend.items():
+                                if maxrank == k:
+                                        namedrank = v
+                                        break
+                        try:
+                                namedrank
+                        except NameError:
+                                error = "Fail. Welp, a NameError occurred when looking at ranks"
+                                return error
+                        else:
+                                return namedrank
 
         async def discordsay(self, data):
                 await self.bot.say(data)
