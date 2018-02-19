@@ -36,10 +36,10 @@ class memlostats:
                                         break
                         ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
                         maxrankint = str(max(ranks))
-#                        maxrank = self.matchtier(maxrankint)
+                        maxrank = self.matchtier(maxrankint)
                         
                         await self.discordsendfile(channel, self.image)
-                        await self.discordsay("Your highest rank is `" + maxrankint + "`.")
+                        await self.discordsay("Your highest rank is `" + maxrank + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
