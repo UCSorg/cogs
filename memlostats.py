@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from rls.rocket import RocketLeague
 import json
-from flask import jsonify
 from .utils import checks
 import urllib
 import pprint
@@ -61,11 +60,9 @@ class memlostats:
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
-                flask.json.loads(s, self.json)
-                return s
-
-#                jsondata = open(self.json).read()
-#                playerdata[0] = json.loads(jsondata)
+                jsondata = open(self.json)
+                playerdata = json.loads(jsondata)
+                return playerdata
                         #playerdata[0] = json.loads(f)
 #                return playerdata
 #                playerdata = json.load(open(self.json))
