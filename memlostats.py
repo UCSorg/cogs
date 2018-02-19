@@ -32,8 +32,8 @@ class memlostats:
                                         pass
                                 else:
 #                                        await self.discordsendfile(channel, self.json)
-                                        ranks = returnrankdict['rankedSeasons']['1']
-                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
+#                                        ranks = returnrankdict['rankedSeasons']['1']
+#                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
                                         await self.discordsay("Your highest rank is `" + returnrankdict + "`.")
 
         def getrank(self, platform, gamertag):
