@@ -101,7 +101,7 @@ class memlostats:
 #                        else: 
 #                                error = "I don't have any data from the latest season."
 #                                return error
-       def matchtier(self, rankint):
+        def matchtier(self, rankint):
                 with open(self.legend, "r") as legend:
                         for k,v in self.legend.items():
                                 if maxrank == k:
