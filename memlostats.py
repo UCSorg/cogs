@@ -28,20 +28,17 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         for k,v in returndata.items():
                                 if latestseason == k:
-                                        allranks = v 
+                                        allranks = v
+                                        rank1v1 = allranks['10']['tier']
+                                        rank2v2 = allranks['11']['tier']
+                                        rank3ss = allranks['12']['tier']
+                                        rank3v3 = allranks['13']['tier']
                                         break
-                        rankint = str(max(allranks))
-                        rank = self.matchtier(rankint)
+                        ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
+                        maxrankint = str(max(ranks))
+                        maxrank = self.matchtier(maxrankint)
                         await self.discordsendfile(channel, self.image)
-                        await self.discordsay("Your highest rank is `" + rank + "`.")
-#                                returnrankdict = self.parsejson()
-#                                if "Fail" in returnrankdict:
-#                                        pass
-#                                else:
-#                                        await self.discordsendfile(channel, self.json)
-#                                        ranks = returnrankdict['rankedSeasons']['1']
-#                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
-#                                        await self.discordsay("Your highest rank is `" + returnrankdict + "`.")
+                        await self.discordsay("Your highest rank is `" + maxrank + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -61,14 +58,11 @@ class memlostats:
                         playerjson = playerdata.json()
                         rank = playerdata.json()['rankedSeasons']
                         with open(self.json, "w") as f:
-#                                f.write(str(playerdata.json()))
                                 json.dump(playerjson, f)
                         opener=urllib.request.build_opener()
                         opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                         urllib.request.install_opener(opener)
                         urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
-#                        result = "success"
-#                        return result
                         return rank
 
         def parsejson(self):
@@ -77,30 +71,7 @@ class memlostats:
                         data = f.read()
                         data_dict = ast.literal_eval(data)
                         return data_dict
-                        #playerdata[0] = json.loads(f)
-#                return playerdata
-#                playerdata = json.load(open(self.json))
-#                        for k,v in playerdata['rankedSeasons'].items():
-#                                if latestseason == k:
-#                                        ranks = v
-#                                        break
-#                        try:
-#                                ranks
-#                        except NameError:
-#                                error = "Fail.  NameError when looking at ranks."
-#                                return error
-#                        else:
-#                                return ranks
-#                                if "7" in playerdata['rankedSeasons'].items():
-#                                rank1v1 = playerdata['rankedSeasons'][latestseason]['10']
-#                                rank2v2 = rank['11']
-#                                rank3ss = rank['12']
-#                                rank3v3 = rank['13']
-#                                ranks = [rank1v1,rank2v2,rank3ss, rank3v3]
-#                                maxrank = str(max(ranks))
-#                        else: 
-#                                error = "I don't have any data from the latest season."
-#                                return error
+
         def matchtier(self, rankint):
                 with open(self.legend, "r") as legend:
                         for k,v in legend.items():
