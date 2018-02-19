@@ -36,7 +36,7 @@ class memlostats:
                                         break
                         ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
                         maxrankint = str(max(ranks))
-                        maxrank = str(self.matchtier(maxrankint))
+                        maxrank = self.matchtier(maxrankint)
                         
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + maxrank + "`.")
@@ -75,18 +75,17 @@ class memlostats:
 
         def matchtier(self, rankint):
                 legend = self.parsejson(self.legend)
-                return legend
-#                        for k,v in data.items():
-#                                if maxrank == k:
-#                                        namedrank = v
-#                                        break
-#                        try:
-#                                namedrank
-#                        except NameError:
-#                                error = "Fail. Welp, a NameError occurred when looking at ranks"
-#                                return error
-#                        else:
-#                                return namedrank
+                for k,v in legend.items():
+                        if rankint == k:
+                                namedrank = v
+                                break
+                try:
+                        namedrank
+                except NameError:
+                        error = "Fail. Welp, a NameError occurred when looking at ranks"
+                        return error
+                else:
+                        return namedrank
 
         async def discordsay(self, data):
                 await self.bot.say(data)
