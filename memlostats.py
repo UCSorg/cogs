@@ -63,7 +63,7 @@ class memlostats:
                 latestseason = "7"
                 with open(self.json, 'r') as f:
                         data = f.read()
-                        playerdata = json.loads(data)
+                        data_dict = ast.literal_eval(data)
                         return playerdata
                         #playerdata[0] = json.loads(f)
 #                return playerdata
