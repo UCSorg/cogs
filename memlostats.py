@@ -51,7 +51,7 @@ class memlostats:
                         return error
                 else:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
-                        playerjson = str(playerdata.json())
+                        playerjson = playerdata.json()
                         with open(self.json, "w") as f:
 #                                f.write(str(playerdata.json()))
                                 json.dump(playerjson, f)
