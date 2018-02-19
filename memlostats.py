@@ -30,9 +30,7 @@ class memlostats:
                                 if latestseason == k:
                                         allranks = v 
                                         break
-                                else:
-                                        await self.discordsay("There was an error when looking for the latest season data.  Have you played?")
-                        rank = str(allranks)
+                        rank = str(max(allranks))
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + rank + "`.")
 #                                returnrankdict = self.parsejson()
