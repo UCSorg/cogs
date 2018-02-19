@@ -61,7 +61,7 @@ class memlostats:
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
                 with open(self.json) as f:
-                        playerdata = json.load(f)
+                        playerdata = json.loads(f)
 #                playerdata = json.load(open(self.json))
                         for k,v in playerdata['rankedSeasons'].items():
                                 if latestseason == k:
