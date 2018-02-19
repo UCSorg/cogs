@@ -23,9 +23,16 @@ class memlostats:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 data = ctx.message.content.strip()
+                latestseason = "7"
                 if "stats" in data:
                         returndata = self.getrank(platform, gamertag)
-                        rank = str(returndata)
+                        for k,v in returndata.items():
+                                if latestseason == k:
+                                        allranks = v 
+                                        break
+                                else:
+                                        await self.discordsay("There was an error when looking for the latest season data.  Have you played?")
+                        rank = str(allranks)
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + rank + "`.")
 #                                returnrankdict = self.parsejson()
@@ -53,7 +60,7 @@ class memlostats:
                 else:
                         playerdata = rocket.players.player(id=gamertag, platform=platformid)
                         playerjson = playerdata.json()
-                        rank = playerdata.json()['rankedSeasons']['1']
+                        rank = playerdata.json()['rankedSeasons']
                         with open(self.json, "w") as f:
 #                                f.write(str(playerdata.json()))
                                 json.dump(playerjson, f)
