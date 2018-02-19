@@ -14,7 +14,7 @@ class memlostats:
                 self.bot = bot
                 self.image = "data/rlstats/signature.png"
                 self.json = "data/rlstats/rlstats.json"
-                self.legend = "data/rlstas/tierlegend.json"
+                self.legend = "data/rlstats/tierlegend.json"
 
         @commands.command(pass_context=True)
         async def stats(self, ctx, platform, gamertag):
