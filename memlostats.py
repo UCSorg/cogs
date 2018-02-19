@@ -27,7 +27,7 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                returnrank = str(self.parseforrank())
+                                returnrank = str(self.parsejson())
                                 if "Fail" in returnrank:
                                         pass
                                 else:
@@ -59,13 +59,13 @@ class memlostats:
                         result = "success"
                         return result
 
-        def parseforrank(self):
+        def parsejson(self):
                 """sort through self.json and return highest rank"""
                 latestseason = "7"
                 with open(self.json, 'r') as f:
                         data = f.read()
                         data_dict = ast.literal_eval(data)
-                        return playerdata
+                        return data_dict
                         #playerdata[0] = json.loads(f)
 #                return playerdata
 #                playerdata = json.load(open(self.json))
