@@ -25,8 +25,9 @@ class memlostats:
                 data = ctx.message.content.strip()
                 if "stats" in data:
                         returndata = self.getrank(platform, gamertag)
+                        rank = str(returndata)
                         await self.discordsendfile(channel, self.image)
-                        await self.discordsay("Your highest rank is `" + returndata + "`.")
+                        await self.discordsay("Your highest rank is `" + rank + "`.")
 #                                returnrankdict = self.parsejson()
 #                                if "Fail" in returnrankdict:
 #                                        pass
