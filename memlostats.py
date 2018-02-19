@@ -31,6 +31,7 @@ class memlostats:
                                 if "Fail" in returnrank:
                                         pass
                                 else:
+                                        self.discordsendfile(channel, self.json)
                                         ranks = returnrank['rankedSeasons']
                                         await self.discordsay("Your highest rank is `" + ranks + "`.")
 
