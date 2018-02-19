@@ -66,17 +66,16 @@ class memlostats:
                         urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
                         return rank
 
-        def parsejson(self):
+        def parsejson(self, file):
                 """sort through self.json and return dictionary"""
-                with open(self.json, 'r') as f:
+                with open(file, 'r') as f:
                         data = f.read()
                         data_dict = ast.literal_eval(data)
                         return data_dict
 
         def matchtier(self, rankint):
-                with open(self.legend, "r") as legend:
-                        data = json.load(legend)
-                        return data
+                legend = self.parsejson(self.legend)
+                return legend
 #                        for k,v in data.items():
 #                                if maxrank == k:
 #                                        namedrank = v
