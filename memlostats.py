@@ -31,9 +31,9 @@ class memlostats:
                                 if "Fail" in returnrank:
                                         pass
                                 else:
-                                        await self.discordsendfile(channel, self.json)
-#                                        ranks = returnrank['rankedSeasons']
-#                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
+#                                        await self.discordsendfile(channel, self.json)
+                                        ranks = returnrank['rankedSeasons']['1']
+                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
