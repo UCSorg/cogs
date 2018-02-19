@@ -27,11 +27,12 @@ class memlostats:
                         returndata = self.getrank(platform, gamertag)
                         if "success" in returndata:
                                 await self.discordsendfile(channel, self.image)
-                                returnrank = str(self.parsejson())
+                                returnrank = self.parsejson()
                                 if "Fail" in returnrank:
                                         pass
                                 else:
-                                        await self.discordsay("Your highest rank is `" + returnrank + "`.")
+                                        ranks = returnrank['rankedSeasons']
+                                        await self.discordsay("Your highest rank is `" + ranks + "`.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -60,8 +61,7 @@ class memlostats:
                         return result
 
         def parsejson(self):
-                """sort through self.json and return highest rank"""
-                latestseason = "7"
+                """sort through self.json and return dictionary"""
                 with open(self.json, 'r') as f:
                         data = f.read()
                         data_dict = ast.literal_eval(data)
