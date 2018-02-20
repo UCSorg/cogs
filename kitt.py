@@ -6,7 +6,7 @@ from .utils import checks
 import urllib
 
 class kitt:
-        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on SteamID input and sets a role"""
+        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that interacts with users and does a few different things."""
 
         def __init__(self, bot):
                 self.bot = bot
