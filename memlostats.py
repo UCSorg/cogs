@@ -57,10 +57,12 @@ class memlostats:
                         error = "Fail.  Welp a NameError occurred when looking at platform."
                         return error
                 else:
-                        playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
-                        if playerdata is Null:
-                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
-                        else: 
+                        try:
+                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
+#                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
+                        except HTTPError:
+                                error = "There was an issue."
+                        else:
                                 rank = playerdata.json()['rankedSeasons']
                                 with open(self.json, "w") as f: #save the json to a file for later (might not need to do this)
                                         json.dump(playerdata.json(), f)
