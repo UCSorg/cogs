@@ -35,8 +35,9 @@ class memlostats:
                                                 rank3ss = allranks['12']['tier']
                                                 rank3v3 = allranks['13']['tier']
                                                 break
-                                        else:
-                                                await self.discordsay("There wasn't any information regarding the latest season.")    
+#                                       when done like this the error throws after each loop where latestseason != k... need to think this one through
+#                                        else:
+#                                                await self.discordsay("There wasn't any information regarding the latest season.")    
                                 try:
                                         allranks
                                 except NameError:
