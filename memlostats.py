@@ -35,14 +35,14 @@ class memlostats:
                                                 rank3ss = allranks['12']['tier']
                                                 rank3v3 = allranks['13']['tier']
                                                 break
-                                try:
-                                        allranks
-                                else:
-                                        ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
-                                        maxrankint = str(max(ranks))
-                                        maxrank = self.matchtier(maxrankint)
-                                        await self.discordsendfile(channel, self.image)
-                                        await self.discordsay("Your highest rank is `" + maxrank + "`.")
+                                        try:
+                                                allranks
+                                        else:
+                                                ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
+                                                maxrankint = str(max(ranks))
+                                                maxrank = self.matchtier(maxrankint)
+                                                await self.discordsendfile(channel, self.image)
+                                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
                         else:
                                 await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
 
