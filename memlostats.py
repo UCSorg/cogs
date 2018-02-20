@@ -68,7 +68,7 @@ class memlostats:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
 #                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
-                        except HTTPError:
+                        except NameError:
                                 error = "There was an issue."
                         else:
                                 rank = playerdata.json()['rankedSeasons']
