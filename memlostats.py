@@ -44,8 +44,8 @@ class memlostats:
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
-                for k,v in platformlegend.items():
-                        if platform == k:
+                for k,v in platformlegend.items(): #using the platform legend, find the platform ID
+                        if platform.lower() == k:
                                 platformid = v
                                 break
                 try:
@@ -54,16 +54,18 @@ class memlostats:
                         error = "Fail.  Welp a NameError occurred when looking at platform."
                         return error
                 else:
-                        playerdata = rocket.players.player(id=gamertag, platform=platformid)
-                        playerjson = playerdata.json()
-                        rank = playerdata.json()['rankedSeasons']
-                        with open(self.json, "w") as f:
-                                json.dump(playerjson, f)
-                        opener=urllib.request.build_opener()
-                        opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-                        urllib.request.install_opener(opener)
-                        urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
-                        return rank
+                        playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
+                        if playerdata is Null:
+                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
+                        else: 
+                                rank = playerdata.json()['rankedSeasons']
+                                with open(self.json, "w") as f: #save the json to a file for later (might not need to do this)
+                                        json.dump(playerdata.json(), f)
+                                opener=urllib.request.build_opener() #download and save the rocket league signature image
+                                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                                urllib.request.install_opener(opener)
+                                urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
+                                return rank
 
         def parsejson(self, file):
                 """Take a json file and return dictionary"""
@@ -73,8 +75,9 @@ class memlostats:
                         return data_dict
 
         def matchtier(self, rankint):
-                legend = self.parsejson(self.legend)
-                for k,v in legend.items():
+                """Using the RL Tier Legend, change the rankint into namedrank"""
+                legend = self.parsejson(self.legend) #parse the legend json file
+                for k,v in legend.items(): #loop through to find the rankint
                         if rankint == k:
                                 namedrank = v
                                 break
@@ -87,6 +90,7 @@ class memlostats:
                         return namedrank
 
         async def discordsay(self, data):
+                """Simple text in discord"""
                 await self.bot.say(data)
 
         async def discordsendfile(self, channel, file):
