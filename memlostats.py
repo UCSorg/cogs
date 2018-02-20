@@ -41,7 +41,7 @@ class memlostats:
                                 try:
                                         allranks
                                 except NameError:
-                                        await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
+                                        await self.discordsay("I had trouble finding information about you on rocketleaguestats.com") 
                                 else:
                                         ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
                                         maxrankint = str(max(ranks))
