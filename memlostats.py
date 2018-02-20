@@ -37,7 +37,6 @@ class memlostats:
                         ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
                         maxrankint = str(max(ranks))
                         maxrank = self.matchtier(maxrankint)
-                        
                         await self.discordsendfile(channel, self.image)
                         await self.discordsay("Your highest rank is `" + maxrank + "`.")
 
@@ -67,7 +66,7 @@ class memlostats:
                         return rank
 
         def parsejson(self, file):
-                """sort through self.json and return dictionary"""
+                """Take a json file and return dictionary"""
                 with open(file, 'r') as f:
                         data = f.read()
                         data_dict = ast.literal_eval(data)

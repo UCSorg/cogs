@@ -1,0 +1,40 @@
+"{'avatar': 'http://cdn.akamai.steamstatic.com/steamcommunity/public/images/avatars/79/79b8b56064b2f1372ba54d058950f4024e3d4768_full.jpg', 
+'displayName': 'Memlo', 
+'rankedSeasons': {
+'1': {
+	'11': {'rankPoints': 855}, 
+	'10': {'rankPoints': 560}, 
+	'12': {'rankPoints': 801}, 
+	'13': {'rankPoints': 762}}, 
+'6': {
+	'11': {'rankPoints': 1352, 'matchesPlayed': 699, 'division': 2, 'tier': 17}, 
+	'10': {'rankPoints': 1100, 'matchesPlayed': 120, 'division': 1, 'tier': 15}, 
+	'12': {'rankPoints': 1101, 'matchesPlayed': 374, 'division': 3, 'tier': 15}, 
+	'13': {'rankPoints': 1361, 'matchesPlayed': 532, 'division': 2, 'tier': 17}}, 
+'3': {
+	'11': {'rankPoints': 1074, 'matchesPlayed': 2309, 'division': 0, 'tier': 14}, 
+	'10': {'rankPoints': 1013, 'matchesPlayed': 10, 'division': 1, 'tier': 13}, 
+	'12': {'rankPoints': 875, 'matchesPlayed': 267, 'division': 0, 'tier': 12}, 
+	'13': {'rankPoints': 1047, 'matchesPlayed': 2036, 'division': 4, 'tier': 13}}, 
+'4': {
+	'11': {'rankPoints': 1265, 'matchesPlayed': 798, 'division': 1, 'tier': 16}, 
+	'10': {'rankPoints': 1065, 'matchesPlayed': 15, 'division': 1, 'tier': 14}, 
+	'12': {'rankPoints': 887, 'matchesPlayed': 12, 'division': 0, 'tier': 12}, 
+	'13': {'rankPoints': 1064, 'matchesPlayed': 496, 'division': 2, 'tier': 13}}, 
+'2': {
+	'11': {'rankPoints': 1030, 'matchesPlayed': 1347, 'division': 0, 'tier': 11}, 
+	'10': {'rankPoints': 839, 'matchesPlayed': 30, 'division': 0, 'tier': 9}, 
+	'12': {'rankPoints': 953, 'matchesPlayed': 15, 'division': 1, 'tier': 10}, 
+	'13': {'rankPoints': 879, 'matchesPlayed': 729, 'division': 2, 'tier': 9}}, 
+'5': {
+	'11': {'rankPoints': 1342, 'matchesPlayed': 1287, 'division': 1, 'tier': 17}, 
+	'10': {'rankPoints': 1034, 'matchesPlayed': 10, 'division': 2, 'tier': 13}, 
+	'12': {'rankPoints': 1040, 'matchesPlayed': 12, 'division': 2, 'tier': 14}, 
+	'13': {'rankPoints': 1176, 'matchesPlayed': 909, 'division': 1, 'tier': 15}}, 
+'7': {
+	'11': {'rankPoints': 1261, 'matchesPlayed': 54, 'division': 2, 'tier': 16}, 
+	'10': {'rankPoints': 1023, 'matchesPlayed': 25, 'division': 0, 'tier': 15}, 
+	'12': {'rankPoints': 1039, 'matchesPlayed': 14, 'division': 1, 'tier': 15}, 
+	'13': {'rankPoints': 1220, 'matchesPlayed': 79, 'division': 1, 'tier': 16}}},
+'nextUpdateAt': 1519020207, 'signatureUrl': 'http://signature.rocketleaguestats.com/normal/Steam/76561198049122040.png', 'createdAt': 1456781939, 'profileUrl': 'https://rocketleaguestats.com/profile/Steam/76561198049122040', 'uniqueId': '76561198049122040', 'lastRequested': 1519020030, 'platform': {'name': 'Steam', 'id': 1}, 'updatedAt': 1519020027, 
+	'stats': {'goals': 24052, 'saves': 18990, 'wins': 9875, 'shots': 53797, 'mvps': 4018, 'assists': 11738}}"
