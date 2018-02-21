@@ -1,7 +1,7 @@
 # cogs
 Cogs for Red discord bot PY
 
-building out some .py scripts that will run as modules in Red.
+building out some .py scripts that will run as modules in Red.  Intended for use on UCS Gaming Discord.  Key contributors: Matt Miller and Patrik Srna
 
 Scripts include pulling rocket league stats
   - memlostats
