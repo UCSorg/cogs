@@ -8,9 +8,6 @@ Scripts include pulling rocket league stats
   - rlstats
   - memlorankupdate (basically memlostats + add role once rank is found)
 
-embedding messages
-  - embedthis
-
 interracting to gather information
   - kitt
 
