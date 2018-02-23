@@ -6,6 +6,7 @@ import json
 import ast
 from .utils import checks
 import urllib
+from typing import string
 import pprint
 
 class memlostats:
