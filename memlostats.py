@@ -74,6 +74,8 @@ class memlostats:
                                 break
                 try:
                         platformid
+                except NameError:
+                        return "getrank NameError - ask an admin"
                 else:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
