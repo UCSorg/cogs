@@ -23,32 +23,32 @@ class memlostats:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 latestseason = "7"
-                await self.discordsay(platform.lower())
-#                if "pc" or "ps4" or "xbox" in platform.lower():
-#                        returndata = self.getrank(platform.lower(), gamertag)
-#                        for k,v in returndata.items():
-#                                if latestseason == k:
-#                                        allranks = v
-#                                        rank1v1 = allranks['10']['tier']
-#                                        rank2v2 = allranks['11']['tier']
-#                                        rank3ss = allranks['12']['tier']
-#                                        rank3v3 = allranks['13']['tier']
-#                                        break
+                acceptedplatforms = ['pc', 'ps4', 'xbox']
+                if platform.lower() in acceptedplatforms:
+                        returndata = self.getrank(platform.lower(), gamertag)
+                        for k,v in returndata.items():
+                                if latestseason == k:
+                                        allranks = v
+                                        rank1v1 = allranks['10']['tier']
+                                        rank2v2 = allranks['11']['tier']
+                                        rank3ss = allranks['12']['tier']
+                                        rank3v3 = allranks['13']['tier']
+                                        break
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
-#                        try:
-#                                allranks
-#                        except NameError:
-#                                await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
-#                        else:
-#                                ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
-#                                maxrankint = str(max(ranks))
-#                                maxrank = self.matchtier(maxrankint)
-#                                await self.discordsendfile(channel, self.image)
-#                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
-#                else:
-#                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
+                        try:
+                                allranks
+                        except NameError:
+                                await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
+                        else:
+                                ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
+                                maxrankint = str(max(ranks))
+                                maxrank = self.matchtier(maxrankint)
+                                await self.discordsendfile(channel, self.image)
+                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
+                else:
+                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
