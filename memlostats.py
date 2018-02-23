@@ -24,35 +24,43 @@ class memlostats:
                 author = str(ctx.message.author)
                 latestseason = "7"
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                if platform.lower() in acceptedplatforms:
+                #reverse error handling for easier understanding
+                if platform.lower() not in acceptedplatforms:
+                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
+                else:
                         returndata = self.getrank(platform.lower(), gamertag)
-                        ranks =[]
-                        for k,v in returndata.items():
-                                if latestseason == k:
-                                        allranks = v
-                                        if '10' in allranks:
-                                                ranks.append(allranks['10']['tier'])
-                                        if '11' in allranks:
-                                                ranks.append(allranks['11']['tier'])
-                                        if '12' in allranks:
-                                                ranks.append(allranks['12']['tier'])
-                                        if '13' in allranks:
-                                                ranks.append(allranks['13']['tier'])
-                                        break
+                        if "Fail" in returndata:
+                                await self.discordsay(returndata)
+                        else:
+                                ranks =[]
+                                for k,v in returndata.items():
+                                        if latestseason == k:
+                                                allranks = v
+                                                if '10' in allranks:
+                                                        ranks.append(allranks['10']['tier'])
+                                                if '11' in allranks:
+                                                        ranks.append(allranks['11']['tier'])
+                                                if '12' in allranks:
+                                                        ranks.append(allranks['12']['tier'])
+                                                if '13' in allranks:
+                                                        ranks.append(allranks['13']['tier'])
+                                                break
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
-                        try:
-                                allranks
-                        except NameError:
-                                await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
-                        else:
-                                maxrankint = str(max(ranks))
-                                maxrank = self.matchtier(maxrankint)
-                                await self.discordsendfile(channel, self.image)
-                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
-                else:
-                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
+                                try:
+                                        allranks
+                                except NameError:
+                                        await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
+                                else:
+                                        maxrankint = str(max(ranks))
+                                        if maxrankint == 0:
+                                                await self.discordsay("Looks like you need to play some ranked games")
+                                        else:
+                                                maxrank = self.matchtier(maxrankint)
+                                                await self.discordsendfile(channel, self.image)
+                                                await self.discordsay("Your highest rank in season `" + latestseason + "` is `" + maxrank + "`.")
+
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
