@@ -53,8 +53,9 @@ class memlostats:
                                 except NameError:
                                         await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
                                 else:
+                                        
                                         maxrankint = str(max(ranks))
-                                        if maxrankint == 0:
+                                        if "0" in maxrankint:
                                                 await self.discordsay("Looks like you need to play some ranked games")
                                         else:
                                                 maxrank = self.matchtier(maxrankint)
