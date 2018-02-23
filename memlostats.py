@@ -30,13 +30,13 @@ class memlostats:
                         for k,v in returndata.items():
                                 if latestseason == k:
                                         allranks = v
-                                        if allranks['10']:
+                                        if '10' in allranks:
                                                 ranks.append(allranks['10']['tier'])
-                                        if allranks['11']:
+                                        if '11' in allranks:
                                                 ranks.append(allranks['11']['tier'])
-                                        if allranks['12']:
+                                        if '12' in allranks:
                                                 ranks.append(allranks['12']['tier'])
-                                        if allranks['13']:
+                                        if '13' in allranks:
                                                 ranks.append(allranks['13']['tier'])
                                         break
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
