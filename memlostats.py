@@ -55,11 +55,11 @@ class memlostats:
                                 else:
                                         
                                         maxrankint = str(max(ranks))
+                                        await self.discordsendfile(channel, self.image)
                                         if "0" in maxrankint:
-                                                await self.discordsay("Looks like you need to play some ranked games")
+                                                await self.discordsay("Looks like you need to play some ranked games for me to set your rank.")
                                         else:
                                                 maxrank = self.matchtier(maxrankint)
-                                                await self.discordsendfile(channel, self.image)
                                                 await self.discordsay("Your highest rank in season `" + latestseason + "` is `" + maxrank + "`.")
 
 
@@ -90,7 +90,11 @@ class memlostats:
                                 opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                                 urllib.request.install_opener(opener)
                                 urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
-                                return rank
+                                if "displayName" in playerdata.json():
+                                        return rank
+                                elif "code" in playerdata.json():
+                                        error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
+                                        return error
 
         def parsejson(self, file):
                 """Take a json file and return dictionary"""
