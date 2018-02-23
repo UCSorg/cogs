@@ -80,7 +80,6 @@ class memlostats:
                 else:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
-#                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
                         except NameError:
                                 error = "Fail. There was an issue."
                                 return error
@@ -100,6 +99,8 @@ class memlostats:
                                 elif "code" in playerdata.json():
                                         error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
                                         return error
+                                else:
+                                        return "Fail.  Not sure how we got here."
 
         def parsejson(self, file):
                 """Take a json file and return dictionary"""
