@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from rls.rocket import RocketLeague
-from rls import exceptions
+from rls.rocket import exceptions
 import json
 import ast
 from .utils import checks
