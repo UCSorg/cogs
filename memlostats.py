@@ -54,7 +54,6 @@ class memlostats:
                                 except NameError:
                                         await self.discordsay("I had trouble finding information about you on rocketleaguestats.com") 
                                 else:
-                                        
                                         maxrankint = str(max(ranks))
                                         await self.discordsendfile(channel, self.image)
                                         if "0" in maxrankint:
