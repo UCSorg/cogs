@@ -18,13 +18,14 @@ class memlostats:
                 self.legend = "data/rlstats/tierlegend.json"
 
         @commands.command(pass_context=True)
-        async def stats(self, ctx, platform, gamertag : str):
+        async def stats(self, ctx, platform, *, gamertag):
                 """Let's chat"""
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 latestseason = "7"
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
+                await self.discordsay(gamertag)
                 #reverse error handling for easier understanding
                 if platform.lower() not in acceptedplatforms:
                         await self.discordsay("I'm pretty sure `" + platform + "` is not a real console.")
