@@ -27,7 +27,7 @@ class memlostats:
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 #reverse error handling for easier understanding
                 if platform.lower() not in acceptedplatforms:
-                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
+                        await self.discordsay("I'm pretty sure `" + platform + "` is not a real console.")
                 else:
                         returndata = self.getrank(platform.lower(), gamertag)
                         if "Fail" in returndata:
@@ -74,15 +74,9 @@ class memlostats:
                                 break
                 try:
                         platformid
-                except NameError:
-                        error = "Fail.  Welp a NameError occurred when looking at platform."
-                        return error
                 else:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
-                        except NameError:
-                                error = "Fail. There was an issue."
-                                return error
                         except rls.exceptions.ResourceNotFound:
                                 error = "Fail. There was an issue finding your gamertag in the <http://rocketleaguestats.com/> database."
                                 return error
