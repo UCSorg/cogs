@@ -18,8 +18,8 @@ class memlostats:
                 self.legend = "data/rlstats/tierlegend.json"
 
         @commands.command(pass_context=True)
-        async def stats(self, ctx, platform, *gamertag : str):
-                """Let's chat"""
+        async def stats(self, ctx, platform, *, gamertag : str):
+                """Find your RL stats and get your role updated to match your rank"""
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
