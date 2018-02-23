@@ -18,7 +18,7 @@ class memlostats:
                 self.legend = "data/rlstats/tierlegend.json"
 
         @commands.command(pass_context=True)
-        async def stats(self, ctx, platform, gamertag):
+        async def stats(self, ctx, platform, gamertag : str):
                 """Let's chat"""
                 server = ctx.message.server
                 channel = ctx.message.channel
