@@ -82,6 +82,8 @@ class memlostats:
 #                                error = "Fail.  That's not a real player according to rocketleaguestats.com"
                         except NameError:
                                 error = "There was an issue."
+                        except rls.exceptions.ResourceNotFound:
+                                error = "There was an issue finding your gamertag in the <http://rocketleaguestats.com/> database."
                         else:
                                 rank = playerdata.json()['rankedSeasons']
                                 with open(self.json, "w") as f: #save the json to a file for later (might not need to do this)
