@@ -37,16 +37,16 @@ class memlostats:
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
-                        try:
-                                allranks
-                        except NameError:
-                                await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
-                        else:
-                                ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
-                                maxrankint = str(max(ranks))
-                                maxrank = self.matchtier(maxrankint)
-                                await self.discordsendfile(channel, self.image)
-                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
+#                        try:
+#                                allranks
+#                        except NameError:
+#                                await self.discordsay("You must be a brick in order to hit this error.  Nope, try again.") 
+#                        else:
+#                                ranks = [rank1v1,rank2v2,rank3ss,rank3v3]
+#                                maxrankint = str(max(ranks))
+#                                maxrank = self.matchtier(maxrankint)
+#                                await self.discordsendfile(channel, self.image)
+#                                await self.discordsay("Your highest rank is `" + maxrank + "`.")
 #                else:
 #                        await self.discordsay("I'm pretty sure `" + platform + "` is not real.")
 
