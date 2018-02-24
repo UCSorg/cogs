@@ -152,7 +152,7 @@ class memlostats:
                         except discord.Forbidden:
                                 return 2
                         else:
-                        return 1
+                                return 1
 
         async def member_remove_role(self, server, member, role):
                 if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
