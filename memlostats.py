@@ -61,6 +61,9 @@ class memlostats:
                                         else:
                                                 maxrank = self.matchtier(maxrankint)
                                                 await self.discordsay("Your highest rank in season `" + latestseason + "` is `" + maxrank + "`.")
+                                                #match user roles to server roles and remove old rank
+                                                #<code>
+                                                #set new rank                                                
                                                 self.member_apply_role(server, author, maxrank)
 
 
@@ -125,9 +128,8 @@ class memlostats:
                 await self.bot.say(data)
 
         async def discordsendfile(self, channel, file):
+                """Simple attachment in discord"""
                 await self.bot.send_file(channel, file)
-
-        async def setrank(self, server, member, role):
 
 
 
