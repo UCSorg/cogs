@@ -64,8 +64,8 @@ class memlostats:
                                                 #match user roles to server roles and remove old rank
                                                 #<code>
                                                 #set new rank                                                
-                                                self.member_apply_role(server, author, maxrank)
-
+                                                applyrole = self.member_apply_role(server, author, maxrank)
+                                                await self.discordsay(applyrole)
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -148,11 +148,11 @@ class memlostats:
                         try:
                                 role = await self.server_get_role(server, role)
                                 await self.bot.add_roles(member, role)
-                                return 0
+                                return "Completed"
                         except discord.Forbidden:
-                                return 2
+                                return "Not Completed"
                         else:
-                                return 1
+                                return "Completed"
 
         async def member_remove_role(self, server, member, role):
                 if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
