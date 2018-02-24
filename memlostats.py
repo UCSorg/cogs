@@ -25,7 +25,6 @@ class memlostats:
                 author = str(ctx.message.author)
                 latestseason = "7"
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.discordsay(gamertag)
                 #reverse error handling for easier understanding
                 if platform.lower() not in acceptedplatforms:
                         await self.discordsay("I'm pretty sure `" + platform + "` is not a real console.")
@@ -62,6 +61,7 @@ class memlostats:
                                         else:
                                                 maxrank = self.matchtier(maxrankint)
                                                 await self.discordsay("Your highest rank in season `" + latestseason + "` is `" + maxrank + "`.")
+                                                self.member_apply_role(server, author, maxrank)
 
 
         def getrank(self, platform, gamertag):
@@ -126,6 +126,42 @@ class memlostats:
 
         async def discordsendfile(self, channel, file):
                 await self.bot.send_file(channel, file)
+
+        async def setrank(self, server, member, role):
+
+
+
+        async def server_has_role(self, server, role):
+                if role in [role.name for role in server.roles]:
+                        return True
+                return False
+
+        async def server_get_role(self, server, role):
+                if await self.server_has_role(server, role):
+                        return [r for r in server.roles if r.name == role][0]
+                return False
+
+        async def member_apply_role(self, server, member, role):
+                if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
+                        try:
+                                role = await self.server_get_role(server, role)
+                                await self.bot.add_roles(member, role)
+                                return 0
+                        except discord.Forbidden:
+                                return 2
+                        else:
+                        return 1
+
+        async def member_remove_role(self, server, member, role):
+                if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
+                        try:
+                                role = await self.server_get_role(server, role)
+                                await self.bot.remove_roles(member, role)
+                                return 0
+                        except discord.Forbidden:
+                                return 2
+                        else:
+                                return 1
 
 def setup(bot):
         action = memlostats(bot)
