@@ -16,7 +16,7 @@ class memlostats:
                 self.image = "data/rlstats/signature.png"
                 self.json = "data/rlstats/rlstats.json"
                 self.legend = "data/rlstats/tierlegend.json"
-                self.apikey = "data/rlstats/rsc-api.json"
+                self.apikey = "data/rlstats/rls-api.json"
 
         @commands.command(pass_context=True)
         async def stats(self, ctx, platform, *, gamertag : str):
