@@ -16,6 +16,7 @@ class memlostats:
                 self.image = "data/rlstats/signature.png"
                 self.json = "data/rlstats/rlstats.json"
                 self.legend = "data/rlstats/tierlegend.json"
+                self.apikey = "data/rlstats/rsc-api.json"
 
         @commands.command(pass_context=True)
         async def stats(self, ctx, platform, *, gamertag : str):
@@ -69,7 +70,8 @@ class memlostats:
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
-                rocket = RocketLeague(api_key='ZEP7NZ0WLD9AFJ8WU15JZU5XD1XKM3TO')
+                apikey = self.parsejson(self.apikey)[1] #call the API key from json file
+                rocket = RocketLeague(api_key=apikey)
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                 for k,v in platformlegend.items(): #using the platform legend, find the platform ID
                         if platform == k:
