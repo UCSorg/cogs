@@ -47,6 +47,7 @@ class rlrank:
                                                 if '13' in allranks:
                                                         ranks.append(allranks['13']['tier'])
                                                 break
+                                        playerurl = returndata.get("profileUrl")
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
@@ -56,7 +57,7 @@ class rlrank:
                                         await self.discordsay("I had trouble finding information about you on rocketleaguestats.com") 
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
-                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks:", url=returndata['profileUrl'], color=16401905, image=self.image,)
+                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks:", url=playerurl, color=16401905, image=self.image,)
                                         await self.bot.send_message(channel, embed=content)
 
         def getrank(self, platform, gamertag):
