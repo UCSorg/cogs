@@ -41,7 +41,6 @@ class rlrank:
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
                                 try:
-                                        allranks
                                         playerurl
                                         playersignature
                                 except NameError:
