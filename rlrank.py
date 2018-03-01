@@ -9,7 +9,7 @@ import urllib
 import pprint
 
 class rlrank:
-        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on gamertag and platform input and sets a role"""
+        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
 
         def __init__(self, bot):
                 self.bot = bot
