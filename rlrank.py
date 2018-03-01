@@ -35,7 +35,7 @@ class rlrank:
                                 content = Embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                await self.discordsay(returndata.json()['profileUrl'])
+                                await self.discordsay(returndata['profileUrl'])
                                 playerurl = returndata["profileUrl"]
                                 playersignature = returndata["signatureUrl"]
                                 try:
