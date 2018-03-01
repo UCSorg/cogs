@@ -45,7 +45,7 @@ class rlrank:
                                         await self.discordembed(channel, content)
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
-                                        content = Embed(title="Here are the Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116)
+                                        content = Embed(title="Here are the Rocket League ranks for:", description="[" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116)
                                         content.set_image(url=playersignature)
                                         await self.discordembed(channel, content)
 
