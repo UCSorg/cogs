@@ -110,5 +110,5 @@ class rlrank:
                 await self.bot.send_file(channel, file)
 
 def setup(bot):
-        action = memlostats(bot)
+        action = rlrank(bot)
         bot.add_cog(action)
