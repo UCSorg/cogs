@@ -24,7 +24,6 @@ class rlrank:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
-                latestseason = "7"
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 #reverse error handling for easier understanding
                 if platform.lower() not in acceptedplatforms:
@@ -35,21 +34,8 @@ class rlrank:
                                 content = discord.embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                ranks =[]
-                                for k,v in returndata.items():
-                                        if latestseason == k:
-                                                allranks = v
-                                                if '10' in allranks:
-                                                        ranks.append(allranks['10']['tier'])
-                                                if '11' in allranks:
-                                                        ranks.append(allranks['11']['tier'])
-                                                if '12' in allranks:
-                                                        ranks.append(allranks['12']['tier'])
-                                                if '13' in allranks:
-                                                        ranks.append(allranks['13']['tier'])
-                                                break
-                                        playerurl = returndata.get('profileUrl', "http://google.com")
-                                        playersignature = returndata.get('signatureUrl', "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png")
+                                playerurl = returndata.get('profileUrl', "http://google.com")
+                                playersignature = returndata.get('signatureUrl', "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png")
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
