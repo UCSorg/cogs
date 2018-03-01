@@ -30,14 +30,14 @@ class rlrank:
                 if platform.lower() not in acceptedplatforms:
                         await self.discordsay("I'm pretty sure `" + platform + "` is not a real console.")
                 else:
-                        returndata = self.getrank(platform.lower(), gamertag)
+                        returndata = self.rlsapi(platform.lower(), gamertag)
                         if "Fail" in returndata:
                                 content = Embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
                                 await self.discordsay(returndata)
-                                playerurl = returndata["profileUrl"]
-                                playersignature = returndata["signatureUrl"]
+                                playerurl = returndata.get("profileUrl")
+                                playersignature = returndata.get("signatureUrl")
                                 try:
                                         playerurl
                                         playersignature
@@ -51,7 +51,7 @@ class rlrank:
 #                                        content = discord.Embed(title=gamertag, description="Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
 #                                        await self.discordembed(channel, content)
 
-        def getrank(self, platform, gamertag):
+        def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
                 apikey = self.parsejson(self.apikey)[1] #call the API key from json file
                 rocket = RocketLeague(api_key=apikey)
@@ -71,27 +71,14 @@ class rlrank:
                                 error = "Fail. There was an issue finding your gamertag in the <http://rocketleaguestats.com/> database."
                                 return error
                         else:
-                                rank = playerdata.json()['rankedSeasons']
-                                with open(self.json, "w") as f: #save the json to a file for later (might not need to do this)
-                                        json.dump(playerdata.json(), f)
-                                opener=urllib.request.build_opener() #download and save the rocket league signature image
-                                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
-                                urllib.request.install_opener(opener)
-                                urllib.request.urlretrieve(playerdata.json()['signatureUrl'], self.image)
                                 if "displayName" in playerdata.json():
-                                        return rank
+                                        return playerdata
                                 elif "code" in playerdata.json():
                                         error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
                                         return error
                                 else:
                                         return "Fail.  Not sure how we got here."
 
-        def parsejson(self, file):
-                """Take a json file and return dictionary"""
-                with open(file, 'r') as f:
-                        data = f.read()
-                        data_dict = ast.literal_eval(data)
-                        return data_dict
 
         async def discordsay(self, data):
                 """Simple text in discord"""
