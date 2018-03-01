@@ -31,7 +31,7 @@ class rlrank:
                 else:
                         returndata = self.getrank(platform.lower(), gamertag)
                         if "Fail" in returndata:
-                                content = discord.embed(title="Error", description=returndata, color=16713736)
+                                content = Embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
                                 playerurl = returndata.get('profileUrl', "http://google.com")
@@ -44,7 +44,7 @@ class rlrank:
                                         playerurl
                                         playersignature
                                 except NameError:
-                                        content = discord.embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                                        content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                         await self.discordembed(channel, content)
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
