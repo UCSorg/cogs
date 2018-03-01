@@ -27,14 +27,18 @@ class rlrank:
                 author = str(ctx.message.author)
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 #reverse error handling for easier understanding
-                if platform.lower() not in acceptedplatforms:
-                        await self.discordsay("I'm pretty sure `" + platform + "` is not a real console.")
+                if platform.lower() in "switch":
+                        content = Embed(title="Error", description="I'm sorry, but the Nintendo Switch is not supported for stat tracking.", color=16713736)
+                        await self.discordembed(channel, content)
+                elif platform.lower() not in acceptedplatforms:
+                        content = Embed(title="Error", description="I'm pretty sure `" + platform + "` is not a real console.", color=16713736)
+                        await self.discordembed(channel, content)
                 else:
-                        returndata = self.rlsapi(platform.lower(), gamertag)
-                        if "Fail" in returndata:
+                        returndata = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                        if "Fail" in returndata: #if error code, respond with error code message
                                 content = Embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
-                        else:
+                        else: #else find the player url and signature and respond with those
                                 playerurl = returndata.get("profileUrl")
                                 playersignature = returndata.get("signatureUrl")
                                 try:
@@ -44,7 +48,6 @@ class rlrank:
                                         content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                         await self.discordembed(channel, content)
                                 else:
-#                                        await self.discordsendfile(channel, self.image)
                                         content = Embed(title="Here are the Rocket League ranks for:", description="[" + gamertag + "](" + playerurl + ")", color=10604116)
                                         content.set_image(url=playersignature)
                                         await self.discordembed(channel, content)
@@ -66,7 +69,7 @@ class rlrank:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
                         except rls.exceptions.ResourceNotFound:
-                                error = "Fail. There was an issue finding your gamertag in the <http://rocketleaguestats.com/> database."
+                                error = "Fail. I could not find your gamertag in the <http://rocketleaguestats.com/> database."
                                 return error
                         else:
                                 if "displayName" in playerdata.json():
@@ -75,7 +78,7 @@ class rlrank:
                                         error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
                                         return error
                                 else:
-                                        return "Fail.  Not sure how we got here."
+                                        return "Fail.  Not sure how we got here. - ask an admin"
 
         def parsejson(self, file):
                 """Take a json file and return dictionary"""
