@@ -72,7 +72,7 @@ class rlrank:
                                 return error
                         else:
                                 if "displayName" in playerdata.json():
-                                        return playerdata
+                                        return playerdata.json()
                                 elif "code" in playerdata.json():
                                         error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
                                         return error
