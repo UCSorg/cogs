@@ -48,8 +48,8 @@ class rlrank:
                                                 if '13' in allranks:
                                                         ranks.append(allranks['13']['tier'])
                                                 break
-                                        playerurl = returndata.get("profileUrl")
-                                        playersignature = returndata.get("signatureUrl")
+                                        playerurl = returndata.get("profileUrl", "http://google.com")
+                                        playersignature = returndata.get("signatureUrl", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png")
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
@@ -60,7 +60,7 @@ class rlrank:
                                         await self.discordembed(channel, content)
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
-                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
+                                        content = discord.Embed(title=gamertag, description="Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
                                         await self.discordembed(channel, content)
 
         def getrank(self, platform, gamertag):
