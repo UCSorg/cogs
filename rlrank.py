@@ -113,7 +113,7 @@ class rlrank:
                 """Simple attachment in discord"""
                 await self.bot.send_file(channel, file)
 
-        async def discordembed(self, channel, content)
+        async def discordembed(self, channel, content):
                 """Simple embed in discord"""
                 await self.bot.send_message(channel, embed=content)
 
