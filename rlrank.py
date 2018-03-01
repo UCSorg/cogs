@@ -34,13 +34,13 @@ class rlrank:
                         content = Embed(title="Error", description="I'm pretty sure platform, " + platform + ", is not a real console.", color=16713736)
                         await self.discordembed(channel, content)
                 else:
-                        returndata = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
-                        if "Fail" in returndata: #if error code, respond with error code message
-                                content = Embed(title="Error", description=returndata, color=16713736)
+                        data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                        if "Fail" in data: #if error code, respond with error code message
+                                content = Embed(title="Error", description=data, color=16713736)
                                 await self.discordembed(channel, content)
                         else: #else find the player url and signature and respond with those
-                                playerurl = returndata.get("profileUrl")
-                                playersignature = returndata.get("signatureUrl")
+                                playerurl = data.get("profileUrl")
+                                playersignature = data.get("signatureUrl")
                                 try:
                                         playerurl
                                         playersignature
@@ -73,6 +73,7 @@ class rlrank:
                                 return error
                         except rls.exceptions.BadRequest:
                                 error = "Fail.  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
+                                return error
                         else:
                                 if "displayName" in playerdata.json():
                                         return playerdata.json()
