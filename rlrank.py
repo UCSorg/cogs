@@ -35,8 +35,13 @@ class rlrank:
                                 content = Embed(title="Error", description=returndata, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                playerurl = returndata.get('profileUrl', "http://google.com")
-                                playersignature = returndata.get('signatureUrl', "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png")
+                                for k,v in returndata.items():
+                                        if 'profileUrl' == k:
+                                                playerurl = v
+                                        if 'signatureUrl' == k:
+                                                playersignature = v
+#                                playerurl = returndata.get('profileUrl', "http://google.com")
+#                                playersignature = returndata.get('signatureUrl', "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png")
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
