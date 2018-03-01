@@ -55,6 +55,8 @@ class rlrank:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
                                 try:
                                         allranks
+                                        playerurl
+                                        playersignature
                                 except NameError:
                                         content = discord.embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                         await self.discordembed(channel, content)
