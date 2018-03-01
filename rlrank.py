@@ -45,10 +45,8 @@ class rlrank:
                                         await self.discordembed(channel, content)
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
-                                        await self.discordsay(playerurl)
-                                        await self.discordsay(playersignature)
-#                                        content = discord.Embed(title=gamertag, description="Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
-#                                        await self.discordembed(channel, content)
+                                        content = discord.Embed(title=gamertag, description="Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
+                                        await self.discordembed(channel, content)
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
