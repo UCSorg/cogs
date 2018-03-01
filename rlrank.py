@@ -48,7 +48,7 @@ class rlrank:
                                         content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                         await self.discordembed(channel, content)
                                 else:
-                                        content = Embed(title="Click here for more detailed stats about " + gamertag, color=10604116)
+                                        content = Embed(title="Click here for more detailed stats about " + gamertag, url=playerurl, color=10604116)
                                         content.set_image(url=playersignature)
                                         await self.discordembed(channel, content)
 
