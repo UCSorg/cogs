@@ -8,7 +8,7 @@ from .utils import checks
 import urllib
 import pprint
 
-class memlostats:
+class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League rank based on gamertag and platform input and sets a role"""
 
         def __init__(self, bot):
@@ -19,8 +19,8 @@ class memlostats:
                 self.apikey = "data/rlstats/rls-api.json"
 
         @commands.command(pass_context=True)
-        async def stats(self, ctx, platform, *, gamertag : str):
-                """Find your RL stats and get your role updated to match your rank"""
+        async def rlrank(self, ctx, platform, *, gamertag : str):
+                """Find your RL stats with a link"""
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
@@ -55,18 +55,9 @@ class memlostats:
                                 except NameError:
                                         await self.discordsay("I had trouble finding information about you on rocketleaguestats.com") 
                                 else:
-                                        maxrankint = str(max(ranks))
-                                        await self.discordsendfile(channel, self.image)
-                                        if "0" in maxrankint:
-                                                await self.discordsay("Looks like you need to play some ranked games for me to set your rank.")
-                                        else:
-                                                maxrank = self.matchtier(maxrankint)
-                                                await self.discordsay("Your highest rank in season `" + latestseason + "` is `" + maxrank + "`.")
-                                                #match user roles to server roles and remove old rank
-                                                #<code>
-                                                #set new rank                                                
-                                                applyrole = self.member_apply_role(server, author, maxrank)
-                                                await self.discordsay(applyrole)
+#                                        await self.discordsendfile(channel, self.image)
+                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks:", url=returndata['profileUrl'], color=16401905, image=self.image,)
+                                        await self.bot.send_message(channel, embed=content)
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -110,21 +101,6 @@ class memlostats:
                         data_dict = ast.literal_eval(data)
                         return data_dict
 
-        def matchtier(self, rankint):
-                """Using the RL Tier Legend, change the rankint into namedrank"""
-                legend = self.parsejson(self.legend) #parse the legend json file
-                for k,v in legend.items(): #loop through to find the rankint
-                        if rankint == k:
-                                namedrank = v
-                                break
-                try:
-                        namedrank
-                except NameError:
-                        error = "Fail. Welp, a NameError occurred when looking at ranks"
-                        return error
-                else:
-                        return namedrank
-
         async def discordsay(self, data):
                 """Simple text in discord"""
                 await self.bot.say(data)
@@ -132,40 +108,6 @@ class memlostats:
         async def discordsendfile(self, channel, file):
                 """Simple attachment in discord"""
                 await self.bot.send_file(channel, file)
-
-
-
-        async def server_has_role(self, server, role):
-                if role in [role.name for role in server.roles]:
-                        return True
-                return False
-
-        async def server_get_role(self, server, role):
-                if await self.server_has_role(server, role):
-                        return [r for r in server.roles if r.name == role][0]
-                return False
-
-        async def member_apply_role(self, server, member, role):
-                if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
-                        try:
-                                role = await self.server_get_role(server, role)
-                                await self.bot.add_roles(member, role)
-                                return "Completed"
-                        except discord.Forbidden:
-                                return "Not Completed"
-                        else:
-                                return "Completed"
-
-        async def member_remove_role(self, server, member, role):
-                if await self.bot_has_role(server, role) and await self.server_has_role(server, role):
-                        try:
-                                role = await self.server_get_role(server, role)
-                                await self.bot.remove_roles(member, role)
-                                return 0
-                        except discord.Forbidden:
-                                return 2
-                        else:
-                                return 1
 
 def setup(bot):
         action = memlostats(bot)
