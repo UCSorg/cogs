@@ -79,6 +79,13 @@ class rlrank:
                                 else:
                                         return "Fail.  Not sure how we got here."
 
+        def parsejson(self, file):
+                """Take a json file and return dictionary"""
+                with open(file, 'r') as f:
+                        data = f.read()
+                        data_dict = ast.literal_eval(data)
+                        return data_dict
+
 
         async def discordsay(self, data):
                 """Simple text in discord"""
