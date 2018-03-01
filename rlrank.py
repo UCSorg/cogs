@@ -71,6 +71,8 @@ class rlrank:
                         except rls.exceptions.ResourceNotFound:
                                 error = "Fail. I could not find your gamertag, " + gamertag + ", in the <http://rocketleaguestats.com/> database."
                                 return error
+                        except rls.exceptions.BadRequest:
+                                error = "Fail.  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
                         else:
                                 if "displayName" in playerdata.json():
                                         return playerdata.json()
