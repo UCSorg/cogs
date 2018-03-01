@@ -32,7 +32,8 @@ class rlrank:
                 else:
                         returndata = self.getrank(platform.lower(), gamertag)
                         if "Fail" in returndata:
-                                await self.discordsay(returndata)
+                                content = discord.embed(title="Error", description=returndata, color=16713736)
+                                await self.discordembed(channel, content)
                         else:
                                 ranks =[]
                                 for k,v in returndata.items():
@@ -48,17 +49,19 @@ class rlrank:
                                                         ranks.append(allranks['13']['tier'])
                                                 break
                                         playerurl = returndata.get("profileUrl")
+                                        playersignature = returndata.get("signatureUrl")
 #                               when done like this the error throws after each loop where latestseason != k... need to think this one through
 #                               else:
 #                                       await self.discordsay("There wasn't any information regarding the latest season.")    
                                 try:
                                         allranks
                                 except NameError:
-                                        await self.discordsay("I had trouble finding information about you on rocketleaguestats.com") 
+                                        content = discord.embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                                        await self.discordembed(channel, content)
                                 else:
 #                                        await self.discordsendfile(channel, self.image)
-                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks:", url=playerurl, color=16401905, image=self.image,)
-                                        await self.bot.send_message(channel, embed=content)
+                                        content = discord.Embed(title= gamertag, description = "Here are your Rocket League ranks: [" + gamertag + "](" + playerurl + ")", url=playerurl, color=10604116, image=playersignature)
+                                        await self.discordembed(channel, content)
 
         def getrank(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -109,6 +112,10 @@ class rlrank:
         async def discordsendfile(self, channel, file):
                 """Simple attachment in discord"""
                 await self.bot.send_file(channel, file)
+
+        async def discordembed(self, channel, content)
+                """Simple embed in discord"""
+                await self.bot.send_message(channel, embed=content)
 
 def setup(bot):
         action = rlrank(bot)
