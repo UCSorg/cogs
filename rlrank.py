@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord import Embed
 import rls
 from rls.rocket import RocketLeague
 import json
