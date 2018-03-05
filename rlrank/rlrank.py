@@ -103,7 +103,10 @@ class rlrank:
                                 error = "Fail. I could not find your gamertag, `" + gamertag + "`, in the <http://rocketleaguestats.com/> database."
                                 return error
                         except rls.exceptions.BadRequest:
-                                error = "Fail.  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
+                                error = "Fail.  RLS Exception BadRequest:  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
+                                return error
+                        except rls.exceptions.Unauthorized:
+                                error = "Fail.  RLS Exception Unauthorized: Not the only reason, but likely your API Key is not correct.  Please have an Admin set this using !rlrankapi"
                                 return error
                         else:
                                 if "displayName" in playerdata.json():
