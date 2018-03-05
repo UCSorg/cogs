@@ -52,7 +52,7 @@ class rlrank:
                 author = str(ctx.message.author)
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 #reverse error handling for easier understanding
-                if dataIO.self.apikey['key'] == "Error"
+                if dataIO.self.apikey['key'] == "Error":
                         content = Embed(title="Error", description="Please have an Admin set the API Key before using !rlrank.  Set the API Key using !rlrankapi.", color=16713736)
                         await self.discordembed(channel, conetent)
                 else:
