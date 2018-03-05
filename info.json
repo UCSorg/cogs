@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Memlo and Eny",
+    "INSTALL_MSG" : "Thanks for installing a cog for Rocket League Stats.  If you have any questions, please message us via discord @Memlo#1337.",
+    "NAME" : "rlrank",
+    "SHORT" : "[p]rlrank is used for finding Rocket League stats",
+    "DESCRIPTION" : "Using Rocket League Stats API, you can find stats on any player",
+    "TAGS" : ["rocket league", "rl", "stats"],
+    "REQUIREMENTS" : ["rls", "urllib"],
+    "HIDDEN" : false
+}
