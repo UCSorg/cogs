@@ -34,6 +34,7 @@ class rlrank:
         @rlrankapi.command(pass_context=True, name="key")
         async def rlrankapi_key(self, ctx, *, apiresponse):
                 """Set the RLS API Key"""
+                channel = ctx.message.channel
                 self.apikey['key'] = apiresponse
                 dataIO.save_json(apipath, self.apikey)
                 content = Embed(title="Success", description="I have successfully set your RLS API Key to: " + apiresponse, color=10604116)
