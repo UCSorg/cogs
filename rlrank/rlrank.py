@@ -13,14 +13,15 @@ apipath = "data/rlrank/rls-apikey.json"
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
-
-
+apidefault = {"key" : "Error"}
 
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
 
         def __init__(self, bot):
                 self.bot = bot
+                if not os.path.isfile(apipath):
+                        dataIO.save_json(apikey, apidefault)
                 self.apikey = dataIO.load_json(apipath)
 
         @commands.group(pass_context=True, no_pm=True, invoke_without_command=True)
@@ -33,7 +34,8 @@ class rlrank:
         @rlrankapi.command(pass_context=True, name="key")
         async def rlrankapi_key(self, ctx, *, apiresponse):
                 """Set the RLS API Key"""
-                dataIO.save_json(self.apikey['key'], apiresponse)
+                self.apikey['key'] = apiresponse
+                dataIO.save_json(apipath, self.apikey)
 
         @rlrankapi.command(pass_context=True, name="help")
         async def rlrankapi_help(self, ctx):
