@@ -3,8 +3,8 @@ from discord.ext import commands
 from discord import Embed
 import rls
 from rls.rocket import RocketLeague
-import json
 import ast
+import os
 from .utils import checks
 from .utils.dataIO import dataIO
 from __main__ import send_cmd_help
@@ -30,12 +30,10 @@ class rlrank:
                 if ctx.invoked_subcommand is None:
                         await send_cmd_help(ctx)
 
-
         @rlrankapi.command(pass_context=True, name="key")
         async def rlrankapi_key(self, ctx, *, apiresponse):
                 """Set the RLS API Key"""
-                rlsapikey = "{1:'" + apiresponse + "'}"
-                dataIO.save_json(self.apikey, rlsapikey)
+                dataIO.save_json(self.apikey['key'], apiresponse)
 
         @rlrankapi.command(pass_context=True, name="help")
         async def rlrankapi_help(self, ctx):
@@ -78,8 +76,7 @@ class rlrank:
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
-                apikey = self.parsejson(self.apikey)[1] #call the API key from json file
-                rocket = RocketLeague(api_key=apikey)
+                rocket = RocketLeague(api_key=self.apikey['key'])
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                 for k,v in platformlegend.items(): #using the platform legend, find the platform ID
                         if platform == k:
@@ -106,13 +103,6 @@ class rlrank:
                                         return error
                                 else:
                                         return "Fail.  Not sure how we got here. - ask an admin"
-
-        def parsejson(self, file):
-                """Take a json file and return dictionary"""
-                with open(file, 'r') as f:
-                        data = f.read()
-                        data_dict = ast.literal_eval(data)
-                        return data_dict
 
 
         async def discordsay(self, data):
