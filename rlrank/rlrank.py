@@ -36,6 +36,8 @@ class rlrank:
                 """Set the RLS API Key"""
                 self.apikey['key'] = apiresponse
                 dataIO.save_json(apipath, self.apikey)
+                content = Embed(title="Success", description="I have successfully set your RLS API Key to: " + apiresponse, color=10604116)
+                await self.discordembed(channel, content)
 
         @rlrankapi.command(pass_context=True, name="help")
         async def rlrankapi_help(self, ctx):
