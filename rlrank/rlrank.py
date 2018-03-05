@@ -6,18 +6,42 @@ from rls.rocket import RocketLeague
 import json
 import ast
 from .utils import checks
-import urllib
-import pprint
+from .utils.dataIO import dataIO
+from __main__ import send_cmd_help
+
+apipath = "data/rlrank/rls-apikey.json"
+tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
+                7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
+                13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
+
+
 
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
 
         def __init__(self, bot):
                 self.bot = bot
-                self.image = "data/rlstats/signature.png"
-                self.json = "data/rlstats/rlstats.json"
-                self.legend = "data/rlstats/tierlegend.json"
-                self.apikey = "data/rlstats/rls-api.json"
+                self.apikey = dataIO.load_json(apipath)
+
+        @commands.group(pass_context=True, no_pm=True, invoke_without_command=True)
+        @checks.admin_or_permissions(manage_server=True)
+        async def rlrankapi(self, ctx):
+                """Admin set RLS API Key.  This must be performed before using rlrank command."""
+                if ctx.invoked_subcommand is None:
+                        await send_cmd_help(ctx)
+
+
+        @rlrankapi.command(pass_context=True, name="key")
+        async def rlrankapi_key(self, ctx, *, apiresponse):
+                """Set the RLS API Key"""
+                rlsapikey = "{1:'" + apiresponse + "'}"
+                dataIO.save_json(self.apikey, rlsapikey)
+
+        @rlrankapi.command(pass_context=True, name="help")
+        async def rlrankapi_help(self, ctx):
+                """Specific instructions to get an RLS API Key."""
+                content = Embed(title="RLS API Key Information", description="Please click the link to get a RLS API Key", url="https://developers.rocketleaguestats.com/", color=16114700)
+                await discordembed(channel, content)
 
         @commands.command(pass_context=True)
         async def rlrank(self, ctx, platform, *, gamertag : str):
