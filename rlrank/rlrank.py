@@ -54,7 +54,7 @@ class rlrank:
                 #reverse error handling for easier understanding
                 if self.apikey['key'] == "Error":
                         content = Embed(title="Error", description="Please have an Admin set the API Key before using !rlrank.  Set the API Key using !rlrankapi.", color=16713736)
-                        await self.discordembed(channel, conetent)
+                        await self.discordembed(channel, content)
                 else:
                         if platform.lower() in "switch":
                                 content = Embed(title="Error", description="I'm sorry, but the Nintendo Switch is not supported for stat tracking.", color=16713736)
