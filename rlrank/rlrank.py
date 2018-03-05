@@ -37,7 +37,7 @@ class rlrank:
                 channel = ctx.message.channel
                 self.apikey['key'] = apiresponse
                 dataIO.save_json(apipath, self.apikey)
-                content = Embed(title="Success", description="I have successfully set your RLS API Key to: " + apiresponse, color=10604116)
+                content = Embed(title="Success", description="I have successfully set your RLS API Key to: `" + apiresponse + "`", color=10604116)
                 await self.discordembed(channel, content)
 
         @rlrankapi.command(pass_context=True, name="help")
@@ -63,7 +63,7 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm sorry, but the Nintendo Switch is not supported for stat tracking.", color=16713736)
                                 await self.discordembed(channel, content)
                         elif platform.lower() not in acceptedplatforms:
-                                content = Embed(title="Error", description="I'm pretty sure platform, " + platform + ", is not a real console.", color=16713736)
+                                content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
                                 data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
@@ -100,7 +100,7 @@ class rlrank:
                         try:
                                 playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
                         except rls.exceptions.ResourceNotFound:
-                                error = "Fail. I could not find your gamertag, " + gamertag + ", in the <http://rocketleaguestats.com/> database."
+                                error = "Fail. I could not find your gamertag, `" + gamertag + "`, in the <http://rocketleaguestats.com/> database."
                                 return error
                         except rls.exceptions.BadRequest:
                                 error = "Fail.  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
