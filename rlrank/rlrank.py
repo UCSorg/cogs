@@ -38,6 +38,7 @@ class rlrank:
         @rlrankapi.command(pass_context=True, name="help")
         async def rlrankapi_help(self, ctx):
                 """Specific instructions to get an RLS API Key."""
+                channel = ctx.message.channel
                 content = Embed(title="RLS API Key Information", description="Please click the link to get a RLS API Key", url="https://developers.rocketleaguestats.com/", color=16114700)
                 await self.discordembed(channel, content)
 
