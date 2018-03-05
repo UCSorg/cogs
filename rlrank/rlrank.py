@@ -52,30 +52,34 @@ class rlrank:
                 author = str(ctx.message.author)
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 #reverse error handling for easier understanding
-                if platform.lower() in "switch":
-                        content = Embed(title="Error", description="I'm sorry, but the Nintendo Switch is not supported for stat tracking.", color=16713736)
-                        await self.discordembed(channel, content)
-                elif platform.lower() not in acceptedplatforms:
-                        content = Embed(title="Error", description="I'm pretty sure platform, " + platform + ", is not a real console.", color=16713736)
-                        await self.discordembed(channel, content)
+                if dataIO.self.apikey['key'] == "Error"
+                        content = Embed(title="Error", description="Please have an Admin set the API Key before using !rlrank.  Set the API Key using !rlrankapi.", color=16713736)
+                        await self.discordembed(channel, conetent)
                 else:
-                        data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
-                        if "Fail" in data: #if error code, respond with error code message
-                                content = Embed(title="Error", description=data, color=16713736)
+                        if platform.lower() in "switch":
+                                content = Embed(title="Error", description="I'm sorry, but the Nintendo Switch is not supported for stat tracking.", color=16713736)
                                 await self.discordembed(channel, content)
-                        else: #else find the player url and signature and respond with those
-                                playerurl = data.get("profileUrl")
-                                playersignature = data.get("signatureUrl")
-                                try:
-                                        playerurl
-                                        playersignature
-                                except NameError:
-                                        content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                        elif platform.lower() not in acceptedplatforms:
+                                content = Embed(title="Error", description="I'm pretty sure platform, " + platform + ", is not a real console.", color=16713736)
+                                await self.discordembed(channel, content)
+                        else:
+                                data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                                if "Fail" in data: #if error code, respond with error code message
+                                        content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
-                                else:
-                                        content = Embed(title="Click here for more detailed stats about " + gamertag, url=playerurl, color=10604116)
-                                        content.set_image(url=playersignature)
-                                        await self.discordembed(channel, content)
+                                else: #else find the player url and signature and respond with those
+                                        playerurl = data.get("profileUrl")
+                                        playersignature = data.get("signatureUrl")
+                                        try:
+                                                playerurl
+                                                playersignature
+                                        except NameError:
+                                                content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                                                await self.discordembed(channel, content)
+                                        else:
+                                                content = Embed(title="Click here for more detailed stats about " + gamertag, url=playerurl, color=10604116)
+                                                content.set_image(url=playersignature)
+                                                await self.discordembed(channel, content)
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
