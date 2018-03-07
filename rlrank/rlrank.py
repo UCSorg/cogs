@@ -21,7 +21,7 @@ class rlrank:
         def __init__(self, bot):
                 self.bot = bot
                 if not os.path.isfile(apipath):
-                        dataIO.save_json(apikey, apidefault)
+                        dataIO.save_json(apipath, apidefault)
                 self.apikey = dataIO.load_json(apipath)
 
         @commands.group(pass_context=True, no_pm=True, invoke_without_command=True)
