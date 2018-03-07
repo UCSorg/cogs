@@ -15,12 +15,18 @@ tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silv
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
 apidefault = {"key" : "Error"}
 
+def check_folders():
+    if not os.path.exists("data/rlrank"):
+        print("Creating data/rlrank folder...")
+        os.makedirs("data/rlrank")
+
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
 
         def __init__(self, bot):
                 self.bot = bot
                 if not os.path.isfile(apipath):
+
                         dataIO.save_json(apipath, apidefault)
                 self.apikey = dataIO.load_json(apipath)
 
