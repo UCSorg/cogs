@@ -3,6 +3,10 @@ Cogs for Red discord bot PY
 
 building out some .py scripts that will run as modules in Red.  Intended for use on UCS Gaming Discord.  Key contributors: Matt Miller and Patrik Srna
 
+Completed cogs should be in folders with info.json files, such as:
+  - rlrank
+
+In progress cogs are categorized below:
 Scripts include pulling rocket league stats
   - memlostats
   - rlstats
@@ -12,7 +16,7 @@ interracting to gather information
   - kitt
 
 adding and removing voicechannels based on usage
-  - memlovoicechannle
+  - memlovoicechannel
 
 adding and removing roles
   - memlorolemanager
