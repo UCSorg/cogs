@@ -63,6 +63,9 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
+                                await self.discordsay(self.apikey)
+                                await self.discordsay(platform.lower)
+                                await self.discordsay(gamertag)
                                 data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
                                 if "Fail" in data: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
@@ -80,10 +83,7 @@ class rlrank:
                                                 content = Embed(title="Click here for more detailed stats about " + gamertag, url=playerurl, color=10604116)
                                                 content.set_image(url=playersignature)
 #                                                await self.discordembed(channel, content)
-                                                await self.discordsay(playerurl)
-                                                await self.discordsay(self.apikey)
-                                                await self.discordsay(platform.lower)
-                                                await self.discordsay(gamertag)
+#                                                await self.discordsay(playerurl)
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
