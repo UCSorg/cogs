@@ -97,7 +97,7 @@ class rlrank:
                 else:
                         try:
                                 headers = {'Authorization' : apikey}
-                                params = (('unique_id', gamertag), ('platform_id', platform),)
+                                params = (('unique_id', gamertag), ('platform_id', platformid),)
                                 playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
 #                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
                         except rls.exceptions.ResourceNotFound:
@@ -114,7 +114,7 @@ class rlrank:
                                         return playerdata.json()
                                         dataIO.save_json("data/rlrank/player.json", playerdata.json())
                                 elif "code" in playerdata.json():
-                                        error = "Fail. Error: " + str(playerdata.json()['code']) + ". " + playerdata.json()['message']
+                                        error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
                                         return error
                                 else:
                                         return "Fail.  Not sure how we got here. - ask an admin"
