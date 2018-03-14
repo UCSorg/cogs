@@ -51,8 +51,9 @@ class rlrank:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
+                apikey = self.apikey['key']
                 #reverse error handling for easier understanding
-                if self.apikey['key'] == "Error":
+                if apikey == "Error":
                         content = Embed(title="Error", description="Please have an Admin set the API Key before using !rlrank.  Set the API Key using !rlrankapi.", color=16713736)
                         await self.discordembed(channel, content)
                 else:
@@ -63,7 +64,7 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                data = self.rlsapi(platform, gamertag, self.apikey['key']) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                                data = self.rlsapi(platform, gamertag, apikey) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
                                 if "Fail" in data: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
@@ -83,7 +84,6 @@ class rlrank:
 
         def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
-#                rocket = RocketLeague(api_key=self.apikey['key'])
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                 for k,v in platformlegend.items(): #using the platform legend, find the platform ID
                         if platform == k:
@@ -92,12 +92,14 @@ class rlrank:
                 try:
                         platformid
                 except NameError:
-                        return "getrank NameError - ask an admin"
+                        return "rlsapi NameError - ask an admin"
                 else:
                         try:
                                 headers = {'Authorization' : apikey}
                                 params = (('unique_id', gamertag), ('platform_id', platformid),)
                                 playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
+                        except NameError:
+                                return "rlsapi NameError - ask an admin"
                         else:
                                 if "displayName" in playerdata.json():
                                         return playerdata.json()
