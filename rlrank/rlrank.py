@@ -84,6 +84,8 @@ class rlrank:
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
                                                 content.set_image(url=imageurl)
                                                 await self.discordembed(channel, content)
+                                                await self.discordsay(imageurl)
+                                                await self.discordsendfile(channel, imageurl)
 
         def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
