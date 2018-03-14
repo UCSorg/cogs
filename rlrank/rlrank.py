@@ -85,7 +85,6 @@ class rlrank:
                                                 urllib.request.install_opener(opener)
                                                 urllib.request.urlretrieve(playersignature, image)
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
-                                                content.set_image(url=playersignature)
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
 
