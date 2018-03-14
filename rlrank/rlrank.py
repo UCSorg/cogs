@@ -80,6 +80,9 @@ class rlrank:
                                                 await self.discordembed(channel, content)
                                         else:
                                                 image = "data/rlrank/playersignature.png"
+                                                opener=urllib.request.build_opener() #download and save the rocket league signature image
+                                                opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                                                urllib.request.install_opener(opener)
                                                 urllib.request.urlretrieve(playersignature, image)
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
                                                 content.set_image(url=playersignature)
