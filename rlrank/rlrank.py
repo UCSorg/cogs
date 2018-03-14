@@ -1,9 +1,8 @@
 import discord
 from discord.ext import commands
 from discord import Embed
-import rls
+import requests
 from rls.rocket import RocketLeague
-import ast
 import os
 from .utils import checks
 from .utils.dataIO import dataIO
@@ -84,7 +83,7 @@ class rlrank:
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
-                rocket = RocketLeague(api_key=self.apikey['key'])
+#                rocket = RocketLeague(api_key=self.apikey['key'])
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                 for k,v in platformlegend.items(): #using the platform legend, find the platform ID
                         if platform == k:
@@ -96,7 +95,10 @@ class rlrank:
                         return "getrank NameError - ask an admin"
                 else:
                         try:
-                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
+                                headers = {'Authorization' : self.apikey['key']}
+                                params = (('unique_id', gamertag), ('platform_id', platform),)
+                                playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
+#                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
                         except rls.exceptions.ResourceNotFound:
                                 error = "Fail. I could not find your gamertag, `" + gamertag + "`, in the <http://rocketleaguestats.com/> database."
                                 return error
