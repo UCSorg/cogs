@@ -109,7 +109,7 @@ class rlrank:
                                 error = "Fail.  RLS Exception Unauthorized: Not the only reason, but likely your API Key is not correct.  Please have an Admin set this using !rlrankapi"
                                 return error
                         else:
-                                return playerdata.json():
+                                return playerdata.json()
 #                                if "displayName" in playerdata.json():
 #                                        return playerdata.json()
 #                                elif "code" in playerdata.json():
