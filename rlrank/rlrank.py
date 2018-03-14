@@ -79,8 +79,7 @@ class rlrank:
                                         else:
                                                 content = Embed(title="Click here for more detailed stats about " + gamertag, url=playerurl, color=10604116)
                                                 content.set_image(url=playersignature)
-#                                                await self.discordembed(channel, content)
-#                                                await self.discordsay(playerurl)
+                                                await self.discordembed(channel, content)
 
         def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
@@ -99,16 +98,6 @@ class rlrank:
                                 headers = {'Authorization' : apikey}
                                 params = (('unique_id', gamertag), ('platform_id', platformid),)
                                 playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
-#                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
-                        except rls.exceptions.ResourceNotFound:
-                                error = "Fail. I could not find your gamertag, `" + gamertag + "`, in the <http://rocketleaguestats.com/> database."
-                                return error
-                        except rls.exceptions.BadRequest:
-                                error = "Fail.  RLS Exception BadRequest:  There was something wrong with the request and this process did not work with the <http://rocketleaguestats.com/> database."
-                                return error
-                        except rls.exceptions.Unauthorized:
-                                error = "Fail.  RLS Exception Unauthorized: Not the only reason, but likely your API Key is not correct.  Please have an Admin set this using !rlrankapi"
-                                return error
                         else:
                                 if "displayName" in playerdata.json():
                                         return playerdata.json()
