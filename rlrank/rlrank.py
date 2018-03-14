@@ -114,7 +114,7 @@ class rlrank:
                                         return playerdata.json()
                                         dataIO.save_json("data/rlrank/player.json", playerdata.json())
                                 elif "code" in playerdata.json():
-                                        error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
+                                        error = "Fail. Error: " + str(playerdata.json()['code']) + ". " + playerdata.json()['message']
                                         return error
                                 else:
                                         return "Fail.  Not sure how we got here. - ask an admin"
