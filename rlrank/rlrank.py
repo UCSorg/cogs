@@ -72,7 +72,7 @@ class rlrank:
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
                                         uniqueid = data.get('uniqueId')
-                                        platformname = playerdata.json().get("platform").get("name")
+                                        platformname = data.json().get("platform").get("name")
                                         imageurl = "http://signature.rocketleaguestats.com/normal/%s/%s.png" % (platformname,uniqueid)
                                         try:
                                                 playerurl
