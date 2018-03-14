@@ -7,6 +7,7 @@ import os
 from .utils import checks
 from .utils.dataIO import dataIO
 from __main__ import send_cmd_help
+import urllib.request
 
 apipath = "data/rlrank/rls-apikey.json"
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
@@ -71,9 +72,6 @@ class rlrank:
                                 else: #else find the player url and signature and respond with those
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
-                                        uniqueid = data.get('uniqueId')
-                                        platformname = data.get("platform").get("name")
-                                        imageurl = "http://signature.rocketleaguestats.com/normal/%s/%s.png" % (platformname,uniqueid)
                                         try:
                                                 playerurl
                                                 playersignature
@@ -81,11 +79,12 @@ class rlrank:
                                                 content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                                 await self.discordembed(channel, content)
                                         else:
+                                                image = "data/rlrank/playersignature.png"
+                                                urllib.request.urlretrieve(playersignature, image)
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
-                                                content.set_image(url=imageurl)
+                                                content.set_image(url=playersignature)
                                                 await self.discordembed(channel, content)
-                                                await self.discordsay(imageurl)
-                                                await self.discordsendfile(channel, imageurl)
+                                                await self.discordsendfile(channel, image)
 
         def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
