@@ -63,10 +63,10 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                await self.discordsay(self.apikey)
-                                await self.discordsay(platform.lower)
+                                await self.discordsay(self.apikey['key'])
+                                await self.discordsay(platform.lower())
                                 await self.discordsay(gamertag)
-                                data = self.rlsapi(platform.lower(), gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                                data = self.rlsapi(platform, gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
                                 if "Fail" in data: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
