@@ -71,6 +71,9 @@ class rlrank:
                                 else: #else find the player url and signature and respond with those
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
+                                        uniqueid = data.get('uniqueId')
+                                        platformname = playerdata.json().get("platform").get("name")
+                                        imageurl = "http://signature.rocketleaguestats.com/normal/%s/%s.png" % (platformname,uniqueid)
                                         try:
                                                 playerurl
                                                 playersignature
@@ -79,9 +82,8 @@ class rlrank:
                                                 await self.discordembed(channel, content)
                                         else:
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
-#                                                content.set_image(url=playersignature)
+                                                content.set_image(url=imageurl)
                                                 await self.discordembed(channel, content)
-                                                await self.discordsay(playersignature)
 
         def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
