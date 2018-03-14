@@ -81,6 +81,9 @@ class rlrank:
                                                 content.set_image(url=playersignature)
 #                                                await self.discordembed(channel, content)
                                                 await self.discordsay(playerurl)
+                                                await self.discordsay(self.apikey)
+                                                await self.discordsay(platform.lower)
+                                                await self.discordsay(gamertag)
 
         def rlsapi(self, platform, gamertag):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
