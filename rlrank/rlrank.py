@@ -109,15 +109,14 @@ class rlrank:
                                 error = "Fail.  RLS Exception Unauthorized: Not the only reason, but likely your API Key is not correct.  Please have an Admin set this using !rlrankapi"
                                 return error
                         else:
-                                dataIO.save_json('data/rlrank/player.json', playerdata.json())
-#                                return playerdata.json()
-#                                if "displayName" in playerdata.json():
-#                                        return playerdata.json()
-#                                elif "code" in playerdata.json():
-#                                        error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
-#                                        return error
-#                                else:
-#                                        return "Fail.  Not sure how we got here. - ask an admin"
+                                return playerdata.json()
+                                if "displayName" in playerdata.json():
+                                        return playerdata.json()
+                                elif "code" in playerdata.json():
+                                        error = "Fail. Error: " + playerdata.json()['code'] + ". " + playerdata.json()['message']
+                                        return error
+                                else:
+                                        return "Fail.  Not sure how we got here. - ask an admin"
 
 
         async def discordsay(self, data):
