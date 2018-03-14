@@ -63,10 +63,7 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                await self.discordsay(self.apikey['key'])
-                                await self.discordsay(platform.lower())
-                                await self.discordsay(gamertag)
-                                data = self.rlsapi(platform, gamertag) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                                data = self.rlsapi(platform, gamertag, self.apikey['key']) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
                                 if "Fail" in data: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
@@ -85,7 +82,7 @@ class rlrank:
 #                                                await self.discordembed(channel, content)
 #                                                await self.discordsay(playerurl)
 
-        def rlsapi(self, platform, gamertag):
+        def rlsapi(self, platform, gamertag, apikey):
                 """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
 #                rocket = RocketLeague(api_key=self.apikey['key'])
                 platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
@@ -99,7 +96,7 @@ class rlrank:
                         return "getrank NameError - ask an admin"
                 else:
                         try:
-                                headers = {'Authorization' : self.apikey['key']}
+                                headers = {'Authorization' : apikey}
                                 params = (('unique_id', gamertag), ('platform_id', platform),)
                                 playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
 #                                playerdata = rocket.players.player(id=gamertag, platform=platformid) #use the gamertag and platform ID to find the json formatted player data
@@ -113,7 +110,6 @@ class rlrank:
                                 error = "Fail.  RLS Exception Unauthorized: Not the only reason, but likely your API Key is not correct.  Please have an Admin set this using !rlrankapi"
                                 return error
                         else:
-                                return playerdata.json()
                                 if "displayName" in playerdata.json():
                                         return playerdata.json()
                                         dataIO.save_json("data/rlrank/player.json", playerdata.json())
