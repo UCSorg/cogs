@@ -45,7 +45,6 @@ class kitt:
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")   
 
-        @commands.command(pass_context=True)
         async def kittbaseinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = str(ctx.message.author)
@@ -82,7 +81,6 @@ class kitt:
                                         tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                         dataIO.save_json(hubdatapath, tmp)
 
-        @commands.command(pass_context=True)
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
@@ -109,7 +107,6 @@ class kitt:
                         else:
                                 await self.bot.say("I think we'll need to start over.") 
 
-        @commands.command(pass_context=True)
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
                 author = str(ctx.message.author)
