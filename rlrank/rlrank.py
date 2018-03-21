@@ -70,7 +70,7 @@ class rlrank:
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
                                 else: #else find the player url and signature and respond with those
-                                        saveplayerdata(author, gamertag, **data)
+                                        saveplayerdata(author, data)
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
                                         try:
@@ -129,7 +129,7 @@ def rlsapi(platform, gamertag, apikey):
             else:
                 return "Fail.  Not sure how we got here. - ask an admin"
 
-def saveplayerdata(playername, gamertag, **playerdict):
+def saveplayerdata(playername, **playerdict):
     """Saves the information about the player to a database for use later"""
     tmp = dataIO.load_json(hubdatapath)
     tmp[playername] = playerdict
