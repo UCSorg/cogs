@@ -41,8 +41,7 @@ class kitt:
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
                                 await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
-
-
+                                await self.aboutme(ctx)
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")
 
