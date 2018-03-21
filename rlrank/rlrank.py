@@ -13,8 +13,6 @@ apidefault = {"key" : "Error"}
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
-hubdatapath = "data/rlrank/hubdata.json"
-hubtdatadefault = {"discordid" : "player1Data"}
 
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
@@ -88,9 +86,6 @@ class rlrank:
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), description="This information updates about once per hour.", url=playerurl, color=10604116)
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
-                                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                                tmp[author] = data
-                                                dataIO.save_json(hubdatapath, tmp)
 
         async def discordsay(self, data):
                 """Simple text in discord"""
@@ -142,10 +137,6 @@ def check_files():
     if not dataIO.is_valid_json(f):
         print("Creating rls-apikey.json...")
         dataIO.save_json(f, apidefault)
-    g = hubdatapath
-    if not dataIO.is_valid_json(g):
-        print("Creating hubdata.json...")
-        dataIO.save_json(g, hubtdatadefault)
 
 def setup(bot):
         check_folders()

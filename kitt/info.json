@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "Memlo and Eny",
+    "INSTALL_MSG" : "Thanks for installing a cog for Rocket League Stats.  If you have any questions, please message us via discord @Memlo#1337.",
+    "NAME" : "kitt",
+    "SHORT" : "[p]kitt is used for interacting and saving player information",
+    "DESCRIPTION" : "save player information and then allow shorthand commands later",
+    "TAGS" : ["rocket league", "rl", "stats"],
+    "REQUIREMENTS" : ["os", "requests", "urllib"],
+    "HIDDEN" : false
+}
