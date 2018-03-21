@@ -41,13 +41,7 @@ class kitt:
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
                                 await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
-                                try:
-                                        authordict = dataIO.load_json(hubdatapath)[author]
-                                except NameError:
-                                        await self.discordsay("I don't have anything about you saved.")
-                                else:
-                                        dataIO.save_json(tempauthorpath, authordict)
-                                        await self.discordsendfile(channel, tempauthorpath)
+
 
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")
@@ -93,7 +87,8 @@ class kitt:
         async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
-                authordict = dataIO.load_json(hubdatapath)[author]
+                data = dataIO.load_json(hubdatapath)
+                authordict = data[author]["baseInfo"]
                 try:
                         gamerid = authordict["gamerid"]
                         platform = authordict["platform"]
@@ -114,6 +109,18 @@ class kitt:
                                         await self.bot.say("Okay, no changes have been made.")
                         else:
                                 await self.bot.say("I think we'll need to start over.")
+
+        @kitt.command(pass_context=True, name="aboutme")
+        async def kitt_aboutme(self, ctx):
+                """Return stored information about the author"""
+                author = str(ctx.message.author)
+                try:
+                        authordict = dataIO.load_json(hubdatapath)[author]
+                except NameError:
+                        await self.discordsay("I don't have anything about you saved.")
+                else:
+                        dataIO.save_json(tempauthorpath, authordict)
+                        await self.discordsendfile(channel, tempauthorpath)     
 
         async def baseinfo(self, ctx):
                 """Find gamerid and platform for author"""
@@ -153,7 +160,8 @@ class kitt:
         async def rlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
-                authordict = dataIO.load_json(hubdatapath)[author]
+                data = dataIO.load_json(hubdatapath)
+                authordict = data[author]["baseInfo"]
                 try:
                         gamerid = authordict["gamerid"]
                         platform = authordict["platform"]
