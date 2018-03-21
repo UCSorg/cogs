@@ -44,7 +44,7 @@ class kitt:
                                 await self.kittbaseinfo(ctx)
                         elif todo.lower() in nlpRLRank:
                                 await self.kittrlrank(ctx)
-                        elif todo.lower() nlpAboutMe:
+                        elif todo.lower() in nlpAboutMe:
                                 await self.kittaboutme(ctx)
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")   
