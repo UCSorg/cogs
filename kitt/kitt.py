@@ -36,6 +36,7 @@ class kitt:
                 author = str(ctx.message.author)
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
+                        await self.discordsay(todo)
                         if "base" or "baseinfo" or "info" in todo.lower():
                                 await self.kittbaseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
