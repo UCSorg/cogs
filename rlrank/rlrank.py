@@ -129,7 +129,7 @@ def rlsapi(platform, gamertag, apikey):
             else:
                 return "Fail.  Not sure how we got here. - ask an admin"
 
-def saveplayerdata(playername, gamertag, playerdict):
+def saveplayerdata(playername, gamertag, **playerdict):
     """Saves the information about the player to a database for use later"""
     tmp = dataIO.load_json(hubdatapath)
     tmp[playername] = playerdict
