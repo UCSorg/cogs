@@ -14,7 +14,7 @@ tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silv
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
 hubdatapath = "data/rlrank/hubdata.json"
-hubtdatadefault = {"discordid" : "playerData"}
+hubtdatadefault = {"discordid" : "player1Data"}
 
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
@@ -89,7 +89,6 @@ class rlrank:
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
                                                 tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                                tmp["discordid"] = author
                                                 tmp[author] = data
                                                 dataIO.save_json(hubdatapath, tmp)
 
