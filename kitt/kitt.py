@@ -43,84 +43,9 @@ class kitt:
                         elif "about" or "aboutme" in todo.lower():
                                 await self.aboutme(ctx)
                         else:
-                                await self.discordsay("I'm not set up to do really anything else at this time.")
+                                await self.discordsay("I'm not set up to do really anything else at this time.")   
 
-        @kitt.command(pass_context=True, name="baseinfo")
-        async def kitt_baseinfo(self, ctx):
-                """Find gamerid and platform for author"""
-                author = str(ctx.message.author)
-                channel = ctx.message.channel
-                acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
-                gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                gamerid = gameridresponse.content.lower().strip()
-                if gameridresponse == "none":
-                        content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
-                        await self.discordembed(channel, content)
-                        pass
-                else:
-                        await self.bot.say("What platform is that for?")
-                        platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                        platform = platformresponse.content.lower().strip()
-                        if platformresponse == "none":
-                                content = Embed(title="Error", description="No platform response.", color=16713736)
-                                await self.discordembed(channel, content)
-                                pass
-                        elif platform.lower() in "switch":
-                                content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
-                                await self.discordembed(channel, content)
-                                pass
-                        elif platform.lower() not in acceptedplatforms:
-                                content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
-                                await self.discordembed(channel, content)
-                                pass
-                        else:
-                                confirmation = await self.question(ctx, "Do you want me to store this for future use?")
-                                if "yes" in confirmation.lower():
-                                        tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
-                                        tmp[author] = {}
-                                        tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
-                                        dataIO.save_json(hubdatapath, tmp)
-
-        @kitt.command(pass_context=True, name="rlrank")
-        async def kitt_rlrank(self, ctx):
-                """Find rocket league stats for author"""
-                author = str(ctx.message.author)
-                data = dataIO.load_json(hubdatapath)
-                authordict = data[author]["baseInfo"]
-                try:
-                        gamerid = authordict["gamerid"]
-                        platform = authordict["platform"]
-                except NameError:
-                        await self.bot.say("I'm going to need some more information first.")
-                        await self.baseinfo(ctx)
-                else:
-                        playerdata = rlrank.rlrank(ctx, platform, gamerid)
-                        confirmation = await self.question(ctx, "Is this you?")
-                        if "yes" in confirmation.lower():
-                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                tmp[author]['rldata'] = playerdata
-                                dataIO.save_json(hubdatapath, tmp)
-                                confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
-                                if "yes" in confirmation.lower():
-                                        await self.bot.say("Process for setting rank goes here.")
-                                elif "no" in confirmation.lower():
-                                        await self.bot.say("Okay, no changes have been made.")
-                        else:
-                                await self.bot.say("I think we'll need to start over.")
-
-        @kitt.command(pass_context=True, name="aboutme")
-        async def kitt_aboutme(self, ctx):
-                """Return stored information about the author"""
-                author = str(ctx.message.author)
-                try:
-                        authordict = dataIO.load_json(hubdatapath)[author]
-                except NameError:
-                        await self.discordsay("I don't have anything about you saved.")
-                else:
-                        dataIO.save_json(tempauthorpath, authordict)
-                        await self.discordsendfile(channel, tempauthorpath)     
-
+        @commands.command(pass_context=True)
         async def baseinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = str(ctx.message.author)
@@ -153,17 +78,19 @@ class kitt:
                                 confirmation = await self.question(ctx, "Do you want me to store this for future use?")
                                 if "yes" in confirmation.lower():
                                         tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
+                                        tmp[author] = {}
                                         tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                         dataIO.save_json(hubdatapath, tmp)
 
+        @commands.command(pass_context=True)
         async def rlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
                 data = dataIO.load_json(hubdatapath)
-                authordict = data[author]["baseInfo"]
                 try:
-                        gamerid = authordict["gamerid"]
-                        platform = authordict["platform"]
+                        baseinfodict = data[author]["baseInfo"]
+                        gamerid = baseinfodict["gamerid"]
+                        platform = baseinfodict["platform"]
                 except NameError:
                         await self.bot.say("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
@@ -182,6 +109,7 @@ class kitt:
                         else:
                                 await self.bot.say("I think we'll need to start over.") 
 
+        @commands.command(pass_context=True)
         async def aboutme(self, ctx):
                 """Return stored information about the author"""
                 author = str(ctx.message.author)
