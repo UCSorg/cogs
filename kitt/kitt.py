@@ -5,6 +5,7 @@ import json
 from .utils import checks
 from .utils.dataIO import dataIO
 from cogs.rlrank import rlrank
+from __main__ import send_cmd_help
 import urllib
 
 """Requirement!  must have rlrank cog installed"""
@@ -60,7 +61,7 @@ class kitt:
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 await self.bot.say("Hey `" + user + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                gamerid = steamidresponse.content.lower().strip()
+                gamerid = gameridresponse.content.lower().strip()
                 if gameridresponse == "none":
                         content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
                         await self.discordembed(channel, content)
