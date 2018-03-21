@@ -35,7 +35,6 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 if ctx.invoked_subcommand is None:
-                        await send_cmd_help(ctx)
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
                                 await self.kitt_baseinfo(ctx)
@@ -90,7 +89,7 @@ class kitt:
                                         dataIO.save_json(hubdatapath, tmp)
                                 
         @kitt.command(pass_context=True, name="rlrank")
-        async def rlrank(self, ctx):
+        async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
                 authordict = dataIO.load_json(hubdatapath)[author]
                 try:
@@ -165,5 +164,7 @@ def check_files():
         dataIO.save_json(f, hubtdatadefault)
 
 def setup(bot):
+        check_folders()
+        check_files()
         action = kitt(bot)
         bot.add_cog(action)
