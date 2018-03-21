@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from discord import Embed
 import requests
-from rls.rocket import RocketLeague
 import os
 from .utils import checks
 from .utils.dataIO import dataIO
@@ -10,10 +9,11 @@ from __main__ import send_cmd_help
 import urllib.request
 
 apipath = "data/rlrank/rls-apikey.json"
+apidefault = {"key" : "Error"}
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
-apidefault = {"key" : "Error"}
+hubdatapath = "data/rlrank/hubdata.json"
 
 class rlrank:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that retrieves a user's Rocket League stats based on gamertag and platform input"""
@@ -65,11 +65,12 @@ class rlrank:
                                 content = Embed(title="Error", description="I'm pretty sure platform, `" + platform + "`, is not a real console.", color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                                data = self.rlsapi(platform.lower(), gamertag, apikey) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
+                                data = rlsapi(platform.lower(), gamertag, apikey) #send platform and gamertag to rlsapi function, get back either an error code or a dictionary
                                 if "Fail" in data: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
                                 else: #else find the player url and signature and respond with those
+                                        saveplayerdata(author, gamertag, data)
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
                                         try:
@@ -84,38 +85,9 @@ class rlrank:
                                                 opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
                                                 urllib.request.install_opener(opener)
                                                 urllib.request.urlretrieve(playersignature, image)
-                                                content = Embed(title="Click here for more detailed stats about %s" %(gamertag), url=playerurl, color=10604116)
+                                                content = Embed(title="Click here for more detailed stats about %s" %(gamertag), description="This information updates about once per hour.", url=playerurl, color=10604116)
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
-
-        def rlsapi(self, platform, gamertag, apikey):
-                """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
-                platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
-                for k,v in platformlegend.items(): #using the platform legend, find the platform ID
-                        if platform == k:
-                                platformid = v
-                                break
-                try:
-                        platformid
-                except NameError:
-                        return "rlsapi NameError - ask an admin"
-                else:
-                        try:
-                                headers = {'Authorization' : apikey}
-                                params = (('unique_id', gamertag), ('platform_id', platformid),)
-                                playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
-                        except NameError:
-                                return "rlsapi NameError - ask an admin"
-                        else:
-                                if "displayName" in playerdata.json():
-                                        return playerdata.json()
-                                        dataIO.save_json("data/rlrank/player.json", playerdata.json())
-                                elif "code" in playerdata.json():
-                                        error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
-                                        return error
-                                else:
-                                        return "Fail.  Not sure how we got here. - ask an admin"
-
 
         async def discordsay(self, data):
                 """Simple text in discord"""
@@ -129,6 +101,40 @@ class rlrank:
                 """Simple embed in discord"""
                 await self.bot.send_message(channel, embed=content)
 
+def rlsapi(platform, gamertag, apikey):
+    """Retrieves Rocket League Stats image from rocketleaguestats.com using their API sends image back"""
+    platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
+    for k,v in platformlegend.items(): #using the platform legend, find the platform ID
+        if platform == k:
+            platformid = v
+            break
+    try:
+        platformid
+    except NameError:
+        return "Fail. rlsapi NameError - ask an admin"
+    else:
+        try:
+            headers = {'Authorization' : apikey}
+            params = (('unique_id', gamertag), ('platform_id', platformid),)
+            playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
+        except NameError:
+            return "rlsapi NameError - ask an admin"
+        else:
+            if "displayName" in playerdata.json():
+                dataIO.save_json("data/rlrank/player.json", playerdata.json())
+                return playerdata.json()                
+            elif "code" in playerdata.json():
+                error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
+                return error
+            else:
+                return "Fail.  Not sure how we got here. - ask an admin"
+
+def saveplayerdata(playername, gamertag, playerdict):
+    """Saves the information about the player to a database for use later"""
+    tmp = dataIO.load_json(hubdatapath)
+    tmp[playername] = playerdict
+    dataIO.save_json(hubdatapath, tmp)
+
 def check_folders():
     if not os.path.exists("data/rlrank"):
         print("Creating data/rlrank folder...")
@@ -139,6 +145,10 @@ def check_files():
     if not dataIO.is_valid_json(f):
         print("Creating rls-apikey.json...")
         dataIO.save_json(f, apidefault)
+    f2 = hubdatapath
+    if not dataIO.is_valid_json(g):
+        print("Creating hubdata.json...")
+        dataIO.save_json(g, "...")
 
 def setup(bot):
         check_folders()

@@ -5,6 +5,6 @@
     "SHORT" : "[p]rlrank is used for finding Rocket League stats",
     "DESCRIPTION" : "Using Rocket League Stats API, you can find stats on any player",
     "TAGS" : ["rocket league", "rl", "stats"],
-    "REQUIREMENTS" : ["rls", "urllib"],
+    "REQUIREMENTS" : ["os", "requests", "urllib"],
     "HIDDEN" : false
 }
