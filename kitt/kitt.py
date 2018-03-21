@@ -37,7 +37,7 @@ class kitt:
                 if ctx.invoked_subcommand is None:
                         todo = await self.question("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
-                                await self.gamerinfo(ctx)
+                                await self.kitt_baseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
                                 await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
@@ -53,7 +53,7 @@ class kitt:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")
 
         @kitt.command(pass_context=True, name="baseinfo")
-        async def gamerinfo(self, ctx):
+        async def kitt_baseinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 user = str(ctx.message.author)
                 channel = ctx.message.channel
@@ -97,7 +97,7 @@ class kitt:
                         platform = authordict["platform"]
                 except NameError:
                         await self.bot.say("I'm going to need some more information first.")
-                        await self.gamerinfo(ctx)
+                        await self.kitt_baseinfo(ctx)
                 else:
                         playerdata = rlrank.rlrank(ctx, platform, gamerid)
                         confirmation = await self.question(ctx, "Is this you?")
