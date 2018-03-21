@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from rls.rocket import RocketLeague
-import json
+import requests
+import os
 from .utils import checks
 from .utils.dataIO import dataIO
 from cogs.rlrank import rlrank
