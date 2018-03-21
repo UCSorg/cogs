@@ -34,14 +34,17 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
+                nlpBase = ["base", "baseinfo", "info"]
+                nlpRLRank = ["rank", "rlrank", "rocket", "league"]
+                nlpAboutMe = ["about", "aboutme"]
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         await self.discordsay(todo)
-                        if "base" or "baseinfo" or "info" in todo.lower():
+                        if todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
-                        elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
+                        elif todo.lower() in nlpRLRank:
                                 await self.kittrlrank(ctx)
-                        elif "about" or "aboutme" in todo.lower():
+                        elif todo.lower() nlpAboutMe:
                                 await self.kittaboutme(ctx)
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")   

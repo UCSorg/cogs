@@ -1,0 +1,25 @@
+from cogs.utils import checks
+from discord.ext import commands
+
+...
+
+@checks.is_owner()
+@checks.check_permissions(**perms)
+@checks.role_or_permissions(**perms)
+@checks.mod_or_permissions(**perms)
+@checks.admin_or_permissions(**perms)
+@checks.serverowner_or_permissions(**perms)
+@checks.serverowner()
+@checks.admin()
+@checks.mod()
+
+@commands.check(myfunction)
+@commands.has_role("role")
+@commands.bot_has_role("role")
+@commands.has_any_role("role1", "role2")
+@commands.bot_has_any_role("role1", "role2")
+@commands.has_permissions(**perms)
+@commands.bot_has_permissions(**perms)
+
+@commands.cooldown(rate, type, Buckettype)
+# Limit how often a command can be used, (num per, seconds, Buckettype.default/user/server/channel)
