@@ -41,7 +41,6 @@ class kitt:
                 nlpAboutMe = ["about", "aboutme"]
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
-                        await self.discordsay(todo)
                         if todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
                         elif todo.lower() in nlpRLRank:

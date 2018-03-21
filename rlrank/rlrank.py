@@ -118,14 +118,12 @@ def rlsapi(platform, gamertag, apikey):
         except NameError:
             return "Fail. rlsapi NameError - ask an admin"
         else:
-            if "displayName" in playerdata.json():
-                dataIO.save_json("data/rlrank/player.json", playerdata.json())
-                return playerdata.json()                
-            elif "code" in playerdata.json():
+            if "code" in playerdata.json():
                 error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
                 return error
             else:
-                return "Fail.  Not sure how we got here. - ask an admin"
+                dataIO.save_json("data/rlrank/player.json", playerdata.json())
+                return playerdata.json()
 
 def check_folders():
     if not os.path.exists("data/rlrank"):
