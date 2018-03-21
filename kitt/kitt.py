@@ -37,7 +37,7 @@ class kitt:
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
-                                await self.kitt_baseinfo(ctx)
+                                await self.baseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
                                 await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
@@ -87,7 +87,6 @@ class kitt:
                                         tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
                                         tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                         dataIO.save_json(hubdatapath, tmp)
-                                
         @kitt.command(pass_context=True, name="rlrank")
         async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
@@ -97,7 +96,66 @@ class kitt:
                         platform = authordict["platform"]
                 except NameError:
                         await self.bot.say("I'm going to need some more information first.")
-                        await self.kitt_baseinfo(ctx)
+                        await self.baseinfo(ctx)
+                else:
+                        playerdata = rlrank.rlrank(ctx, platform, gamerid)
+                        confirmation = await self.question(ctx, "Is this you?")
+                        if "yes" in confirmation.lower():
+                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                tmp[author]['rldata'] = playerdata
+                                dataIO.save_json(hubdatapath, tmp)
+                                confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
+                                if "yes" in confirmation.lower():
+                                        await self.bot.say("Process for setting rank goes here.")
+                                elif "no" in confirmation.lower():
+                                        await self.bot.say("Okay, no changes have been made.")
+                        else:
+                                await self.bot.say("I think we'll need to start over.")
+
+        async def baseinfo(self, ctx):
+                """Find gamerid and platform for author"""
+                user = str(ctx.message.author)
+                channel = ctx.message.channel
+                acceptedplatforms = ['pc', 'ps4', 'xbox']
+                await self.bot.say("Hey `" + user + "`!  Can I get your gamertag ID?")
+                gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                gamerid = gameridresponse.content.lower().strip()
+                if gameridresponse == "none":
+                        content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
+                        await self.discordembed(channel, content)
+                        pass
+                else:
+                        await self.bot.say("What platform is that for? note: Switch not supported currently")
+                        platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                        platform = platformresponse.content.lower().strip()
+                        if platformresponse == "none":
+                                content = Embed(title="Error", description="No platform response.", color=16713736)
+                                await self.discordembed(channel, content)
+                                pass
+                        elif platform.lower() in "switch":
+                                content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
+                                await self.discordembed(channel, content)
+                                pass
+                        elif platform.lower() not in acceptedplatforms:
+                                content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
+                                await self.discordembed(channel, content)
+                                pass
+                        else:
+                                confirmation = await self.question(ctx, "Do you want me to store this for future use?")
+                                if "yes" in confirmation.lower():
+                                        tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
+                                        tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
+                                        dataIO.save_json(hubdatapath, tmp)
+
+        async def rlrank(self, ctx):
+                """Find rocket league stats for author"""
+                authordict = dataIO.load_json(hubdatapath)[author]
+                try:
+                        gamerid = authordict["gamerid"]
+                        platform = authordict["platform"]
+                except NameError:
+                        await self.bot.say("I'm going to need some more information first.")
+                        await self.baseinfo(ctx)
                 else:
                         playerdata = rlrank.rlrank(ctx, platform, gamerid)
                         confirmation = await self.question(ctx, "Is this you?")
