@@ -20,10 +20,10 @@ hubtdatadefault = {"discordid" : "player1Data"}
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
-tempuserpath = "data/rlrank/userdata.json"
+tempauthorpath = "data/rlrank/authordata.json"
 
 class kitt:
-        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that interacts with users and does a few different things."""
+        """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that interacts with authors and does a few different things."""
 
         def __init__(self, bot):
                 self.bot = bot
@@ -46,8 +46,8 @@ class kitt:
                                 except NameError:
                                         await self.discordsay("I don't have anything about you saved.")
                                 else:
-                                        dataIO.save_json(tempuserpath, authordict)
-                                        await self.discordsendfile(channel, tempuserpath)
+                                        dataIO.save_json(tempauthorpath, authordict)
+                                        await self.discordsendfile(channel, tempauthorpath)
 
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")
@@ -55,10 +55,10 @@ class kitt:
         @kitt.command(pass_context=True, name="baseinfo")
         async def kitt_baseinfo(self, ctx):
                 """Find gamerid and platform for author"""
-                user = str(ctx.message.author)
+                author = str(ctx.message.author)
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.bot.say("Hey `" + user + "`!  Can I get your gamertag ID?")
+                await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 gamerid = gameridresponse.content.lower().strip()
                 if gameridresponse == "none":
@@ -114,10 +114,10 @@ class kitt:
 
         async def baseinfo(self, ctx):
                 """Find gamerid and platform for author"""
-                user = str(ctx.message.author)
+                author = str(ctx.message.author)
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.bot.say("Hey `" + user + "`!  Can I get your gamertag ID?")
+                await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 gamerid = gameridresponse.content.lower().strip()
                 if gameridresponse == "none":
