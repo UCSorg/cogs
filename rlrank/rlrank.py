@@ -148,7 +148,7 @@ def check_files():
     f2 = hubdatapath
     if not dataIO.is_valid_json(g):
         print("Creating hubdata.json...")
-        dataIO.save_json(g, "...")
+        dataIO.save_json(f2, "...")
 
 def setup(bot):
         check_folders()
