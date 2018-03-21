@@ -88,7 +88,7 @@ class rlrank:
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
                                                 tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                                print tmp
+                                                print(tmp)
 
         async def discordsay(self, data):
                 """Simple text in discord"""
