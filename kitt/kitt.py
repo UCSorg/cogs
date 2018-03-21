@@ -17,6 +17,7 @@ import urllib
 
 hubdatapath = "data/rlrank/hubdata.json"
 hubtdatadefault = {}
+apipath = "data/rlrank/rls-apikey.json"
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
@@ -27,6 +28,7 @@ class kitt:
 
         def __init__(self, bot):
                 self.bot = bot
+                self.apikey = dataIO.load_json(apipath)
 
         @commands.command(pass_context=True)
         async def kitt(self, ctx):
@@ -54,6 +56,7 @@ class kitt:
                 author = str(ctx.message.author)
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
+                apikey = self.apikey['key']
                 await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 gamerid = gameridresponse.content.lower().strip()
@@ -98,19 +101,23 @@ class kitt:
                         await self.bot.say("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
                 else:
-                        playerdata = rlrank.rlrank(ctx, platform, gamerid)
-                        confirmation = await self.question(ctx, "Is this you?")
-                        if "yes" in confirmation.lower():
-                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                tmp[author]['rldata'] = playerdata
-                                dataIO.save_json(hubdatapath, tmp)
-                                confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
-                                if "yes" in confirmation.lower():
-                                        await self.bot.say("Process for setting rank goes here.")
-                                elif "no" in confirmation.lower():
-                                        await self.bot.say("Okay, no changes have been made.")
+                        playerdata = rlrank.rlsapi(platform, gamerid, apikey)
+                        if "Fail" in playerdata: #if error code, respond with error code message
+                                content = Embed(title="Error", description=data, color=16713736)
+                                await self.discordembed(channel, content)
                         else:
-                                await self.bot.say("I think we'll need to start over.") 
+                            confirmation = await self.question(ctx, "Is this you?")
+                            if "yes" in confirmation.lower():
+                                    tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                    tmp[author]['rldata'] = playerdata
+                                    dataIO.save_json(hubdatapath, tmp)
+                                    confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
+                                    if "yes" in confirmation.lower():
+                                            await self.bot.say("Process for setting rank goes here.")
+                                    elif "no" in confirmation.lower():
+                                            await self.bot.say("Okay, no changes have been made.")
+                            else:
+                                    await self.bot.say("I think we'll need to start over.") 
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
