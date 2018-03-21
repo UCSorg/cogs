@@ -34,7 +34,7 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 if ctx.invoked_subcommand is None:
-                        todo = await self.question("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
+                        todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
                                 await self.kitt_baseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
