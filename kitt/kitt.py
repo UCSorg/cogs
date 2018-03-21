@@ -37,16 +37,16 @@ class kitt:
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
-                                await self.baseinfo(ctx)
+                                await self.kittbaseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
-                                await rlrank.rlrank(ctx)
+                                await self.kittrlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
-                                await self.aboutme(ctx)
+                                await self.kittaboutme(ctx)
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")   
 
         @commands.command(pass_context=True)
-        async def baseinfo(self, ctx):
+        async def kittbaseinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = str(ctx.message.author)
                 channel = ctx.message.channel
@@ -83,7 +83,7 @@ class kitt:
                                         dataIO.save_json(hubdatapath, tmp)
 
         @commands.command(pass_context=True)
-        async def rlrank(self, ctx):
+        async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
                 data = dataIO.load_json(hubdatapath)
@@ -110,7 +110,7 @@ class kitt:
                                 await self.bot.say("I think we'll need to start over.") 
 
         @commands.command(pass_context=True)
-        async def aboutme(self, ctx):
+        async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
                 author = str(ctx.message.author)
                 try:
