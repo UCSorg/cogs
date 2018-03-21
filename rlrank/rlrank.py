@@ -87,9 +87,8 @@ class rlrank:
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), description="This information updates about once per hour.", url=playerurl, color=10604116)
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
-                                                self.tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                                self.tmp[author] = data
-                                                dataIO.save_json(hubdatapath, self.tmp)
+                                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                                print tmp
 
         async def discordsay(self, data):
                 """Simple text in discord"""
