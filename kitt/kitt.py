@@ -88,6 +88,7 @@ class kitt:
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
+                channel = ctx.message.channel
                 data = dataIO.load_json(hubdatapath)
                 try:
                         baseinfodict = data[author]["baseInfo"]
@@ -114,6 +115,7 @@ class kitt:
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
                 author = str(ctx.message.author)
+                channel = ctx.message.channel
                 try:
                         authordict = dataIO.load_json(hubdatapath)[author]
                 except NameError:
