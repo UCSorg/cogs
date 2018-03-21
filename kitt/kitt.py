@@ -34,9 +34,10 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 if ctx.invoked_subcommand is None:
+                        await send_cmd_help(ctx)
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
                         if "base" or "baseinfo" or "info" in todo.lower():
-                                await kitt.kitt_baseinfo(ctx)
+                                await self.kitt_baseinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
                                 await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
@@ -59,6 +60,7 @@ class kitt:
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 await self.bot.say("Hey `" + user + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                gamerid = steamidresponse.content.lower().strip()
                 if gameridresponse == "none":
                         content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
                         await self.discordembed(channel, content)
@@ -66,6 +68,7 @@ class kitt:
                 else:
                         await self.bot.say("What platform is that for? note: Switch not supported currently")
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                        platform = platformresponse.content.lower().strip()
                         if platformresponse == "none":
                                 content = Embed(title="Error", description="No platform response.", color=16713736)
                                 await self.discordembed(channel, content)
@@ -74,13 +77,11 @@ class kitt:
                                 content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
                                 await self.discordembed(channel, content)
                                 pass
-                        elif platformresponse.content.lower() not in acceptedplatforms:
+                        elif platform.lower() not in acceptedplatforms:
                                 content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
                                 await self.discordembed(channel, content)
                                 pass
                         else:
-                                gamerid = steamidresponse.content.lower().strip()
-                                platform = platformresponse.content.lower().strip()
                                 confirmation = await self.question(ctx, "Do you want me to store this for future use?")
                                 if "yes" in confirmation.lower():
                                         tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
@@ -96,7 +97,7 @@ class kitt:
                         platform = authordict["platform"]
                 except NameError:
                         await self.bot.say("I'm going to need some more information first.")
-                        await kitt.kitt_baseinfo(ctx)
+                        await self.kitt_baseinfo(ctx)
                 else:
                         playerdata = rlrank.rlrank(ctx, platform, gamerid)
                         confirmation = await self.question(ctx, "Is this you?")
