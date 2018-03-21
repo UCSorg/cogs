@@ -85,8 +85,10 @@ class kitt:
                                 confirmation = await self.question(ctx, "Do you want me to store this for future use?")
                                 if "yes" in confirmation.lower():
                                         tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
+                                        tmp[author] = "baseInfo"
                                         tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                         dataIO.save_json(hubdatapath, tmp)
+
         @kitt.command(pass_context=True, name="rlrank")
         async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
