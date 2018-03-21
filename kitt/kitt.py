@@ -56,7 +56,6 @@ class kitt:
                 author = str(ctx.message.author)
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                apikey = self.apikey['key']
                 await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 gamerid = gameridresponse.content.lower().strip()
@@ -93,6 +92,7 @@ class kitt:
                 author = str(ctx.message.author)
                 channel = ctx.message.channel
                 data = dataIO.load_json(hubdatapath)
+                apikey = self.apikey['key']
                 try:
                         baseinfodict = data[author]["baseInfo"]
                         gamerid = baseinfodict["gamerid"]
