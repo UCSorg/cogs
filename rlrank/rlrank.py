@@ -70,7 +70,7 @@ class rlrank:
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
                                 else: #else find the player url and signature and respond with those
-                                        saveplayerdata(author, gamertag, data)
+                                        saveplayerdata(author, gamertag, **data)
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
                                         try:
