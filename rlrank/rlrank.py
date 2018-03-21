@@ -70,7 +70,6 @@ class rlrank:
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
                                 else: #else find the player url and signature and respond with those
-                                        saveplayerdata(author, data)
                                         playerurl = data.get("profileUrl")
                                         playersignature = data.get("signatureUrl")
                                         try:
@@ -88,6 +87,9 @@ class rlrank:
                                                 content = Embed(title="Click here for more detailed stats about %s" %(gamertag), description="This information updates about once per hour.", url=playerurl, color=10604116)
                                                 await self.discordembed(channel, content)
                                                 await self.discordsendfile(channel, image)
+                                                tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                                tmp[author] = data
+                                                dataIO.save_json(hubdatapath, tmp)
 
         async def discordsay(self, data):
                 """Simple text in discord"""
@@ -128,12 +130,6 @@ def rlsapi(platform, gamertag, apikey):
                 return error
             else:
                 return "Fail.  Not sure how we got here. - ask an admin"
-
-def saveplayerdata(playername, **playerdict):
-    """Saves the information about the player to a database for use later"""
-    tmp = dataIO.load_json(hubdatapath)
-    tmp[playername] = playerdict
-    dataIO.save_json(hubdatapath, tmp)
 
 def check_folders():
     if not os.path.exists("data/rlrank"):
