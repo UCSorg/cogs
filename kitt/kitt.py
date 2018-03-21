@@ -93,7 +93,7 @@ class kitt:
         async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
                 author = str(ctx.message.author)
-                authordict = dataIO.load_json(hubdatapath)
+                authordict = dataIO.load_json(hubdatapath)[author]
                 try:
                         gamerid = authordict["gamerid"]
                         platform = authordict["platform"]
