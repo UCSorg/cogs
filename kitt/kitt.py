@@ -28,7 +28,6 @@ class kitt:
                 self.bot = bot
 
         @commands.group(pass_context=True, no_pm=True, invoke_without_command=True)
-        @commands.command(pass_context=True)
         async def kitt(self, ctx):
                 """Let's chat"""
                 server = ctx.message.server
