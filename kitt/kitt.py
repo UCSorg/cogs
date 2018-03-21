@@ -4,7 +4,7 @@ from rls.rocket import RocketLeague
 import json
 from .utils import checks
 from .utils.dataIO import dataIO
-from rlrank import rlrank.rlrank
+from rlrank import rlrank
 import urllib
 
 """Requirement!  must have rlrank cog installed"""
@@ -38,7 +38,7 @@ class kitt:
                         if "base" or "baseinfo" or "info" in todo.lower():
                                 await self.gamerinfo(ctx)
                         elif "rlrank" or "rocket" or "league" or "rank" in todo.lower():
-                                await self.rlrank(ctx)
+                                await rlrank.rlrank(ctx)
                         elif "about" or "aboutme" in todo.lower():
                                 try:
                                         authordict = dataIO.load_json(hubdatapath)[author]
