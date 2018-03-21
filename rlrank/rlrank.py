@@ -145,10 +145,10 @@ def check_files():
     if not dataIO.is_valid_json(f):
         print("Creating rls-apikey.json...")
         dataIO.save_json(f, apidefault)
-    f2 = hubdatapath
+    g = hubdatapath
     if not dataIO.is_valid_json(g):
         print("Creating hubdata.json...")
-        dataIO.save_json(f2, "...")
+        dataIO.save_json(g, "...")
 
 def setup(bot):
         check_folders()
