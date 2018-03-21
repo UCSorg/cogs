@@ -135,6 +135,10 @@ def check_files():
     if not dataIO.is_valid_json(f):
         print("Creating rls-apikey.json...")
         dataIO.save_json(f, apidefault)
+    g = "data/rlrank/player.json"
+    if not dataIO.is_valid_json(g):
+        print("Creating playerdata.json...")
+        dataIO.save_json(g, "")
 
 def setup(bot):
         check_folders()
