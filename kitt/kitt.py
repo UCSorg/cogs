@@ -66,7 +66,7 @@ class kitt:
                         await self.discordembed(channel, content)
                         pass
                 else:
-                        await self.bot.say("What platform is that for? note: Switch not supported currently")
+                        await self.bot.say("What platform is that for?")
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
                         platform = platformresponse.content.lower().strip()
                         if platformresponse == "none":
@@ -92,7 +92,8 @@ class kitt:
         @kitt.command(pass_context=True, name="rlrank")
         async def kitt_rlrank(self, ctx):
                 """Find rocket league stats for author"""
-                authordict = dataIO.load_json(hubdatapath)[author]
+                author = str(ctx.message.author)
+                authordict = dataIO.load_json(hubdatapath)
                 try:
                         gamerid = authordict["gamerid"]
                         platform = authordict["platform"]
@@ -151,6 +152,7 @@ class kitt:
 
         async def rlrank(self, ctx):
                 """Find rocket league stats for author"""
+                author = str(ctx.message.author)
                 authordict = dataIO.load_json(hubdatapath)[author]
                 try:
                         gamerid = authordict["gamerid"]
