@@ -101,7 +101,7 @@ class kitt:
                         await self.bot.say("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
                 else:
-                        playerdata = rlrank.rlsapi(platform, gamerid, apikey)
+                        playerdata = rlsapi(platform, gamerid, apikey)
                         if "Fail" in playerdata: #if error code, respond with error code message
                                 content = Embed(title="Error", description=data, color=16713736)
                                 await self.discordembed(channel, content)
