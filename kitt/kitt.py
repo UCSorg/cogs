@@ -4,7 +4,7 @@ from rls.rocket import RocketLeague
 import json
 from .utils import checks
 from .utils.dataIO import dataIO
-from rlrank import rlrank
+from rlrank import rlrank.rlrank
 import urllib
 
 """Requirement!  must have rlrank cog installed"""
