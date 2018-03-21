@@ -182,6 +182,17 @@ class kitt:
                         else:
                                 await self.bot.say("I think we'll need to start over.") 
 
+        async def aboutme(self, ctx):
+                """Return stored information about the author"""
+                author = str(ctx.message.author)
+                try:
+                        authordict = dataIO.load_json(hubdatapath)[author]
+                except NameError:
+                        await self.discordsay("I don't have anything about you saved.")
+                else:
+                        dataIO.save_json(tempauthorpath, authordict)
+                        await self.discordsendfile(channel, tempauthorpath) 
+
         async def question(self, ctx, question):
                 await self.bot.say(question)
                 response = await self.bot.wait_for_message(author=ctx.message.author)
