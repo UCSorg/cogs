@@ -36,7 +36,7 @@ class kitt:
                 """Let's chat"""
                 server = ctx.message.server
                 channel = ctx.message.channel
-                author = str(ctx.message.author)
+                author = ctx.message.author
                 user = author.split('#',1)[0]
                 nlpBase = ["basicinfo", "basic", "info"]
                 nlpRLRank = ["rlrank", "rank", "rocket", "league"]
@@ -83,7 +83,7 @@ class kitt:
 
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
-                author = str(ctx.message.author)
+                author = ctx.message.author
                 channel = ctx.message.channel
                 data = dataIO.load_json(hubdatapath)
                 apikey = self.apikey.get("key")
@@ -165,7 +165,7 @@ class kitt:
                 """Set the Region Role"""
                 server = ctx.message.server
                 channel = ctx.message.channel
-                author = str(ctx.message.author)
+                author = ctx.message.author
                 nlpregionEU = ["eu", "europe"]
                 nlpregionNA = ["na", "us"]
 #                nlpregionNAEast = ["east", "us-east", "na-east"]
@@ -231,7 +231,7 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, server, member, newrole):
+        async def discordassignrole(self, server, author, newrole):
                 """Assign a role to a user"""
                 for role in server.roles:
                         if role.name == newrole:
