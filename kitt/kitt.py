@@ -216,8 +216,7 @@ class kitt:
         async def discordwaitformessage(self, ctx):
                 """Wait for message and return answer back to function"""
                 message = await self.bot.wait_for_message(timeout=90,author=ctx.message.author, channel=ctx.message.channel)
-                if not message:
-                        return
+                return message
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
@@ -225,6 +224,7 @@ class kitt:
                 if response is not None:
                         return response.content
                 else:
+                        await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
         async def discordassignrole(self, ctx, role):
                 """Assign a role to a user"""
