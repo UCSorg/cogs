@@ -61,33 +61,21 @@ class kitt:
                 user = author.split('#',1)[0]
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.discordsay("Hey `" + user + "`!  Can I get your gamertag ID?")
-                gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                gamerid = gameridresponse.content.lower().strip()
-                if gameridresponse == "none":
-                        content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
+                gamerid = await self.question(ctx,"Hey `" + user + "`!  Can I get your gamertag ID?")
+                platform = await self.quesstion(ctx, "What platform is that for?")
+                if platform.lower() in "switch":
+                        content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
+                        await self.discordembed(channel, content)
+                elif platform.lower() not in acceptedplatforms:
+                        content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
                         await self.discordembed(channel, content)
                 else:
-                        await self.bot.say("What platform is that for?")
-                        platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
-                        platform = platformresponse.content.lower().strip()
-                        if platformresponse == "none":
-                                content = Embed(title="Error", description="No platform response.", color=16713736)
-                                await self.discordembed(channel, content)
-                        elif platform.lower() in "switch":
-                                content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
-                                await self.discordembed(channel, content)
-                        elif platform.lower() not in acceptedplatforms:
-                                content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
-                                await self.discordembed(channel, content)
-                        else:
-                                confirmation = await self.question(ctx, "Do you want me to store this for future use?")
-                                if "yes" in confirmation.lower():
-                                        tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
-                                        tmp[author] = {}
-                                        tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
-                                        dataIO.save_json(hubdatapath, tmp)
-
+                        confirmation = await self.question(ctx, "Do you want me to store this for future use?")
+                        if "yes" in confirmation.lower():
+                                tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
+                                tmp[author] = {}
+                                tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
+                                dataIO.save_json(hubdatapath, tmp)
 
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
@@ -100,7 +88,7 @@ class kitt:
                         gamerid = baseinfodict["gamerid"]
                         platform = baseinfodict["platform"]
                 except NameError:
-                        await self.bot.say("I'm going to need some more information first.")
+                        await self.discordsay("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
                 else:
                         platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
@@ -111,7 +99,7 @@ class kitt:
                         try:
                             platformid
                         except NameError:
-                            await self.bot.say("Fail. rlsapi NameError for platform - ask an admin")
+                            await self.discordsay("Fail. rlsapi NameError for platform - ask an admin")
                         else:
                             try:
                                 headers = {'Authorization' : apikey}
@@ -119,7 +107,7 @@ class kitt:
                                 data = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
                                 playerdata = data.json()
                             except NameError:
-                                await self.bot.say("Fail. rlsapi NameError for API CURL Request - ask an admin")
+                                await self.discordsay("Fail. rlsapi NameError for API CURL Request - ask an admin")
                             else:
                                 if "code" in playerdata:
                                     error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata['code']),playerdata['message'],gamertag,platformid)
@@ -170,13 +158,11 @@ class kitt:
                 author = str(ctx.message.author)
                 nlpregionEU = ["europe", "eu"]
                 nlpregionNA = ["na", "us", "us-west", "us-east"]
-                await self.discordsay("What region do you game in?  Multiple answers are accepted: **US-East**, **US-West**, **EU**")
-                responsecontent = await self.bot.wait_for_message(author=ctx.message.author)
-                response = responsecontent.content.lower().strip()
-                for answer in response:
-                        if response in nlpregionEU:
+                region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: **US-East**, **US-West**, **EU**")
+                for answer in region:
+                        if answer.lower() in nlpregionEU:
                                 await self.discordsay("You are now in the region: EU")
-                        elif response in nlpregionNA:
+                        elif answer.lower() in nlpregionNA:
                                 await self.discordsay("You are now in the region: NA")
                         else:
                                 await self.discordsay("I have made no changes because %s is not in my accepted regions." % (response))
