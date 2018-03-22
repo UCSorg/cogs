@@ -66,7 +66,7 @@ class kitt:
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 gamerid = await self.question(ctx,"Hey `" + user + "`!  Can I get your gamertag ID?")
-                platform = await self.quesstion(ctx, "What platform is that for?")
+                platform = await self.question(ctx, "What platform is that for?")
                 if platform.lower() in "switch":
                         content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
                         await self.discordembed(channel, content)
