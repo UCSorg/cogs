@@ -154,7 +154,7 @@ class kitt:
                 channel = ctx.message.channel
                 try:
                         authordict = dataIO.load_json(hubdatapath)[author]
-                except NameError:
+                except KeyError:
                         await self.discordsay("I don't have anything about you saved.")
                 else:
                         dataIO.save_json(tempauthorpath, authordict)
