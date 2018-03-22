@@ -217,6 +217,8 @@ class kitt:
         async def discordwaitformessage(self, ctx):
                 """Wait for message and return answer back to function"""
                 message = await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
+                if not message:
+                        return
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
