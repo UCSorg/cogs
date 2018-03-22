@@ -177,7 +177,6 @@ class kitt:
                                 await self.discordassignrole(server, author, "EU")
                         elif answer.lower() in nlpregionNA:
                                 await self.discordassignrole(server, author, "NA")
-                                await self.discordsay("You are now in the region: NA.")
 #                        elif answer.lower() in nlpregionNAEast:
 #                                await self.discordsay("You are now in the region: US-East.")
 #                        elif answer.lower() in nlpregionNAWest:
