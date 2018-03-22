@@ -92,10 +92,6 @@ class kitt:
                         baseinfodict = data[author]["baseInfo"]
                         gamerid = baseinfodict["gamerid"]
                         platform = baseinfodict["platform"]
-                except NameError:
-                        await self.discordsay("I'm going to need some more information first.")
-                        await self.kittbasicinfo(ctx)
-                        await self.kittrlrank(ctx)
                 except KeyError:
                         await self.discordsay("I'm going to need some more information first.")
                         await self.kittbasicinfo(ctx)
