@@ -45,7 +45,7 @@ class kitt:
                 nlpRemove = ["remove"]
                 nlpRegion = ["region", "location", "live", "area", "home"]
                 nlpHelp = ["how do i?", "how do i", "help", "halp"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
+                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, %s " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
@@ -96,7 +96,7 @@ class kitt:
                 channel = ctx.message.channel
                 nlpRemoveAboutMe = ["aboutme", "about"]
                 nlpRemoveRole = ["role", "region", "rank"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
+                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpRemoveAboutMe:
