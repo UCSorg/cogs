@@ -160,18 +160,22 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
-                nlpregionEU = ["europe", "eu"]
+                nlpregionEU = ["eu", "europe"]
                 nlpregionNA = ["na", "us"]
+                nlpregionRole = ["role"]
 #                nlpregionNAEast = ["east", "us-east", "na-east"]
 #                nlpregionNAWest = ["west", "us-west", "na-west"]
-                region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: %s, %s" % (nlpregionNA, nlpregionEU))
+                region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: %s, %s" % (nlpregionNA[0], nlpregionEU[0]))
                 regionsplit = region.split()
                 for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
                                 await self.discordroleeidt(ctx, "EU")
                                 await self.discordsay("You are now in the region: EU")
                         elif answer.lower() in nlpregionNA:
-                                await self.discordsay("You are now in the region: US-East and US-West.  If you want just one region, be more specific.")
+                                await self.discordsay("You are now in the region: NA.")
+                        elif answer.lower() in nlpregionRole:
+                                await self.discordroleedit(ctx, "EU")
+                                await self.discordsay("You are now in the region: NA.")
 #                        elif answer.lower() in nlpregionNAEast:
 #                                await self.discordsay("You are now in the region: US-East.")
 #                        elif answer.lower() in nlpregionNAWest:
@@ -224,9 +228,8 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, ctx, role):
+        async def discordassignrole(self, author, role):
                 """Assign a role to a user"""
-                author = str(ctx.message.author)
                 await self.bot.add_roles(author, role)
         def discordcheckrole(server, author, rolecheck):
                 """Checks if a role is available on the server"""
@@ -235,11 +238,12 @@ class kitt:
                                 pass
                         else:
                                 break
-        async def discordroleeidt(self, ctx, role):
+        async def discordroleedit(self, ctx, role):
                 """Checks and modifies roles for a user"""
                 author = ctx.message.author
-                sever = ctx.message.server
+                server = ctx.message.server
                 await discordcheckrole(server, author, role)
+                await discordassignrole(author, role)
 
         #common discord functions end
 
