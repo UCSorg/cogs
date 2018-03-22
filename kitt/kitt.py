@@ -226,7 +226,7 @@ class kitt:
                 try:
                         response.content
                 except AttributeError:
-                        return None
+                        return response
                 else:
                         return response.content
         async def discordassignrole(self, ctx, role):
