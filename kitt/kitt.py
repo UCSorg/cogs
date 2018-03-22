@@ -37,7 +37,7 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = ctx.message.author
-                user = author.split('#',1)[0]
+                user = str(author).split('#',1)[0]
                 nlpBase = ["basicinfo", "basic", "info"]
                 nlpRLRank = ["rlrank", "rank", "rocket", "league"]
                 nlpAboutMe = ["aboutme", "about"]
