@@ -84,12 +84,12 @@ class kitt:
 
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
-                author = ctx.message.author
+                user = str(ctx.message.author)
                 channel = ctx.message.channel
                 data = dataIO.load_json(hubdatapath)
                 apikey = self.apikey.get("key")
                 try:
-                        baseinfodict = data[author]["baseInfo"]
+                        baseinfodict = data[user]["baseInfo"]
                         gamerid = baseinfodict["gamerid"]
                         platform = baseinfodict["platform"]
                 except KeyError:
