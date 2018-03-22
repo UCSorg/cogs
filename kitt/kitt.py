@@ -37,11 +37,11 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 user = author.split('#',1)[0]
-                nlpBase = ["base", "baseinfo", "info"]
+                nlpBase = ["basic", "basicinfo", "info"]
                 nlpRLRank = ["rank", "rlrank", "rocket", "league"]
                 nlpAboutMe = ["about", "aboutme"]
                 nlpRegion = ["location", "region", "area", "home"]
-                todo = await self.question(ctx,"Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
+                todo = await self.question(ctx,"Hey %s!  What would you like to do today? Keywords are: basicinfo, rlrank, region, stats, aboutme" % (user))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
@@ -220,7 +220,7 @@ class kitt:
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
+                response = await self.discordwaitformessage(ctx)
                 if response is not None:
                         return response.content
                 else:
