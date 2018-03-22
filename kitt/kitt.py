@@ -22,7 +22,7 @@ tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silv
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
 tempauthorpath = "data/rlrank/authordata.json"
-bothelp = "**General Utilities**\n  {@Torque#6847} - `-help`\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque#6847 - `-help Audio`\n  @Mee6#4876 - <https://mee6.xyz/about>\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>"
+bothelp = "**General Utilities**\n  <@420082619611611137> - `-help`\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque#6847 - `-help Audio`\n  @Mee6#4876 - <https://mee6.xyz/about>\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>"
 
 class kitt:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that interacts with authors and does a few different things."""
