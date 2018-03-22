@@ -63,6 +63,23 @@ class kitt:
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
+        async def kittremove(self, ctx):
+                """Offer to remove roles, hubdata from author"""
+                author = str(ctx.message.author)
+                usersplit = author.split('#',1)[0]
+                channel = ctx.message.channel
+                nlpRemoveAboutMe = ["aboutme", "about"]
+                nlpRemoveRole = ["role", "region", "rank"]
+                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s" % (usersplit, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                if todo == None:
+                        pass
+                elif todo.lower() in nlpRemoveAboutMe:
+                        await self.kittremovehubdata(ctx)
+                elif todo.lower() in nlpRLRank:
+                        await self.kittremoveroles(ctx)
+                else:
+                        await self.discordsay("I'm not set up to remove really anything else at this time.")
+
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = ctx.message.author
@@ -88,24 +105,6 @@ class kitt:
                                 tmp[user]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                 dataIO.save_json(hubdatapath, tmp)
                                 await self.discordsay("I've stored this: %s" % (tmp[user]["baseInfo"]))
-
-        async def kittremove(self, ctx):
-                """Offer to remove roles, hubdata from author"""
-                author = str(ctx.message.author)
-                usersplit = author.split('#',1)[0]
-                channel = ctx.message.channel
-                nlpRemoveAboutMe = ["aboutme", "about"]
-                nlpRemoveRole = ["role", "region", "rank"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
-                if todo == None:
-                        pass
-                elif todo.lower() in nlpRemoveAboutMe:
-                        await self.kittremovehubdata(ctx)
-                elif todo.lower() in nlpRLRank:
-                        await self.kittremoveroles(ctx)
-                else:
-                        await self.discordsay("I'm not set up to remove really anything else at this time.")
-
         async def kittremovehubdata(self, ctx):
                 """Remove hubdata about author"""
                 author = str(ctx.message.author)
