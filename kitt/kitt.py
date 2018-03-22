@@ -53,7 +53,7 @@ class kitt:
                         await self.kittaboutme(ctx)
                 elif todo.lower() in nlpRegion:
                         await self.kittregion(ctx)
-                elif todo.lower() in nlpHelp()
+                elif todo.lower() in nlpHelp:
                         await self.discordsay("**General Utilities**\n  @Torque - `-help`\n  @Dyno - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque - `-help Audio`\n  @Mee6 - <https://mee6.xyz/about>\n  @Dyno - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>")
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
