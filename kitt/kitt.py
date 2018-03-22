@@ -43,7 +43,7 @@ class kitt:
                 nlpRegion = ["location", "region", "area", "home"]
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                        if todo == "None":
+                        if todo == None:
                                 pass
                         elif todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
@@ -224,7 +224,7 @@ class kitt:
                 try:
                         response.content
                 except AttributeError:
-                        return response
+                        return None
                 else:
                         return response.content
         async def discordassignrole(self, ctx, role):
