@@ -100,33 +100,53 @@ class kitt:
                         await self.bot.say("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
                 else:
-                        playerdata = rlsapi(platform, gamerid, apikey)
-                        if "Fail" in playerdata: #if error code, respond with error code message
-                                content = Embed(title="Error", description=data, color=16713736)
-                                await self.discordembed(channel, content)
+                        platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
+                        for k,v in platformlegend.items(): #using the platform legend, find the platform ID
+                            if platform == k:
+                                platformid = v
+                                break
+                        try:
+                            platformid
+                        except NameError:
+                            await self.bot.say("Fail. rlsapi NameError - ask an admin")
                         else:
-                            playerurl = data.get("profileUrl")
-                            playersignature = data.get("signatureUrl")
                             try:
-                                    playerurl
-                                    playersignature
+                                headers = {'Authorization' : apikey}
+                                params = (('unique_id', gamertag), ('platform_id', platformid),)
+                                playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
                             except NameError:
-                                    content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
-                                    await self.discordembed(channel, content)
+                                await self.bot.say("Fail. rlsapi NameError - ask an admin")
                             else:
-                                    await self.discordsay(playersignature)
-                                    confirmation = await self.question(ctx, "Is this you?")
-                                    if "yes" in confirmation.lower():
-                                            tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                            tmp[author]['rldata'] = playerdata
-                                            dataIO.save_json(hubdatapath, tmp)
-                                            confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
-                                            if "yes" in confirmation.lower():
-                                                    await self.bot.say("Process for setting rank goes here.")
-                                            elif "no" in confirmation.lower():
-                                                    await self.bot.say("Okay, no changes have been made.")
+                                if "code" in playerdata.json():
+                                    error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
+                                    await self.bot.say(error)
+                                else:
+                                    if "Fail" in playerdata: #if error code, respond with error code message
+                                        content = Embed(title="Error", description=data, color=16713736)
+                                        await self.discordembed(channel, content)
                                     else:
-                                            await self.bot.say("I think we'll need to start over.")
+                                        playerurl = data.get("profileUrl")
+                                        playersignature = data.get("signatureUrl")
+                                        try:
+                                            playerurl
+                                            playersignature
+                                        except NameError:
+                                            content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                                            await self.discordembed(channel, content)
+                                        else:
+                                                await self.discordsay(playersignature)
+                                                confirmation = await self.question(ctx, "Is this you?")
+                                                if "yes" in confirmation.lower():
+                                                        tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                                        tmp[author]['rldata'] = playerdata
+                                                        dataIO.save_json(hubdatapath, tmp)
+                                                        confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
+                                                        if "yes" in confirmation.lower():
+                                                                await self.bot.say("Process for setting rank goes here.")
+                                                        elif "no" in confirmation.lower():
+                                                                await self.bot.say("Okay, no changes have been made.")
+                                                else:
+                                                        await self.bot.say("I think we'll need to start over.")
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
