@@ -155,7 +155,7 @@ class kitt:
                 try:
                         authordict = dataIO.load_json(hubdatapath)[author]
                 except KeyError:
-                        await self.discordsay("I don't have anything about you saved.")
+                        await self.discordsay("I don't have anything about you saved.  Try `basicinfo`")
                 else:
                         dataIO.save_json(tempauthorpath, authordict)
                         await self.discordsendfile(channel, tempauthorpath) 
@@ -233,7 +233,7 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, author, newrole):
+        async def discordassignrole(self, server, author, newrole):
                 """Assign a role to a user"""
                 try:
                     for role in server.roles:
