@@ -68,7 +68,7 @@ class kitt:
                         content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
                         await self.discordembed(channel, content)
                 else:
-                        await self.bot.say("What platform is that for? note: Switch not supported currently")
+                        await self.bot.say("What platform is that for?")
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
                         platform = platformresponse.content.lower().strip()
                         if platformresponse == "none":
@@ -221,7 +221,7 @@ class kitt:
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = await await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
+                response = await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
                 if response is not None:
                         return response.content
                 else:
