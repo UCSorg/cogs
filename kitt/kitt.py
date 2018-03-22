@@ -236,7 +236,7 @@ class kitt:
         async def discordassignrole(self, author, role):
                 """Assign a role to a user"""
                 await self.bot.add_roles(author, role)
-        def discordcheckrole(server, author, rolecheck):
+        def discordcheckrole(self, server, author, rolecheck):
                 """Checks if a role is available on the server"""
                 for role in server.roles:
                         if role.id == rolecheck:
