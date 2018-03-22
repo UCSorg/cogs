@@ -22,6 +22,7 @@ tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silv
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
 tempauthorpath = "data/rlrank/authordata.json"
+bothelp = "**General Utilities**\n  @Torque#6847#6847 - `-help`\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque#6847 - `-help Audio`\n  @Mee6#4876 - <https://mee6.xyz/about>\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>"
 
 class kitt:
         """Custom cog by Memlo and Eny, Matt Miller and Patrik Srna, that interacts with authors and does a few different things."""
@@ -41,7 +42,7 @@ class kitt:
                 nlpRLRank = ["rlrank", "rank", "rocket", "league"]
                 nlpAboutMe = ["aboutme", "about"]
                 nlpRegion = ["region", "location", "live", "area", "home"]
-                nlpHelp = ["how do i?", "help", "halp"]
+                nlpHelp = ["how do i?", "how do i", "help", "halp"]
                 todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s " % (user, nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpHelp[0]))
                 if todo == None:
                         pass
@@ -54,7 +55,7 @@ class kitt:
                 elif todo.lower() in nlpRegion:
                         await self.kittregion(ctx)
                 elif todo.lower() in nlpHelp:
-                        await self.discordsay("**General Utilities**\n  @Torque - `-help`\n  @Dyno - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque - `-help Audio`\n  @Mee6 - <https://mee6.xyz/about>\n  @Dyno - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>")
+                        await self.discordsay(bothelp)
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
