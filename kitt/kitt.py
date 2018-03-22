@@ -231,21 +231,21 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, server, author, newrole):
+        async def discordassignrole(self, server, member, newrole):
                 """Assign a role to a user"""
                 for role in server.roles:
-                        await self.discordsay(role.name)
-                try:
-                    for role in server.roles:
                         if role.name == newrole:
-                            userrole = role
-                            break
-                    await self.bot.add_roles(author, userrole)
-                    await self.bot.say("Congratulations!")
+                                userrole = role
+                                break
+                try:
+                        userrole
                 except discord.errors.Forbidden:
-                    await self.bot.say("Try checking bot permissions!")
+                        await self.bot.say("Try checking bot permissions!")
                 except:
-                    await self.bot.say("Try checking the role again!")
+                        await self.bot.say("Try checking the role again!")
+                else:
+                        await self.bot.add_roles(member, userrole)
+                        await self.bot.say("Congratulations!")
         #common discord functions end
 
 def check_folders():
