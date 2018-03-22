@@ -43,7 +43,9 @@ class kitt:
                 nlpRegion = ["location", "region", "area", "home"]
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                        if todo.lower() in nlpBase:
+                        if todo == "None":
+                                break
+                        elif todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
                         elif todo.lower() in nlpRLRank:
                                 await self.kittrlrank(ctx)
@@ -66,7 +68,6 @@ class kitt:
                 if gameridresponse == "none":
                         content = Embed(title="Error", description="No gamertag ID response.", color=16713736)
                         await self.discordembed(channel, content)
-                        pass
                 else:
                         await self.bot.say("What platform is that for? note: Switch not supported currently")
                         platformresponse = await self.bot.wait_for_message(author=ctx.message.author)
@@ -74,15 +75,12 @@ class kitt:
                         if platformresponse == "none":
                                 content = Embed(title="Error", description="No platform response.", color=16713736)
                                 await self.discordembed(channel, content)
-                                pass
                         elif platform.lower() in "switch":
                                 content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
                                 await self.discordembed(channel, content)
-                                pass
                         elif platform.lower() not in acceptedplatforms:
                                 content = Embed(title="Error", description="I don't think `%s` is accepted.  Have you tried turning it off and on again?" % (platform), color=16713736)
                                 await self.discordembed(channel, content)
-                                pass
                         else:
                                 confirmation = await self.question(ctx, "Do you want me to store this for future use?")
                                 if "yes" in confirmation.lower():
@@ -90,6 +88,7 @@ class kitt:
                                         tmp[author] = {}
                                         tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                         dataIO.save_json(hubdatapath, tmp)
+
 
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
@@ -217,7 +216,7 @@ class kitt:
                 await self.bot.send_message(channel, embed=content)
         async def discordwaitformessage(self, ctx):
                 """Wait for message and return answer back to function"""
-                await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
+                message = await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
