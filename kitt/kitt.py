@@ -233,7 +233,8 @@ class kitt:
                         return None
         async def discordassignrole(self, server, author, newrole):
                 """Assign a role to a user"""
-                await self.discordsay(server.role_hierarchy)
+                for role in server.roles:
+                        await self.discordsay(role.id)
                 try:
                     for role in server.roles:
                         if role.id == newrole:
