@@ -205,7 +205,7 @@ class kitt:
                 else:
                         return namedrank
 
-#common discord functions start
+        #common discord functions start
         async def discordsay(self, data):
                 """send message in discord"""
                 await self.bot.say(data)
@@ -221,9 +221,9 @@ class kitt:
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = discordwaitformessage(ctx)
+                response = self.discordwaitformessage(ctx)
                 return response.content
-#common discord functions end
+        #common discord functions end
 
 def check_folders():
     if not os.path.exists("data/rlrank"):
