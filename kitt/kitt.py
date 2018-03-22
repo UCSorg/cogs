@@ -108,14 +108,14 @@ class kitt:
                         try:
                             platformid
                         except NameError:
-                            await self.bot.say("Fail. rlsapi NameError - ask an admin")
+                            await self.bot.say("Fail. rlsapi NameError for platform - ask an admin")
                         else:
                             try:
                                 headers = {'Authorization' : apikey}
                                 params = (('unique_id', gamertag), ('platform_id', platformid),)
                                 playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
                             except NameError:
-                                await self.bot.say("Fail. rlsapi NameError - ask an admin")
+                                await self.bot.say("Fail. rlsapi NameError for API CURL Request - ask an admin")
                             else:
                                 if "code" in playerdata.json():
                                     error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
