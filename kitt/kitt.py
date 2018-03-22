@@ -47,7 +47,7 @@ class kitt:
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
-                        await self.kittbaseinfo(ctx)
+                        await self.kittbasicinfo(ctx)
                 elif todo.lower() in nlpRLRank:
                         await self.kittrlrank(ctx)
                 elif todo.lower() in nlpAboutMe:
@@ -59,7 +59,7 @@ class kitt:
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
-        async def kittbaseinfo(self, ctx):
+        async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = str(ctx.message.author)
                 user = author.split('#',1)[0]
@@ -93,10 +93,10 @@ class kitt:
                         platform = baseinfodict["platform"]
                 except NameError:
                         await self.discordsay("I'm going to need some more information first.")
-                        await self.baseinfo(ctx)
+                        await self.kittbasicinfo(ctx)
                 except KeyError:
                         await self.discordsay("I'm going to need some more information first.")
-                        await self.baseinfo(ctx)
+                        await self.kittbasicinfo(ctx)
                 else:
                         platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                         for k,v in platformlegend.items(): #using the platform legend, find the platform ID
