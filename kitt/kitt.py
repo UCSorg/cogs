@@ -235,17 +235,18 @@ class kitt:
                 """Assign a role to a user"""
                 for role in server.roles:
                         if role.name == newrole:
-                                userrole = role
+                                addrole = role
                                 break
                 try:
-                        userrole
+                        addrole
                 except discord.errors.Forbidden:
                         await self.bot.say("Try checking bot permissions!")
                 except:
                         await self.bot.say("Try checking the role again!")
                 else:
-                        await self.bot.add_roles(member, userrole)
-                        await self.bot.say("Congratulations!")
+                        if addrole not in member.roles:
+                                await self.bot.add_roles(member, addrole)
+                                await self.bot.say("Congratulations!")
         #common discord functions end
 
 def check_folders():
