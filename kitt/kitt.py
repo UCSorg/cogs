@@ -222,7 +222,7 @@ class kitt:
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = self.discordwaitformessage(ctx)
+                response = self.wait_for_message(timeout=90, author=ctx.message.author)
                 try:
                         response.content
                 except AttributeError:
