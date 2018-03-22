@@ -216,17 +216,17 @@ class kitt:
                 await self.bot.send_message(channel, embed=content)
         async def discordwaitformessage(self, ctx):
                 """Wait for message and return answer back to function"""
-                message = await self.bot.wait_for_message(timeout=90,author=ctx.message.author)
+                message = await self.bot.wait_for_message(timeout=90,author=ctx.message.author, channel=ctx.message.channel)
                 if not message:
                         return
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = self.bot.wait_for_message(author=ctx.message.author, channel=ctx.message.channel)
+                response = await self.discordwaitformessage
                 try:
                         response.content
                 except AttributeError:
-                        return response
+                        return None
                 else:
                         return response.content
         async def discordassignrole(self, ctx, role):
