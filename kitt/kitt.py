@@ -223,7 +223,7 @@ class kitt:
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
                 response = await self.discordwaitformessage(ctx)
-                if response not None:
+                if response is not None:
                         return response.content
         async def discordassignrole(self, ctx, role):
                 """Assign a role to a user"""
