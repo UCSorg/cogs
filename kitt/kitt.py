@@ -22,7 +22,7 @@ apipath = "data/rlrank/rls-apikey.json"
 tierlegend =    {1:"Bronze I", 2:"Bronze II",3:"Bronze III",4:"Silver I",5:"Silver II",6:"Silver III",
                 7:"Gold I",8:"Gold II",9:"Gold III",10:"Platinum I",11:"Platinum II",12:"Platinum III",
                 13:"Diamond I",14:"Diamond II",15:"Diamond III",16:"Champion I",17:"Champion II",18:"Champion III",19:"Grand Champion"}
-tempauthorpath = "data/rlrank/authordata.json"
+tempuserpath = "data/rlrank/userdata.json"
 bothelp = "**General Utilities**\n  <@420082619611611137> - `-help`\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque#6847 - `-help Audio`\n  @Mee6#4876 - <https://mee6.xyz/about>\n  @Dyno#3861 - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>"
 
 class kitt:
@@ -95,7 +95,11 @@ class kitt:
                 except KeyError:
                         await self.discordsay("I'm going to need some more information first.")
                         await self.kittbasicinfo(ctx)
-                        await self.kittrlrank(ctx)
+                        confirmation = await self.question(ctx, "Do you want to run `RLRank` again?")
+                        if "yes" in confirmation.lower():
+                            await self.kittrlrank(ctx)
+                        else:
+                            pass
                 else:
                         platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                         for k,v in platformlegend.items(): #using the platform legend, find the platform ID
@@ -135,7 +139,7 @@ class kitt:
                                                 confirmation = await self.question(ctx, "Is this you?")
                                                 if "yes" in confirmation.lower():
                                                         tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                                        tmp[author]['rldata'] = playerdata
+                                                        tmp[user]['rldata'] = playerdata
                                                         dataIO.save_json(hubdatapath, tmp)
                                                         confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
                                                         if "yes" in confirmation.lower():
@@ -147,16 +151,16 @@ class kitt:
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
-                author = str(ctx.message.author)
+                user = str(ctx.message.author)
                 channel = ctx.message.channel
                 try:
-                        authordict = dataIO.load_json(hubdatapath)[author]
+                        usrdict = dataIO.load_json(hubdatapath)[user]
                 except KeyError:
                         await self.discordsay("I don't have anything about you saved.  Let's fix that.")
                         await self.kittbasicinfo(ctx)
                 else:
-                        dataIO.save_json(tempauthorpath, authordict)
-                        await self.discordsendfile(channel, tempauthorpath) 
+                        dataIO.save_json(tempuserpath, userdict)
+                        await self.discordsendfile(channel, tempuserpath) 
 
         async def kittregion(self, ctx):
                 """Set the Region Role"""
