@@ -165,7 +165,7 @@ class kitt:
                         elif answer.lower() in nlpregionNA:
                                 await self.discordsay("You are now in the region: NA")
                         else:
-                                await self.discordsay("I have made no changes because %s is not in my accepted regions." % (response))
+                                await self.discordsay("I have made no changes because %s is not in my accepted regions." % (region))
 
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
