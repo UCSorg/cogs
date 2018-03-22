@@ -159,7 +159,8 @@ class kitt:
                 nlpregionEU = ["europe", "eu"]
                 nlpregionNA = ["na", "us", "us-west", "us-east"]
                 region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: **US-East**, **US-West**, **EU**")
-                for answer in region:
+                regionsplit = region.split()
+                for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
                                 await self.discordsay("You are now in the region: EU")
                         elif answer.lower() in nlpregionNA:
