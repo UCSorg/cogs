@@ -179,7 +179,7 @@ class kitt:
                         elif answer.lower() in nlpregionNA:
                                 await self.discordsay("You are now in the region: NA.")
                         elif answer.lower() in nlpregionRole:
-                                await self.discordroleedit(ctx, "EU")
+                                await self.discordassignrole(server, author, "EU")
                                 await self.discordsay("You are now in the region: NA.")
 #                        elif answer.lower() in nlpregionNAEast:
 #                                await self.discordsay("You are now in the region: US-East.")
@@ -233,16 +233,20 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, author, role):
+        async def discordassignrole(self, author, newrole):
                 """Assign a role to a user"""
-                await self.bot.add_roles(author, role)
-        def discordcheckrole(self, server, author, rolecheck):
-                """Checks if a role is available on the server"""
-                for role in server.roles:
-                        if role.id == rolecheck:
-                                pass
-                        else:
-                                break
+                try:
+                    for role in server.roles:
+                        if role.id == newrole:
+                            userrole = role
+                            break
+                    await self.bot.add_roles(author, userrole)
+                    await self.bot.say("Congratulations!")
+                except discord.errors.Forbidden:
+                    await self.bot.say("Try checking bot permissions!")
+                except:
+                    await self.bot.say("Try checking the role again!")
+
         async def discordroleedit(self, ctx, role):
                 """Checks and modifies roles for a user"""
                 author = ctx.message.author
