@@ -6,7 +6,7 @@ from .utils import checks
 from .utils.dataIO import dataIO
 from cogs.rlrank import rlsapi
 from __main__ import send_cmd_help
-import urllib
+import urllib.request
 
 """Requirement!  must have rlrank cog installed"""
 
