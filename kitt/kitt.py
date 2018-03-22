@@ -41,6 +41,7 @@ class kitt:
                 nlpRLRank = ["rank", "rlrank", "rocket", "league"]
                 nlpAboutMe = ["about", "aboutme"]
                 nlpRegion = ["location", "region", "area", "home"]
+                nlpHelp = ["how do i", "help", "halp"]
                 todo = await self.question(ctx,"Hey %s!  What would you like to do today? Keywords are: basicinfo, rlrank, region, stats, aboutme" % (user))
                 if todo == None:
                         pass
@@ -52,6 +53,8 @@ class kitt:
                         await self.kittaboutme(ctx)
                 elif todo.lower() in nlpRegion:
                         await self.kittregion(ctx)
+                elif todo.lower() in nlpHelp()
+                        await self.discordsay("**General Utilities**\n  @Torque - `-help`\n  @Dyno - <https://www.dynobot.net/commands>\n**Stats Tracking**\n  @Stat Tracker - <http://bots.tracker.network/commands.html>\n  @RLTracker.pro - <https://rltracker.pro/discord>\n  @RLTrader - <https://rltracker.pro/discord>\n**Music**\n  @Torque - `-help Audio`\n  @Mee6 - <https://mee6.xyz/about>\n  @Dyno - <https://www.dynobot.net/commands>\n**Streaming**\n  @Now Live - <http://nowlivebot.com/commands>")
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
@@ -157,16 +160,23 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 nlpregionEU = ["europe", "eu"]
-                nlpregionNA = ["na", "us", "us-west", "us-east"]
-                region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: **US-East**, **US-West**, **EU**")
+                nlpregionNA = ["na", "us"]
+#                nlpregionNAEast = ["east", "us-east", "na-east"]
+#                nlpregionNAWest = ["west", "us-west", "na-west"]
+                region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: %s, %s" % (nlpregionNA, nlpregionEU))
                 regionsplit = region.split()
                 for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
+                                await self.discordroleeidt(ctx, "EU")
                                 await self.discordsay("You are now in the region: EU")
                         elif answer.lower() in nlpregionNA:
-                                await self.discordsay("You are now in the region: NA")
+                                await self.discordsay("You are now in the region: US-East and US-West.  If you want just one region, be more specific.")
+#                        elif answer.lower() in nlpregionNAEast:
+#                                await self.discordsay("You are now in the region: US-East.")
+#                        elif answer.lower() in nlpregionNAWest:
+#                                await self.discordsay("You are now in the region: US-West.")
                         else:
-                                await self.discordsay("I have made no changes because %s is not in my accepted regions." % (region))
+                                await self.discordsay("I have made no changes because %s is not in my accepted regions." % (answer))
 
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
@@ -217,13 +227,19 @@ class kitt:
                 """Assign a role to a user"""
                 author = str(ctx.message.author)
                 await self.bot.add_roles(author, role)
-        def discordcheckrole():
+        def discordcheckrole(server, author, rolecheck):
                 """Checks if a role is available on the server"""
                 for role in server.roles:
                         if role.id == rolecheck:
                                 pass
                         else:
-                                return "Fail"
+                                break
+        async def discordroleeidt(self, ctx, role):
+                """Checks and modifies roles for a user"""
+                author = ctx.message.author
+                sever = ctx.message.server
+                await discordcheckrole(server, author, role)
+
         #common discord functions end
 
 def check_folders():
