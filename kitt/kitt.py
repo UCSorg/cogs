@@ -44,7 +44,7 @@ class kitt:
                 if ctx.invoked_subcommand is None:
                         todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
                         if todo == "None":
-                                break
+                                pass
                         elif todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
                         elif todo.lower() in nlpRLRank:
