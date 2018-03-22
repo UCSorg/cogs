@@ -175,7 +175,6 @@ class kitt:
                 for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
                                 await self.discordassignrole(server, author, "EU")
-                                await self.discordsay("You are now in the region: EU")
                         elif answer.lower() in nlpregionNA:
                                 await self.discordassignrole(server, author, "NA")
                                 await self.discordsay("You are now in the region: NA.")
@@ -240,12 +239,13 @@ class kitt:
                 try:
                         addrole
                 except discord.errors.Forbidden:
-                        await self.bot.say("Try checking bot permissions!")
+                        await self.discordsay("Try checking bot permissions!")
                 except:
-                        await self.bot.say("Try checking the role again!")
+                        await self.discordsay("Try checking the role again!")
                 else:
                         if addrole not in member.roles:
                                 await self.bot.add_roles(member, addrole)
+                                await self.discordsay("You are now a member of %s" % (addrole.name))
                         else:
                                 await self.discordsay("You are already a member of %s" % (addrole.name))
         #common discord functions end
