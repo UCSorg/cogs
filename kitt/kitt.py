@@ -42,7 +42,7 @@ class kitt:
                 nlpAboutMe = ["about", "aboutme"]
                 nlpRegion = ["location", "region", "area", "home"]
                 await self.discordsay("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                todoresponse = await self.bot.wait_for_message(author=ctx.message.author)
+                todoresponse = await self.bot.wait_for_message(timeout=90,author=ctx.message.author)
                 todo = todoresponse.content
                 if todo == None:
                         pass
