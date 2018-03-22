@@ -44,7 +44,7 @@ class kitt:
                 nlpSet = ["set", "make", "i am"]
                 nlpRemove = ["remove", "leave", "minus"]
 
-                todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0] nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
+                todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0], nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpHelp:
@@ -87,7 +87,7 @@ class kitt:
                 channel = ctx.message.channel
                 nlpRemoveAboutMe = ["aboutme", "about"]
                 nlpRemoveRole = ["role", "region", "rank"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s" % (user, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                todo = await self.question(ctx,"What can I help you remove today? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpRemoveAboutMe:
