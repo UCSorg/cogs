@@ -234,12 +234,11 @@ class kitt:
         async def discordassignrole(self, server, author, newrole):
                 """Assign a role to a user"""
                 for role in server.roles:
-                        await self.discordsay(role.id)
+                        await self.discordsay(role.name)
                 try:
                     for role in server.roles:
-                        if role.id == newrole:
+                        if role.name == newrole:
                             userrole = role
-                            await self.discordsay("Role: %s, RoleID: %s" % (role, role.id))
                             break
                     await self.bot.add_roles(author, userrole)
                     await self.bot.say("Congratulations!")
