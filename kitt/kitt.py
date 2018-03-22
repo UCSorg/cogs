@@ -246,7 +246,8 @@ class kitt:
                 else:
                         if addrole not in member.roles:
                                 await self.bot.add_roles(member, addrole)
-                                await self.bot.say("Congratulations!")
+                        else:
+                                await self.discordsay("You are already a member of %s" % (addrole.name))
         #common discord functions end
 
 def check_folders():
