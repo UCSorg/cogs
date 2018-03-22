@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import requests
 import os
+import re
 from .utils import checks
 from .utils.dataIO import dataIO
 from cogs.rlrank import rlsapi
@@ -171,7 +172,7 @@ class kitt:
 #                nlpregionNAEast = ["east", "us-east", "na-east"]
 #                nlpregionNAWest = ["west", "us-west", "na-west"]
                 region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: %s, %s" % (nlpregionNA[0], nlpregionEU[0]))
-                regionsplit = region.split()
+                regionsplit = re.split('; |, | \*|\n',region)
                 for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
                                 await self.discordassignrole(server, author, "EU")
