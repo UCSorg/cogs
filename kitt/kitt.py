@@ -41,22 +41,21 @@ class kitt:
                 nlpRLRank = ["rank", "rlrank", "rocket", "league"]
                 nlpAboutMe = ["about", "aboutme"]
                 nlpRegion = ["location", "region", "area", "home"]
-                if ctx.invoked_subcommand is None:
-                        await self.discordsay("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                        todoresponse = self.bot.wait_for_message(author=ctx.message.author)
-                        todo = todoresponse.content
-                        if todo == None:
-                                pass
-                        elif todo.lower() in nlpBase:
-                                await self.kittbaseinfo(ctx)
-                        elif todo.lower() in nlpRLRank:
-                                await self.kittrlrank(ctx)
-                        elif todo.lower() in nlpAboutMe:
-                                await self.kittaboutme(ctx)
-                        elif todo.lower() in nlpRegion:
-                                await self.kittregion(ctx)
-                        else:
-                                await self.discordsay("I'm not set up to do really anything else at this time.")   
+                await self.discordsay("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
+                todoresponse = self.bot.wait_for_message(author=ctx.message.author)
+                todo = todoresponse.content
+                if todo == None:
+                        pass
+                elif todo.lower() in nlpBase:
+                        await self.kittbaseinfo(ctx)
+                elif todo.lower() in nlpRLRank:
+                        await self.kittrlrank(ctx)
+                elif todo.lower() in nlpAboutMe:
+                        await self.kittaboutme(ctx)
+                elif todo.lower() in nlpRegion:
+                        await self.kittregion(ctx)
+                else:
+                        await self.discordsay("I'm not set up to do really anything else at this time.")   
 
         async def kittbaseinfo(self, ctx):
                 """Find gamerid and platform for author"""
