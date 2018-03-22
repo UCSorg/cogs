@@ -37,12 +37,12 @@ class kitt:
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
                 user = author.split('#',1)[0]
-                nlpBase = ["basic", "basicinfo", "info"]
-                nlpRLRank = ["rank", "rlrank", "rocket", "league"]
-                nlpAboutMe = ["about", "aboutme"]
-                nlpRegion = ["location", "region", "area", "home"]
-                nlpHelp = ["how do i", "help", "halp"]
-                todo = await self.question(ctx,"Hey %s!  What would you like to do today? Keywords are: basicinfo, rlrank, region, stats, aboutme" % (user))
+                nlpBase = ["basicinfo", "basic", "info"]
+                nlpRLRank = ["rlrank", "rank", "rocket", "league"]
+                nlpAboutMe = ["aboutme", "about"]
+                nlpRegion = ["region", "location", "live", "area", "home"]
+                nlpHelp = ["how do i?", "help", "halp"]
+                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s " % (user, nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpHelp[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
