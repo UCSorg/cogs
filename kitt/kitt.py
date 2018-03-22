@@ -38,13 +38,14 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = ctx.message.author
-                user = str(author).split('#',1)[0]
+                usersplit = str(author).split('#',1)[0]
                 nlpBase = ["basicinfo", "basic", "info"]
                 nlpRLRank = ["rlrank", "rank", "rocket", "league"]
                 nlpAboutMe = ["aboutme", "about"]
+                nlpRemove = ["remove"]
                 nlpRegion = ["region", "location", "live", "area", "home"]
                 nlpHelp = ["how do i?", "how do i", "help", "halp"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s " % (user, nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpHelp[0]))
+                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
@@ -57,16 +58,21 @@ class kitt:
                         await self.kittregion(ctx)
                 elif todo.lower() in nlpHelp:
                         await self.discordsay(bothelp)
+                elif todo.lower() in nlpRemove:
+                        await self.kittremove(ctx)
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
-                author = str(ctx.message.author)
-                user = author.split('#',1)[0]
+                author = ctx.message.author
+                user = str(ctx.message.author)
+                usersplit = author.split('#',1)[0]
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                gamerid = await self.question(ctx,"Hey `" + user + "`!  Can I get your gamertag ID?")
+                gamerid = await self.question(ctx,"Hey `" + usersplit + "`!  Can I get your gamertag ID?")
+                if gamerid == None:
+                    pass
                 platform = await self.question(ctx, "What platform is that for?")
                 if platform.lower() in "switch":
                         content = Embed(title="Error", description="The Nintendo Switch is not supported for stat tracking.", color=16713736)
@@ -78,9 +84,46 @@ class kitt:
                         confirmation = await self.question(ctx, "Do you want me to store this for future use?")
                         if "yes" in confirmation.lower():
                                 tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
-                                tmp[author] = {}
-                                tmp[author]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
+                                tmp[user] = {}
+                                tmp[user]["baseInfo"] = {"platform": platform, "gamerid": gamerid}
                                 dataIO.save_json(hubdatapath, tmp)
+                                await self.discordsay("I've stored this: %s" % (tmp[user]["baseInfo"]))
+
+        async def kittremove(self, ctx):
+                """Offer to remove roles, hubdata from author"""
+                author = str(ctx.message.author)
+                usersplit = author.split('#',1)[0]
+                channel = ctx.message.channel
+                nlpRemoveAboutMe = ["aboutme", "about"]
+                nlpRemoveRole = ["role", "region", "rank"]
+                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, % " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
+                if todo == None:
+                        pass
+                elif todo.lower() in nlpRemoveAboutMe:
+                        await self.kittremovehubdata(ctx)
+                elif todo.lower() in nlpRLRank:
+                        await self.kittremoveroles(ctx)
+                else:
+                        await self.discordsay("I'm not set up to remove really anything else at this time.")
+
+        async def kittremovehubdata(self, ctx):
+                """Remove hubdata about author"""
+                author = str(ctx.message.author)
+                usersplit = author.split('#',1)[0]
+                channel = ctx.message.channel
+                confirmation = await self.question(ctx,"Hey `" + usersplit + "`! Are you sure you want to remove your data?  This will make it more difficult to search things about yourself in the future.")
+                if confirmation == None:
+                    pass
+                elif "yes" in confirmation.lower():
+                        tmp = dataIO.load_json(hubdatapath) #store anything we've gathered so far
+                        tmp[user] = {}
+                        dataIO.save_json(hubdatapath, tmp)
+                        await self.discordsay("Okay, I've removed everything about you that was previously stored.")
+                elif "no" in confirmation.lower():
+                        await self.discordsay("Okay, I've made no changes.")
+                else:
+                        await self.discordsay("Sorry, `%s`, wasn't an acccepted answer.  Let's try again." % (confirmation))
+                        await self.kittremovehubdata(ctx)
 
         async def kittrlrank(self, ctx):
                 """Find rocket league stats for author"""
