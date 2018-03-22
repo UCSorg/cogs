@@ -38,14 +38,14 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = ctx.message.author
-                usersplit = str(author).split('#',1)[0]
+                user = str(author)
                 nlpBase = ["basicinfo", "basic", "info"]
                 nlpRLRank = ["rlrank", "rank", "rocket", "league"]
                 nlpAboutMe = ["aboutme", "about"]
                 nlpRemove = ["remove", "leave", "minus"]
                 nlpRegion = ["region", "location", "live", "area", "home"]
                 nlpHelp = ["how do i?", "how do i", "help", "halp"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, %s " % (usersplit, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
+                todo = await self.question(ctx,"Hey %s!  What can I help you do today? Some keywords are: %s, %s, %s, %s, %s, %s " % (user, nlpHelp[0] nlpBase[0], nlpRLRank[0], nlpAboutMe[0], nlpRegion[0], nlpRemove[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
@@ -65,12 +65,12 @@ class kitt:
 
         async def kittremove(self, ctx):
                 """Offer to remove roles, hubdata from author"""
-                author = str(ctx.message.author)
-                usersplit = author.split('#',1)[0]
+                author = ctx.message.author
+                user = str(author)
                 channel = ctx.message.channel
                 nlpRemoveAboutMe = ["aboutme", "about"]
                 nlpRemoveRole = ["role", "region", "rank"]
-                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s" % (usersplit, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                todo = await self.question(ctx,"Hey %s!  What can I help you remove today? Some keywords are: %s, %s" % (user, nlpRemoveRole[0], nlpRemoveAboutMe[0]))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpRemoveAboutMe:
@@ -107,8 +107,8 @@ class kitt:
                                 await self.discordsay("I've stored this: %s" % (tmp[user]["baseInfo"]))
         async def kittremovehubdata(self, ctx):
                 """Remove hubdata about author"""
-                author = str(ctx.message.author)
-                usersplit = author.split('#',1)[0]
+                user = str(ctx.message.author)
+                usersplit = user.split('#',1)[0]
                 channel = ctx.message.channel
                 confirmation = await self.question(ctx,"Hey `" + usersplit + "`! Are you sure you want to remove your data?  This will make it more difficult to search things about yourself in the future.")
                 if confirmation == None:
