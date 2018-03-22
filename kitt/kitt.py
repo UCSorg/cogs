@@ -36,26 +36,31 @@ class kitt:
                 server = ctx.message.server
                 channel = ctx.message.channel
                 author = str(ctx.message.author)
+                user = author.split('#',1)[0]
                 nlpBase = ["base", "baseinfo", "info"]
                 nlpRLRank = ["rank", "rlrank", "rocket", "league"]
                 nlpAboutMe = ["about", "aboutme"]
+                nlpRegion = ["location", "region", "area", "home"]
                 if ctx.invoked_subcommand is None:
-                        todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (author))
+                        todo = await self.question(ctx, "Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
                         if todo.lower() in nlpBase:
                                 await self.kittbaseinfo(ctx)
                         elif todo.lower() in nlpRLRank:
                                 await self.kittrlrank(ctx)
                         elif todo.lower() in nlpAboutMe:
                                 await self.kittaboutme(ctx)
+                        elif todo.lower() in nlpRegion:
+                                await self.kittregion(ctx)
                         else:
                                 await self.discordsay("I'm not set up to do really anything else at this time.")   
 
         async def kittbaseinfo(self, ctx):
                 """Find gamerid and platform for author"""
                 author = str(ctx.message.author)
+                user = author.split('#',1)[0]
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
-                await self.bot.say("Hey `" + author + "`!  Can I get your gamertag ID?")
+                await self.discordsay("Hey `" + user + "`!  Can I get your gamertag ID?")
                 gameridresponse = await self.bot.wait_for_message(author=ctx.message.author)
                 gamerid = gameridresponse.content.lower().strip()
                 if gameridresponse == "none":
@@ -120,7 +125,7 @@ class kitt:
                             else:
                                 if "code" in playerdata:
                                     error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata['code']),playerdata['message'],gamertag,platformid)
-                                    await self.bot.say(error)
+                                    await self.discordsay(error)
                                 elif "Fail" in playerdata: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
@@ -142,11 +147,11 @@ class kitt:
                                                         dataIO.save_json(hubdatapath, tmp)
                                                         confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
                                                         if "yes" in confirmation.lower():
-                                                                await self.bot.say("Process for setting rank goes here.")
+                                                                await self.discordsay("Process for setting rank goes here.")
                                                         elif "no" in confirmation.lower():
-                                                                await self.bot.say("Okay, no changes have been made.")
+                                                                await self.discordsay("Okay, no changes have been made.")
                                                 else:
-                                                        await self.bot.say("I think we'll need to start over.")
+                                                        await self.discordsay("I think we'll need to start over.")
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
@@ -160,10 +165,23 @@ class kitt:
                         dataIO.save_json(tempauthorpath, authordict)
                         await self.discordsendfile(channel, tempauthorpath) 
 
-        async def question(self, ctx, question):
-                await self.bot.say(question)
-                response = await self.bot.wait_for_message(author=ctx.message.author)
-                return response.content
+        async def kittregion(self, ctx):
+                """Set the Region Role"""
+                server = ctx.message.server
+                channel = ctx.message.channel
+                author = str(ctx.message.author)
+                nlpregionEU = ["europe", "eu"]
+                nlpregionNA = ["na", "us", "us-west", "us-east"]
+                await self.discordsay("What region do you game in?  Multiple answers are accepted: **US-East**, **US-West**, **EU**")
+                responsecontent = await self.bot.wait_for_message(author=ctx.message.author)
+                response = responsecontent.content.lower().strip()
+                for answer in response:
+                        if response in nlpregionEU:
+                                await self.discordsay("You are now in the region: EU")
+                        elif response in nlpregionNA:
+                                await self.discordsay("You are now in the region: NA")
+                        else:
+                                await self.discordsay("I have made no changes because %s is not in my accepted regions." % (response))
 
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
@@ -187,17 +205,25 @@ class kitt:
                 else:
                         return namedrank
 
+#common discord functions start
         async def discordsay(self, data):
-                """Simple text in discord"""
+                """send message in discord"""
                 await self.bot.say(data)
-
         async def discordsendfile(self, channel, file):
-                """Simple attachment in discord"""
+                """Send attachment in discord"""
                 await self.bot.send_file(channel, file)
-
         async def discordembed(self, channel, content):
-                """Simple embed in discord"""
+                """Send embed message in discord"""
                 await self.bot.send_message(channel, embed=content)
+        async def discordwaitformessage(self, ctx):
+                """Wait for message and return answer back to function"""
+                await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
+        async def question(self, ctx, question):
+                """Send question in message and return answer back to function"""
+                await self.bot.say(question)
+                response = discordwaitformessage(ctx)
+                return response.content
+#common discord functions end
 
 def check_folders():
     if not os.path.exists("data/rlrank"):
