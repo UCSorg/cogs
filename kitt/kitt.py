@@ -43,7 +43,8 @@ class kitt:
                 nlpRegion = ["location", "region", "area", "home"]
                 if ctx.invoked_subcommand is None:
                         await self.discordsay("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                        todo = self.bot.wait_for_message(timeout=90,author=ctx.message.author, channel=ctx.message.channel)
+                        todoresponse = self.bot.wait_for_message(author=ctx.message.author, channel=ctx.message.channel)
+                        todo = todoresponse.content
                         if todo == None:
                                 pass
                         elif todo.lower() in nlpBase:
