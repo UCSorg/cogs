@@ -91,7 +91,7 @@ class kitt:
                 author = str(ctx.message.author)
                 channel = ctx.message.channel
                 data = dataIO.load_json(hubdatapath)
-                apikey = self.apikey['key']
+                apikey = self.apikey.get("key")
                 try:
                         baseinfodict = data[author]["baseInfo"]
                         gamerid = baseinfodict["gamerid"]
