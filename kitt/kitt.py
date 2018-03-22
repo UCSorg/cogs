@@ -94,6 +94,9 @@ class kitt:
                 except NameError:
                         await self.discordsay("I'm going to need some more information first.")
                         await self.baseinfo(ctx)
+                except KeyError:
+                        await self.discordsay("I'm going to need some more information first.")
+                        await self.baseinfo(ctx)
                 else:
                         platformlegend = {'pc' : 1, 'ps4' : 2, 'xbox' : 3}
                         for k,v in platformlegend.items(): #using the platform legend, find the platform ID
