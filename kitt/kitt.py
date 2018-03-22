@@ -41,9 +41,7 @@ class kitt:
                 nlpRLRank = ["rank", "rlrank", "rocket", "league"]
                 nlpAboutMe = ["about", "aboutme"]
                 nlpRegion = ["location", "region", "area", "home"]
-                await self.discordsay("Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
-                todoresponse = await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
-                todo = todoresponse.content
+                todo = await self.question(ctx,"Hey %s!  What would you like to do today? Keywords are: baseinfo, rlrank, region, stats, aboutme" % (user))
                 if todo == None:
                         pass
                 elif todo.lower() in nlpBase:
@@ -223,9 +221,11 @@ class kitt:
         async def question(self, ctx, question):
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
-                response = await self.discordwaitformessage(ctx)
+                response = await await self.bot.wait_for_message(timeout=90,author=ctx.message.author,channel=ctx.message.channel)
                 if response is not None:
                         return response.content
+                else:
+                        return None
         async def discordassignrole(self, ctx, role):
                 """Assign a role to a user"""
                 author = str(ctx.message.author)
