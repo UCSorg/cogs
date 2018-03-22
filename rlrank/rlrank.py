@@ -115,16 +115,16 @@ def rlsapi(platform, gamertag, apikey):
             headers = {'Authorization' : apikey}
             params = (('unique_id', gamertag), ('platform_id', platformid),)
             playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
-            return playerdata.json()
+            return playerdata
         except NameError:
             return "Fail. rlsapi NameError - ask an admin"
         else:
-            if "code" in playerdata.json():
-                error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
+            if "code" in playerdata:
+                error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata['code']),playerdata['message'],gamertag,platformid)
                 return error
             else:
-                dataIO.save_json("data/rlrank/player.json", playerdata.json())
-                return playerdata.json()
+                dataIO.save_json("data/rlrank/player.json", playerdata)
+                return playerdata
 
 def check_folders():
     if not os.path.exists("data/rlrank"):
