@@ -117,16 +117,16 @@ class kitt:
                             except NameError:
                                 await self.bot.say("Fail. rlsapi NameError for API CURL Request - ask an admin")
                             else:
-                                if "code" in playerdata.json():
+                                if "code" in playerdata():
                                     error = "Fail. Error: %s. %s  gamertag=%s, platform=%s" % (str(playerdata.json()['code']),playerdata.json()['message'],gamertag,platformid)
                                     await self.bot.say(error)
-                                else:
+                                elif:
                                     if "Fail" in playerdata: #if error code, respond with error code message
                                         content = Embed(title="Error", description=data, color=16713736)
                                         await self.discordembed(channel, content)
                                     else:
-                                        playerurl = data.get("profileUrl")
-                                        playersignature = data.get("signatureUrl")
+                                        playerurl = playerdata.get("profileUrl")
+                                        playersignature = playerdata.get("signatureUrl")
                                         try:
                                             playerurl
                                             playersignature
