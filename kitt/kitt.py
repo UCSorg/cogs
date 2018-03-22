@@ -134,7 +134,7 @@ class kitt:
                                             content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
                                             await self.discordembed(channel, content)
                                         else:
-                                                await self.discordsay(playersignature)
+                                                await self.discordsay("This is what we have: " + playersignature)
                                                 confirmation = await self.question(ctx, "Is this you?")
                                                 if "yes" in confirmation.lower():
                                                         tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
