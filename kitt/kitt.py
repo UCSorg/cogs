@@ -168,19 +168,16 @@ class kitt:
                 author = str(ctx.message.author)
                 nlpregionEU = ["eu", "europe"]
                 nlpregionNA = ["na", "us"]
-                nlpregionRole = ["role"]
 #                nlpregionNAEast = ["east", "us-east", "na-east"]
 #                nlpregionNAWest = ["west", "us-west", "na-west"]
                 region = await self.question(ctx,"What region do you game in?  Multiple answers are accepted: %s, %s" % (nlpregionNA[0], nlpregionEU[0]))
                 regionsplit = region.split()
                 for answer in regionsplit:
                         if answer.lower() in nlpregionEU:
-                                await self.discordroleeidt(ctx, "EU")
+                                await self.discordassignrole(server, author, "EU")
                                 await self.discordsay("You are now in the region: EU")
                         elif answer.lower() in nlpregionNA:
-                                await self.discordsay("You are now in the region: NA.")
-                        elif answer.lower() in nlpregionRole:
-                                await self.discordassignrole(server, author, "EU")
+                                await self.discordassignrole(server, author, "NA")
                                 await self.discordsay("You are now in the region: NA.")
 #                        elif answer.lower() in nlpregionNAEast:
 #                                await self.discordsay("You are now in the region: US-East.")
@@ -240,6 +237,7 @@ class kitt:
                     for role in server.roles:
                         if role.id == newrole:
                             userrole = role
+                            await self.discordsay("Role: %s, RoleID: %s" % (role, role.id))
                             break
                     await self.bot.add_roles(author, userrole)
                     await self.bot.say("Congratulations!")
@@ -247,14 +245,6 @@ class kitt:
                     await self.bot.say("Try checking bot permissions!")
                 except:
                     await self.bot.say("Try checking the role again!")
-
-        async def discordroleedit(self, ctx, role):
-                """Checks and modifies roles for a user"""
-                author = ctx.message.author
-                server = ctx.message.server
-                await self.discordcheckrole(server, author, role)
-                await self.discordassignrole(author, role)
-
         #common discord functions end
 
 def check_folders():
