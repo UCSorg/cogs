@@ -231,7 +231,7 @@ class kitt:
                 else:
                         await self.discordsay("I can't wait forever, %s.  maybe we can try again later." % (ctx.message.author))  
                         return None
-        async def discordassignrole(self, server, author, newrole):
+        async def discordassignrole(self, server, member, newrole):
                 """Assign a role to a user"""
                 for role in server.roles:
                         if role.name == newrole:
