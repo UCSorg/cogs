@@ -247,8 +247,8 @@ class kitt:
                 """Checks and modifies roles for a user"""
                 author = ctx.message.author
                 server = ctx.message.server
-                await discordcheckrole(server, author, role)
-                await discordassignrole(author, role)
+                await self.discordcheckrole(server, author, role)
+                await self.discordassignrole(author, role)
 
         #common discord functions end
 
