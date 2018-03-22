@@ -105,18 +105,35 @@ class kitt:
                                 content = Embed(title="Error", description=data, color=16713736)
                                 await self.discordembed(channel, content)
                         else:
-                            confirmation = await self.question(ctx, "Is this you?")
-                            if "yes" in confirmation.lower():
-                                    tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
-                                    tmp[author]['rldata'] = playerdata
-                                    dataIO.save_json(hubdatapath, tmp)
-                                    confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
-                                    if "yes" in confirmation.lower():
-                                            await self.bot.say("Process for setting rank goes here.")
-                                    elif "no" in confirmation.lower():
-                                            await self.bot.say("Okay, no changes have been made.")
+                            playerurl = data.get("profileUrl")
+                            playersignature = data.get("signatureUrl")
+                            try:
+                                    playerurl
+                                    playersignature
+                            except NameError:
+                                    content = Embed(title="Error", description="I had trouble finding information about you on rocketleaguestats.com", color=16713736)
+                                    await self.discordembed(channel, content)
                             else:
-                                    await self.bot.say("I think we'll need to start over.") 
+                                    image = "data/rlrank/playersignature.png"
+                                    opener=urllib.request.build_opener() #download and save the rocket league signature image
+                                    opener.addheaders=[('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1941.0 Safari/537.36')]
+                                    urllib.request.install_opener(opener)
+                                    urllib.request.urlretrieve(playersignature, image)
+                                    content = Embed(title="Click here for more detailed stats about %s" %(gamertag), description="This information updates about once per hour.", url=playerurl, color=10604116)
+                                    await self.discordembed(channel, content)
+                                    await self.discordsendfile(channel, image)
+                                    confirmation = await self.question(ctx, "Is this you?")
+                                    if "yes" in confirmation.lower():
+                                            tmp = dataIO.load_json(hubdatapath) #store the data about the player for use later
+                                            tmp[author]['rldata'] = playerdata
+                                            dataIO.save_json(hubdatapath, tmp)
+                                            confirmation = await self.question(ctx, "Do you want to set your rank for this server with this information?")
+                                            if "yes" in confirmation.lower():
+                                                    await self.bot.say("Process for setting rank goes here.")
+                                            elif "no" in confirmation.lower():
+                                                    await self.bot.say("Okay, no changes have been made.")
+                                    else:
+                                            await self.bot.say("I think we'll need to start over.")
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
