@@ -115,6 +115,7 @@ def rlsapi(platform, gamertag, apikey):
             headers = {'Authorization' : apikey}
             params = (('unique_id', gamertag), ('platform_id', platformid),)
             playerdata = requests.get('https://api.rocketleaguestats.com/v1/player', headers=headers, params=params)
+            return playerdata.json()
         except NameError:
             return "Fail. rlsapi NameError - ask an admin"
         else:
