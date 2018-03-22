@@ -221,7 +221,23 @@ class kitt:
                 """Send question in message and return answer back to function"""
                 await self.bot.say(question)
                 response = self.discordwaitformessage(ctx)
-                return response.content
+                try:
+                        response.content
+                except AttributeError:
+                        return response
+                else:
+                        return response.content
+        async def discordassignrole(self, ctx, role):
+                """Assign a role to a user"""
+                author = str(ctx.message.author)
+                await self.bot.add_roles(author, role)
+        def discordcheckrole():
+                """Checks if a role is available on the server"""
+                for role in server.roles:
+                        if role.id == rolecheck:
+                                pass
+                        else:
+                                return "Fail"
         #common discord functions end
 
 def check_folders():
