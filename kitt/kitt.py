@@ -48,19 +48,20 @@ class kitt:
                 nlpRemove = ["remove", "leave", "minus"]
                 nlpRemoveAboutMe = ["aboutme", "about"]
                 nlpRemoveRole = ["role", "region", "rank"]
-                todo = []
                 todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0], nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
                 if todo == None:
                         pass
                 else:
+                    todosplit = re.split('; |, | \*|\n',todo)
+                    await self.discordsay(todosplit)
                     while todo:
-                        item = todo.pop(0)
+                        item = todosplit.pop(0)
                         if item.lower() in nlpHelp:
                                 await self.discordsay(bothelp)
                         elif item.lower() in nlpAboutMe:
                                 await self.kittaboutme(ctx)
                         elif item.lower() in nlpSet:
-                                for item in todo:
+                                for item in todosplit:
                                     if item.lower() in nlpBasic:
                                         await self.kittbasicinfo(ctx)
                                     elif item.lower() in nlpRegion:
@@ -70,7 +71,7 @@ class kitt:
                                     else:
                                         todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
                         elif item.lower() in nlpRemove:
-                                for item in todo:
+                                for item in todosplt:
                                     if item.lower() in nlpRemoveRole:
                                         await self.kittremoverole(ctx)
                                     elif item.lower() in nlpRemoveAboutMe:
