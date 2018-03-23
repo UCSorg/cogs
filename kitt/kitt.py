@@ -58,7 +58,6 @@ class kitt:
                     await self.discordsay(todosplit)
                     for item in todosplit:
                         while item:
-                            item = todosplit.pop(0)
                             if item.lower() not in allnlp:
                                     await self.discordsay("I'm not set up to do really anything else at this time.")   
                             elif item.lower() in nlpHelp:
