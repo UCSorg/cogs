@@ -88,7 +88,7 @@ class kitt:
                 """Find gamerid and platform for author"""
                 author = ctx.message.author
                 user = str(ctx.message.author)
-                usersplit = author.split('#',1)[0]
+                usersplit = user.split('#',1)[0]
                 channel = ctx.message.channel
                 acceptedplatforms = ['pc', 'ps4', 'xbox']
                 gamerid = await self.question(ctx,"Hey `" + usersplit + "`!  Can I get your gamertag ID?")
