@@ -51,38 +51,34 @@ class kitt:
                 todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0], nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
                 if todo == None:
                         pass
-                elif todo.lower() in nlpHelp:
-                        await self.discordsay(bothelp)
-                elif todo.lower() in nlpAboutMe:
-                        await self.kittaboutme(ctx)
-                elif todo.lower() in nlpSet:
-                        if todo.lower() in nlpBasic:
-                            await self.kittbasicinfo(ctx)
-                        elif todo.lower() in nlpRegion:
-                            await self.kittregion(ctx)
-                        elif todo.lower() in nlpRLRank:
-                            await self.kittrlrank(ctx)
-                        else:
-                            todo = await self.question(ctx,"What can would you like to set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
-                            if todo == None:
-                                pass
-                            elif todo.lower() in nlpBasic:
-                                await self.kittbasicinfo(ctx)
-                            elif todo.lower() in nlpRegion:
-                                await self.kittregion(ctx)
-                            elif todo.lower() in nlpRLRank:
-                                await self.kittrlrank(ctx)
-                            else:
-                                await self.discordsay("I'm not set up to do really anything else at this time.")
-                elif todo.lower() in nlpRemove:
-                        if todo.lower() in nlpRemoveRole:
-                            await self.kittremoverole(ctx)
-                        elif todo.lower() in nlpRemoveAboutMe:
-                            await self.kittremovehubdata(ctx)
-                        else:
-                            await self.discordsay("I'm not set up to do really anything else at this time.")
                 else:
-                        await self.discordsay("I'm not set up to do really anything else at this time.")   
+                    for item in todo:
+                        if item.lower() in nlpHelp:
+                                await self.discordsay(bothelp)
+                        elif item.lower() in nlpAboutMe:
+                                await self.kittaboutme(ctx)
+                        elif item.lower() in nlpSet:
+                                for item in todo:
+                                    if item.lower() in nlpBasic:
+                                        await self.kittbasicinfo(ctx)
+                                    elif item.lower() in nlpRegion:
+                                        await self.kittregion(ctx)
+                                    elif item.lower() in nlpRLRank:
+                                        await self.kittrlrank(ctx)
+                                    else:
+                                        todo = await self.question(ctx,"What can would you like to set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                        continue
+                        elif item.lower() in nlpRemove:
+                                for item in todo:
+                                    if todo.lower() in nlpRemoveRole:
+                                        await self.kittremoverole(ctx)
+                                    elif todo.lower() in nlpRemoveAboutMe:
+                                        await self.kittremovehubdata(ctx)
+                                    else:
+                                        todo = await self.question(ctx,"What can would you like to remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                                        continue
+                        else:
+                                await self.discordsay("I'm not set up to do really anything else at this time.")   
 
         async def kittset(self, ctx):
                 """Offer to add roles, or set information about the user"""
