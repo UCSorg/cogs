@@ -57,32 +57,32 @@ class kitt:
                     todosplit = re.split(';|,|\s|\*|\n',todo)
                     await self.discordsay(todosplit)
                     while todosplit:
-                        if item.lower() not in allnlp:
-                                await self.discordsay("I'm not set up to do really anything else at this time.")   
-                        elif item.lower() in nlpHelp:
-                                await self.discordsay(bothelp)
-                        elif item.lower() in nlpAboutMe:
-                                await self.kittaboutme(ctx)
-                        elif item.lower() in nlpSet:
-                                for item in todosplit:
-                                    if item.lower() in nlpBasic:
-                                        await self.kittbasicinfo(ctx)
-                                    elif item.lower() in nlpRegion:
-                                        await self.kittregion(ctx)
-                                    elif item.lower() in nlpRLRank:
-                                        await self.kittrlrank(ctx)
-                                    else:
-                                        todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
-                        elif item.lower() in nlpRemove:
-                                for item in todosplit:
-                                    if item.lower() in nlpRemoveRole:
-                                        await self.kittremoverole(ctx)
-                                    elif item.lower() in nlpRemoveAboutMe:
-                                        await self.kittremovehubdata(ctx)
-                                    else:
-                                        todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                        if [item for item in allnlp if any(x in item for x in todosplit)]:
+                            await self.discordsay("I'm not set up to do really anything else at this time.")   
                         else:
-                            continue
+                            for item in todosplit:
+                                if item.lower() in nlpHelp:
+                                        await self.discordsay(bothelp)
+                                elif item.lower() in nlpAboutMe:
+                                        await self.kittaboutme(ctx)
+                                elif item.lower() in nlpSet:
+                                        for item in todosplit:
+                                            if item.lower() in nlpBasic:
+                                                await self.kittbasicinfo(ctx)
+                                            elif item.lower() in nlpRegion:
+                                                await self.kittregion(ctx)
+                                            elif item.lower() in nlpRLRank:
+                                                await self.kittrlrank(ctx)
+                                            else:
+                                                todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                elif item.lower() in nlpRemove:
+                                        for item in todosplit:
+                                            if item.lower() in nlpRemoveRole:
+                                                await self.kittremoverole(ctx)
+                                            elif item.lower() in nlpRemoveAboutMe:
+                                                await self.kittremovehubdata(ctx)
+                                            else:
+                                                todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
