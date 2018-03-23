@@ -68,23 +68,29 @@ class kitt:
                             elif item.lower() in nlpAboutMe:
                                     await self.kittaboutme(ctx)
                             elif item.lower() in nlpSet:
-                                    for item in todosplit:
-                                        if item.lower() in nlpBasic:
-                                            await self.kittbasicinfo(ctx)
-                                        elif item.lower() in nlpRegion:
-                                            await self.kittregion(ctx)
-                                        elif item.lower() in nlpRLRank:
-                                            await self.kittrlrank(ctx)
-                                        else:
-                                            todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                    if todosplit.lower() in any(element in nlpSet):
+                                        narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                        narrowsplit = re.split(';|,|\s|\*|\n',narrow)
+                                        for a in narrowsplit:
+                                            if a.lower() in nlpBasic:
+                                                await self.kittbasicinfo(ctx)
+                                            elif a.lower() in nlpRegion:
+                                                await self.kittregion(ctx)
+                                            elif a.lower() in nlpRLRank:
+                                                await self.kittrlrank(ctx)
+                                            else:
+                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                             elif item.lower() in nlpRemove:
-                                    for item in todosplit:
-                                        if item.lower() in nlpRemoveRole:
-                                            await self.kittremoverole(ctx)
-                                        elif item.lower() in nlpRemoveAboutMe:
-                                            await self.kittremovehubdata(ctx)
-                                        else:
-                                            todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                                    if todosplit.lower() in any(element in nlpSet):
+                                        narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                        narrowsplit = re.split(';|,|\s|\*|\n',narrow)
+                                        for a in narrowsplit:
+                                            if a.lower() in nlpRemoveRole:
+                                                await self.kittremoverole(ctx)
+                                            elif a.lower() in nlpRemoveAboutMe:
+                                                await self.kittremovehubdata(ctx)
+                                            else:
+                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                             else:
                                 continue
 
