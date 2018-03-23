@@ -60,7 +60,8 @@ class kitt:
                         if not any(i in allnlp for i in todosplit):
                             await self.discordsay("I'm not set up to do really anything else at this time.")   
                         else:
-                            for item in todosplit:
+                            item = todosplit.pop(0)
+                            while item:
                                 if item.lower() in nlpHelp:
                                         await self.discordsay(bothelp)
                                 elif item.lower() in nlpAboutMe:
@@ -83,6 +84,8 @@ class kitt:
                                                 await self.kittremovehubdata(ctx)
                                             else:
                                                 todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                                else:
+                                    continue
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
