@@ -54,7 +54,7 @@ class kitt:
                 else:
                     todosplit = re.split('; |, | \*|\n',todo)
                     await self.discordsay(todosplit)
-                    while todo:
+                    while todosplit:
                         item = todosplit.pop(0)
                         if item.lower() in nlpHelp:
                                 await self.discordsay(bothelp)
