@@ -52,7 +52,7 @@ class kitt:
                 if todo == None:
                         pass
                 else:
-                    todosplit = re.split('; |, | \*|\n',todo)
+                    todosplit = re.split('; |, | \* | \s|\n',todo)
                     await self.discordsay(todosplit)
                     while todosplit:
                         item = todosplit.pop(0)
