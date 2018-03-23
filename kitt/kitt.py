@@ -48,6 +48,7 @@ class kitt:
                 nlpRemove = ["remove", "leave", "minus"]
                 nlpRemoveAboutMe = ["aboutme", "about"]
                 nlpRemoveRole = ["role", "region", "rank"]
+                todo = []
                 todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0], nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
                 if todo == None:
                         pass
