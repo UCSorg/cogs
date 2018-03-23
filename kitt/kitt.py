@@ -42,8 +42,12 @@ class kitt:
                 nlpHelp = ["how do i?", "how do i", "help", "halp"]
                 nlpAboutMe = ["aboutme", "about"]
                 nlpSet = ["set", "make", "i am"]
+                nlpBasic = ["basicinfo", "basic", "info"]
+                nlpRegion = ["region", "location", "live", "area", "home"]
+                nlpRLRank = ["rlrank", "rank", "rocket", "league"]
                 nlpRemove = ["remove", "leave", "minus"]
-
+                nlpRemoveAboutMe = ["aboutme", "about"]
+                nlpRemoveRole = ["role", "region", "rank"]
                 todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s, %s" % (nlpHelp[0], nlpAboutMe[0], nlpSet[0], nlpRemove[0]))
                 if todo == None:
                         pass
@@ -52,10 +56,31 @@ class kitt:
                 elif todo.lower() in nlpAboutMe:
                         await self.kittaboutme(ctx)
                 elif todo.lower() in nlpSet:
-                        await self.kittset(ctx)
-                
+                        if todo.lower() in nlpBasic:
+                            await self.kittbasicinfo(ctx)
+                        elif todo.lower() in nlpRegion:
+                            await self.kittregion(ctx)
+                        elif todo.lower() in nlpRLRank:
+                            await self.kittrlrank(ctx)
+                        else:
+                            todo = await self.question(ctx,"What can would you like to set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                            if todo == None:
+                                pass
+                            elif todo.lower() in nlpBasic:
+                                await self.kittbasicinfo(ctx)
+                            elif todo.lower() in nlpRegion:
+                                await self.kittregion(ctx)
+                            elif todo.lower() in nlpRLRank:
+                                await self.kittrlrank(ctx)
+                            else:
+                                await self.discordsay("I'm not set up to do really anything else at this time.")
                 elif todo.lower() in nlpRemove:
-                        await self.kittremove(ctx)
+                        if todo.lower() in nlpRemoveRole:
+                            await self.kittremoverole(ctx)
+                        elif todo.lower() in nlpRemoveAboutMe:
+                            await self.kittremovehubdata(ctx)
+                        else:
+                            await self.discordsay("I'm not set up to do really anything else at this time.")
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
@@ -65,9 +90,7 @@ class kitt:
                 channel = ctx.message.channel
                 author = ctx.message.author
                 user = str(author)
-                nlpBasic = ["basicinfo", "basic", "info"]
-                nlpRegion = ["region", "location", "live", "area", "home"]
-                nlpRLRank = ["rlrank", "rank", "rocket", "league"]
+                
                 todo = await self.question(ctx,"What can I help you do today? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
                 if todo == None:
                         pass
@@ -80,22 +103,6 @@ class kitt:
                 else:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
 
-        async def kittremove(self, ctx):
-                """Offer to remove roles, hubdata from author"""
-                author = ctx.message.author
-                user = str(author)
-                channel = ctx.message.channel
-                nlpRemoveAboutMe = ["aboutme", "about"]
-                nlpRemoveRole = ["role", "region", "rank"]
-                todo = await self.question(ctx,"What can I help you remove today? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
-                if todo == None:
-                        pass
-                elif todo.lower() in nlpRemoveAboutMe:
-                        await self.kittremovehubdata(ctx)
-                elif todo.lower() in nlpRLRank:
-                        await self.kittremoveroles(ctx)
-                else:
-                        await self.discordsay("I'm not set up to remove really anything else at this time.")
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
