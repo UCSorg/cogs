@@ -1,4 +1,5 @@
 import discord
+from discord import Embed
 from discord.ext import commands
 import requests
 import os
@@ -56,36 +57,36 @@ class kitt:
                 else:
                     todosplit = re.split(';|,|\s|\*|\n',todo)
                     await self.discordsay(todosplit)
-                    while todosplit:
-                        if not any(i in allnlp for i in todosplit):
-                            await self.discordsay("I'm not set up to do really anything else at this time.")   
-                        else:
+                    if not any(element in allnlp for element in todosplit):
+                        await self.discordsay("I'm not set up to do really anything else at this time.")   
+                    else:
+                        i = 0
+                        while i < len(todosplit):
                             item = todosplit.pop(0)
-                            while item:
-                                if item.lower() in nlpHelp:
-                                        await self.discordsay(bothelp)
-                                elif item.lower() in nlpAboutMe:
-                                        await self.kittaboutme(ctx)
-                                elif item.lower() in nlpSet:
-                                        for item in todosplit:
-                                            if item.lower() in nlpBasic:
-                                                await self.kittbasicinfo(ctx)
-                                            elif item.lower() in nlpRegion:
-                                                await self.kittregion(ctx)
-                                            elif item.lower() in nlpRLRank:
-                                                await self.kittrlrank(ctx)
-                                            else:
-                                                todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
-                                elif item.lower() in nlpRemove:
-                                        for item in todosplit:
-                                            if item.lower() in nlpRemoveRole:
-                                                await self.kittremoverole(ctx)
-                                            elif item.lower() in nlpRemoveAboutMe:
-                                                await self.kittremovehubdata(ctx)
-                                            else:
-                                                todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
-                                else:
-                                    continue
+                            if item.lower() in nlpHelp:
+                                    await self.discordsay(bothelp)
+                            elif item.lower() in nlpAboutMe:
+                                    await self.kittaboutme(ctx)
+                            elif item.lower() in nlpSet:
+                                    for item in todosplit:
+                                        if item.lower() in nlpBasic:
+                                            await self.kittbasicinfo(ctx)
+                                        elif item.lower() in nlpRegion:
+                                            await self.kittregion(ctx)
+                                        elif item.lower() in nlpRLRank:
+                                            await self.kittrlrank(ctx)
+                                        else:
+                                            todo = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                            elif item.lower() in nlpRemove:
+                                    for item in todosplit:
+                                        if item.lower() in nlpRemoveRole:
+                                            await self.kittremoverole(ctx)
+                                        elif item.lower() in nlpRemoveAboutMe:
+                                            await self.kittremovehubdata(ctx)
+                                        else:
+                                            todo = await self.question(ctx,"What can I help you remove? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
+                            else:
+                                continue
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
