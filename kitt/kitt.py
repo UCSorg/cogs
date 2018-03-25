@@ -230,7 +230,7 @@ class kitt:
                 user = str(ctx.message.author)
                 channel = ctx.message.channel
                 try:
-                        usrdict = dataIO.load_json(hubdatapath)[user]
+                        userdict = dataIO.load_json(hubdatapath)[user]
                 except KeyError:
                         await self.discordsay("I don't have anything about you saved.  Let's fix that.")
                         await self.kittbasicinfo(ctx)
