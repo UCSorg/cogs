@@ -64,6 +64,7 @@ class kitt:
                         i = 0
                         while i < len(todosplit):
                             i += 1
+                            item = todosplit.pop(0)
                             if item.lower() in nlpHelp:
                                     await self.discordsay(bothelp)
                             elif item.lower() in nlpAboutMe:
