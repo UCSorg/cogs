@@ -70,7 +70,7 @@ class kitt:
                             elif item.lower() in nlpAboutMe:
                                     await self.kittaboutme(ctx)
                             elif item.lower() in nlpSet:
-                                    if todo.lower() in any(element in nlpSet):
+                                    if todo.lower() in nlpSet:
                                         narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
                                         narrowsplit = re.split(';|,|\s|\*|\n',narrow)
                                         for a in narrowsplit:
@@ -83,7 +83,7 @@ class kitt:
                                             else:
                                                 await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                             elif item.lower() in nlpRemove:
-                                    if todo.lower() in any(element in nlpSet):
+                                    if todo.lower() in nlpRemove:
                                         narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
                                         narrowsplit = re.split(';|,|\s|\*|\n',narrow)
                                         for a in narrowsplit:
