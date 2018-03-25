@@ -57,11 +57,12 @@ class kitt:
                 else:
                     todosplit = re.split(';|,|\s|\*|\n',todo)
                     await self.discordsay(todosplit)
-                    if not any(element in allnlp for element in todosplit):
+                    if not any(x in allnlp for element in todosplit):
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
                     else:
                         i = 0
                         while i < len(todosplit):
+                            i += 1
                             item = todosplit.pop(0)
                             if item.lower() in nlpHelp:
                                     await self.discordsay(bothelp)
