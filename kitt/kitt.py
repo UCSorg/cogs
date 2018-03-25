@@ -57,7 +57,8 @@ class kitt:
                 else:
                     todosplit = re.split(';|,|\s|\*|\n',todo)
                     await self.discordsay(todosplit)
-                    if not any(x in allnlp for element in todosplit):
+                    any_in = lambda allnlp, todosplit: any(i in todosplit for i in allnlp)
+                    if not any_in:
                         await self.discordsay("I'm not set up to do really anything else at this time.")   
                     else:
                         i = 0
