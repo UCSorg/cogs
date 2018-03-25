@@ -94,13 +94,21 @@ class kitt:
                                                 await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                             elif item.lower() in nlpRemove:
                                     if todo.lower() in nlpRemove:
-                                        narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
+                                        narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
                                         narrowsplit = re.split(';|,|\s|\*|\n',narrow)
                                         for a in narrowsplit:
                                             if a.lower() in nlpRemoveRole:
-                                                await self.kittremoverole(ctx)
+                                                await self.kittbasicinfo(ctx)
                                             elif a.lower() in nlpRemoveAboutMe:
-                                                await self.kittremovehubdata(ctx)
+                                                await self.kittregion(ctx)
+                                            else:
+                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
+                                    else:
+                                        for a in narrowsplit:
+                                            if a.lower() in nlpRemoveRole:
+                                                await self.kittbasicinfo(ctx)
+                                            elif a.lower() in nlpRemoveAboutMe:
+                                                await self.kittregion(ctx)
                                             else:
                                                 await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                             else:
