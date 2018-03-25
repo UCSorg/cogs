@@ -64,7 +64,6 @@ class kitt:
                         i = 0
                         while i < len(todosplit):
                             i += 1
-                            item = todosplit.pop(0)
                             if item.lower() in nlpHelp:
                                     await self.discordsay(bothelp)
                             elif item.lower() in nlpAboutMe:
@@ -74,6 +73,16 @@ class kitt:
                                         narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s, %s" % (nlpBasic[0], nlpRegion[0], nlpRLRank[0]))
                                         narrowsplit = re.split(';|,|\s|\*|\n',narrow)
                                         for a in narrowsplit:
+                                            if a.lower() in nlpBasic:
+                                                await self.kittbasicinfo(ctx)
+                                            elif a.lower() in nlpRegion:
+                                                await self.kittregion(ctx)
+                                            elif a.lower() in nlpRLRank:
+                                                await self.kittrlrank(ctx)
+                                            else:
+                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
+                                    else:
+                                        for a in todosplit:
                                             if a.lower() in nlpBasic:
                                                 await self.kittbasicinfo(ctx)
                                             elif a.lower() in nlpRegion:
