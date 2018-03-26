@@ -227,6 +227,7 @@ class kitt:
 
         async def kittaboutme(self, ctx):
                 """Return stored information about the author"""
+                author = ctx.message.author
                 user = str(ctx.message.author)
                 channel = ctx.message.channel
                 try:
