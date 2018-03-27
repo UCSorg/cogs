@@ -83,36 +83,40 @@ class kitt:
                                             else:
                                                 await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                                     else:
-                                        for a in todosplit:
-                                            if a.lower() in nlpBasic:
+                                        e = 0
+                                        while e < len(todosplit):
+                                            e += 1
+                                            element = todosplit.pop(0)
+                                            if element.lower() in nlpBasic:
                                                 await self.kittbasicinfo(ctx)
-                                            elif a.lower() in nlpRegion:
+                                            elif element.lower() in nlpRegion:
                                                 await self.kittregion(ctx)
-                                            elif a.lower() in nlpRLRank:
+                                            elif element.lower() in nlpRLRank:
                                                 await self.kittrlrank(ctx)
                                             else:
-                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
+                                                continue
                             elif item.lower() in nlpRemove:
                                     if todo.lower() in nlpRemove:
                                         narrow = await self.question(ctx,"What can I help you set? Some keywords are: %s, %s" % (nlpRemoveRole[0], nlpRemoveAboutMe[0]))
                                         narrowsplit = re.split(';|,|\s|\*|\n',narrow)
                                         for a in narrowsplit:
                                             if a.lower() in nlpRemoveRole:
-                                                await self.kittbasicinfo(ctx)
+                                                await self.kittremoverole(ctx)
                                             elif a.lower() in nlpRemoveAboutMe:
-                                                await self.kittregion(ctx)
+                                                await self.kittremovehubdata(ctx)
                                             else:
                                                 await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
                                     else:
-                                        for a in narrowsplit:
-                                            if a.lower() in nlpRemoveRole:
-                                                await self.kittbasicinfo(ctx)
-                                            elif a.lower() in nlpRemoveAboutMe:
-                                                await self.kittregion(ctx)
+                                        e = 0
+                                        while e < len(todosplit):
+                                            e += 1
+                                            element = todosplit.pop(0)
+                                            if element.lower() in nlpRemoveRole:
+                                                await self.kittremoverole(ctx)
+                                            elif element.lower() in nlpRemoveAboutMe:
+                                                await self.kittremovehubdata(ctx)
                                             else:
-                                                await self.discordsay("I couldn't do anything with %s. Sorry." % (narrow))
-                            else:
-                                continue
+                                                continue
 
         async def kittbasicinfo(self, ctx):
                 """Find gamerid and platform for author"""
@@ -261,6 +265,10 @@ class kitt:
 #                                await self.discordsay("You are now in the region: US-West.")
                         else:
                                 await self.discordsay("I have made no changes because %s is not in my accepted regions." % (answer))
+
+        async def setrlrank(self, playerdata):
+                """Using playerdata as dict, set rlrank as discord role"""
+                return
 
         def parseforrank(self):
                 """sort through self.json and return highest rank"""
