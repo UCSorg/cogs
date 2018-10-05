@@ -42,7 +42,7 @@ class Teammaker:
 
         await self.bot.say("{} added to queue. ({:d}/{:d})".format(player.display_name, self.queue.qsize(), team_size))
         if self.queue_full():
-            self.bot.say("Queue is now full! Type {prefix}captains or {prefix}random to create a game.".format(
+            self.bot.say("Queue is now full! Type {prefix}sixcaptains or {prefix}random to create a game.".format(
                 prefix=self.bot.command_prefix))
 
     @commands.command(pass_context=True, name="dequeue", aliases=["dq"], description="Remove yourself from the queue")
@@ -75,7 +75,7 @@ class Teammaker:
             return False
         return True
 
-    @commands.command(description="Start a game by voting for captains")
+    @commands.command(description="Start a game by voting for sixcaptains")
     async def voting(self):
         if not self.queue_full():
             await self.bot.say("Queue is not full.")
@@ -127,17 +127,17 @@ class Teammaker:
         sorted_vote_nums = sorted(vote_nums.items(), key=operator.itemgetter(1), reverse=True)
         top_votes = [key for key, value in sorted_vote_nums if value == sorted_vote_nums[0][1]]
         if len(top_votes) < 2:
-            self.game.captains = top_votes
+            self.game.sixcaptains = top_votes
             secondary_votes = [key for key, value in sorted_vote_nums if value == sorted_vote_nums[1][1]]
             if len(secondary_votes) > 1:
                 await self.bot.say("{:d}-way tie for 2nd captain. Shuffling picks...".format(len(secondary_votes)))
                 random.shuffle(secondary_votes)
-            self.game.captains.append(secondary_votes[0])
+            self.game.sixcaptains.append(secondary_votes[0])
         else:
             if len(top_votes) > 2:
-                await self.bot.say("{:d}-way tie for captains. Shuffling picks...".format(len(top_votes)))
+                await self.bot.say("{:d}-way tie for sixcaptains. Shuffling picks...".format(len(top_votes)))
             random.shuffle(top_votes)
-            self.game.captains = top_votes[:2]
+            self.game.sixcaptains = top_votes[:2]
 
         await self.do_picks()
 
@@ -157,8 +157,8 @@ class Teammaker:
             return False
         return True
 
-    @commands.command(description="Start a game by randomly choosing captains")
-    async def captains(self):
+    @commands.command(description="Start a game by randomly choosing sixcaptains")
+    async def sixcaptains(self):
         if not self.queue_full():
             await self.bot.say("Queue is not full.")
             return
@@ -173,10 +173,10 @@ class Teammaker:
         self.busy = False
 
     async def do_picks(self):
-        await self.bot.say("Captains: {} and {}".format(*[captain.mention for captain in self.game.captains]))
-        orange_captain = self.game.captains[0]
+        await self.bot.say("sixcaptains: {} and {}".format(*[captain.mention for captain in self.game.sixcaptains]))
+        orange_captain = self.game.sixcaptains[0]
         self.game.add_to_orange(orange_captain)
-        blue_captain = self.game.captains[1]
+        blue_captain = self.game.sixcaptains[1]
         self.game.add_to_blue(blue_captain)
 
         # Orange Pick
@@ -270,7 +270,7 @@ class Teammaker:
 class Game:
     def __init__(self, players):
         self.players = set(players)
-        self.captains = random.sample(self.players, 2)
+        self.sixcaptains = random.sample(self.players, 2)
         self.orange = set()
         self.blue = set()
 
