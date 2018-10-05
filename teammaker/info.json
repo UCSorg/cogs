@@ -1,0 +1,10 @@
+{
+    "AUTHOR" : "jgchk",
+    "INSTALL_MSG" : "Thanks for installing a cog for Rocket League Teamamker.",
+    "NAME" : "teammaker",
+    "SHORT" : "[p]teammaker is used for finding teammates",
+    "DESCRIPTION" : "teammaker is used for finding teammates",
+    "TAGS" : ["teammaker"],
+    "REQUIREMENTS" : ["collections", "random", "time", "Queue", "operator", "discord"],
+    "HIDDEN" : false
+}
