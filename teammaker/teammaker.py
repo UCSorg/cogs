@@ -57,7 +57,7 @@ class Teammaker:
             await self.bot.say("{} is not in queue.".format(player.display_name))
 
     @commands.command(description="Remove someone else from the queue")
-    async def kick(self, player: discord.Member):
+    async def sixkick(self, player: discord.Member):
         if player in self.queue:
             self.queue.remove(player)
             await self.bot.say(
