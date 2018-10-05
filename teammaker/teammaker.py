@@ -45,7 +45,7 @@ class Teammaker:
             self.bot.say("Queue is now full! Type {prefix}sixcaptains or {prefix}random to create a game.".format(
                 prefix=self.bot.command_prefix))
 
-    @commands.command(pass_context=True, name="dequeue", aliases=["dq"], description="Remove yourself from the queue")
+    @commands.command(pass_context=True, name="sixdequeue", aliases=["dq"], description="Remove yourself from the queue")
     async def dq(self, ctx):
         player = ctx.message.author
 
