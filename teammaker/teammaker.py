@@ -27,7 +27,7 @@ class Teammaker:
     #         self.queue.put(member)
     #     self.queue.put(ctx.message.author)
 
-    @commands.command(pass_context=True, name="queue", aliases=["q"], description="Add yourself to the queue")
+    @commands.command(pass_context=True, name="squeue", aliases=["sq"], description="Add yourself to the queue")
     async def q(self, ctx):
         player = ctx.message.author
 
@@ -45,8 +45,8 @@ class Teammaker:
             self.bot.say("Queue is now full! Type {prefix}sixcaptains or {prefix}random to create a game.".format(
                 prefix=self.bot.command_prefix))
 
-    @commands.command(pass_context=True, name="sixdequeue", aliases=["sixdq"], description="Remove yourself from the queue")
-    async def sixdq(self, ctx):
+    @commands.command(pass_context=True, name="sixdequeue", aliases=["sdq"], description="Remove yourself from the queue")
+    async def dq(self, ctx):
         player = ctx.message.author
 
         if player in self.queue:
